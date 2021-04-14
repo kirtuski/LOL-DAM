@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //Elementos del layout
     Spinner servidorSpinner;
+    TextInputLayout nombreInvocadorInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         servidorSpinner = findViewById(R.id.servidorSpinner);
         servidorSpinner.setOnItemSelectedListener(this);
+
+        nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -55,8 +60,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Si no pues un toast de error?
     public void BuscaInvocador(View view) {
         final String api_key = "RGAPI-df09dc5e-4ba8-47d3-8286-85dd64d28ff6";
+
+        String nombre = nombreInvocadorInput.getEditText().getText().toString();
+        Log.d("nombre", nombre);
+
+        //Mirar que pedir https://developer.riotgames.com/apis
+
+        //Server status
         //final String URL = "https://euw1.api.riotgames.com/lol/status/v3/shard-data?api_key=" + api_key;
-        String URL = "https://euw1.api.riotgames.com/lol/status/v3/shard-data?api_key=RGAPI-df09dc5e-4ba8-47d3-8286-85dd64d28ff6";
+        //Preguntar por invocador
+        final String URL = "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+ nombre + "?api_key=" + api_key;
+        //TODO esto devuleve el id, a lo mejor esto se lo pasamos a la clase que gestiona el summoner y que esa clase ya pida lo que vaya a mostrar
 
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
