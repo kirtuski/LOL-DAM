@@ -1,9 +1,12 @@
 package com.dam.lol;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Elementos del layout
     Spinner servidorSpinner;
     TextInputLayout nombreInvocadorInput;
+    EditText trigger;
+
+    //Necesitamos que se cree solo una vez? A lo mejor lo podemos instanciar como volley
+    llamaApi api = new llamaApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         servidorSpinner.setAdapter(adapter);
+
+        trigger = findViewById(R.id.activadorSummoner);
+
+        trigger.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("Prueba", "ha cambiado");
+            }
+        });
 
     }
 
@@ -59,39 +85,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo que busca al invocador y si lo encuentra lanza un intent con la nueva actividad
     //Si no pues un toast de error?
     public void BuscaInvocador(View view) {
-        final String api_key = "RGAPI-df09dc5e-4ba8-47d3-8286-85dd64d28ff6";
-
+        final String api_key = PreferenceManager.getDefaultSharedPreferences(this).getString("key", "");
         String nombre = nombreInvocadorInput.getEditText().getText().toString();
-        Log.d("nombre", nombre);
+        //TODO no coge la url del server y peta
+        Log.d("Server id", String.valueOf((int)servidorSpinner.getId()));
+        String server = getResources().getStringArray(R.array.urlServers)[(int) servidorSpinner.getId()];
 
-        //Mirar que pedir https://developer.riotgames.com/apis
-
-        //Server status
-        //final String URL = "https://euw1.api.riotgames.com/lol/status/v3/shard-data?api_key=" + api_key;
-        //Preguntar por invocador
-        final String URL = "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+ nombre + "?api_key=" + api_key;
-        //TODO esto devuleve el id, a lo mejor esto se lo pasamos a la clase que gestiona el summoner y que esa clase ya pida lo que vaya a mostrar
-
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("Volley", response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-                        VolleyLog.e("Error", error.getMessage());
-                        Toast.makeText(getApplicationContext(), "Ha petao", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-        lolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
+        api.getIdFromSummoner(nombre, server, api_key);
 
     }
 
