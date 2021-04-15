@@ -23,8 +23,7 @@ public class llamaApi {
     }
 
     //static para no crear la clase?
-    public void getIdFromSummoner(String nombre, String servidor, String api_key, EditText text){
-        //TODO el servidor va al principio de la url, EUW corresponde a euw1, hay que hacer una tabla con las equivalencias
+    public void getIdFromSummoner(String nombre, String servidor, EditText text) {
 
         final String URL = "https://" + servidor + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + nombre + "?api_key=" + api_key;
 
@@ -36,15 +35,15 @@ public class llamaApi {
                         Log.d("Volley", response.toString());
                         try {
 
-                        invocador = new Invocador();
-                        invocador.setId( response.getString("id") );
-                        invocador.setPuuid( response.getString("puuid"));
-                        invocador.setName( response.getString("name"));
-                        invocador.setProfileIconId( response.getInt("profileIconId"));
-                        invocador.setSummonerLevel( response.getInt("summonerLevel"));
+                            invocador = new Invocador();
+                            invocador.setId(response.getString("id"));
+                            invocador.setPuuid(response.getString("puuid"));
+                            invocador.setName(response.getString("name"));
+                            invocador.setProfileIconId(response.getInt("profileIconId"));
+                            invocador.setSummonerLevel(response.getInt("summonerLevel"));
 
-
-                        text.setText("ok");
+                            //Trigger para avisar a la clase principal
+                            text.setText("ok");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -52,12 +51,10 @@ public class llamaApi {
 
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
+                        text.setText("nok");
                         VolleyLog.e("Error", error.getMessage());
-
                     }
                 });
 

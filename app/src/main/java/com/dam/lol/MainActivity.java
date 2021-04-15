@@ -1,8 +1,5 @@
 package com.dam.lol;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     TextInputLayout nombreInvocadorInput;
     EditText trigger;
 
+    //Guardar el servidor elejido
     private int server_id;
 
     //Necesitamos que se cree solo una vez? A lo mejor lo podemos instanciar como volley
@@ -49,15 +51,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         trigger.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(api.getInvocador() != null) {
-                    //Ha tenido exito, creando intent y nueva actividad
+                if (api.getInvocador() != null) {
+                    //TODO Ha tenido exito, creando intent y nueva actividad
+                } else {
+                    //TODO Hacer que resalte más?
+                    Toast.makeText(MainActivity.this, "No se ha encontrado", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -67,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo para cuando seleccionamos un elemento del selector
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        String server = getResources().getStringArray(R.array.servers)[ (int) id ];
-        Log.d("Spinner", "Se ha seleccionado: " + id + " " + server);
+        String server = getResources().getStringArray(R.array.servers)[(int) id];
+        Log.d("Main Selector Servidor", "Se ha seleccionado: " + id + " " + server);
         server_id = (int) id;
     }
 
@@ -80,18 +87,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo que busca al invocador y si lo encuentra lanza un intent con la nueva actividad
     //Si no pues un toast de error?
     public void BuscaInvocador(View view) {
-        final String api_key = PreferenceManager.getDefaultSharedPreferences(this).getString("key", "");
         String nombre = nombreInvocadorInput.getEditText().getText().toString();
         Log.d("Server id", String.valueOf(server_id));
         String server = getResources().getStringArray(R.array.urlServers)[server_id];
-        api.getIdFromSummoner(nombre, server, api_key, trigger);
+        api.getIdFromSummoner(nombre, server, trigger);
     }
 
     //Metodo que abre la nueva actividad con los ajustes
     public void AbrirAjustes(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
+
+        //TODO podemos usar esto para pasar el objeto invocador
         //Podemos pasar informacion entre actividades con el intent
+        //En ajustes se ve como obtener la info
         intent.putExtra("parametro", 2);
+
         startActivity(intent);
     }
 }
