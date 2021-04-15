@@ -1,6 +1,6 @@
-package com.dam.lol;
+package com.dam.lol.model.api;
 
-public class Invocador {
+public class InvocadorResponse {
     private String id;
     private String puuid;
     private String name;
