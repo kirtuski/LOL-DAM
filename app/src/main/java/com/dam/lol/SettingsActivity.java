@@ -3,6 +3,7 @@ package com.dam.lol;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 
 //TODO acabar esta clase con lo que corresponda
-//TODO creo que el layout se genera con las propiedades que hay en xml/root_preferences.xml
+//creo que el layout se genera con las propiedades que hay en xml/root_preferences.xml
 //TODO hay que ver como coger info de esta clase, como la api key y lo que se nos ocurra
 public class SettingsActivity extends AppCompatActivity {
 
@@ -31,6 +32,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Recuperamos el mensaje que pasamos antes
         Log.d("Ajustes", String.valueOf(getIntent().getIntExtra("prueba",1)));
+    }
+
+    //TODO metodo que lanza un intent abriendo el navegador y llendo a la pagina donde obtener la key
+    //A lo mejor podemos usar la clase ClipboardManager para pegar automaticamente del portapapeles
+    public void irRiot(View view) {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
