@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        api = new llamaApi(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
+        api = new llamaApi(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""), this);
 
         servidorSpinner = findViewById(R.id.servidorSpinner);
         servidorSpinner.setOnItemSelectedListener(this);

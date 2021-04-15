@@ -1,5 +1,7 @@
 package com.dam.lol;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -15,11 +17,13 @@ import org.json.JSONObject;
 //Funciona al extender Activity?
 public class llamaApi {
     final private String api_key;
+    final private Activity activity;
 
     private Invocador invocador;
 
-    public llamaApi(String api_key) {
+    public llamaApi(String api_key, Activity activity) {
         this.api_key = api_key;
+        this.activity = activity;
     }
 
     //static para no crear la clase?
@@ -44,7 +48,10 @@ public class llamaApi {
                         invocador.setSummonerLevel( response.getInt("summonerLevel"));
 
 
-                        text.setText("ok");
+                        Intent intent = new Intent(activity, SettingsActivity.class);
+                            //Podemos pasar informacion entre actividades con el intent
+                        intent.putExtra("parametro", 2);
+                        activity.startActivity(intent);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
