@@ -3,5 +3,27 @@
     <string-array name="servers">
         <item>EUW</item>
         <item>EUN</item>
+        <item>BR</item>
+        <item>JP</item>
+        <item>KR</item>
+        <item>LAN</item>
+        <item>LAS</item>
+        <item>NA</item>
+        <item>OC</item>
+        <item>RU</item>
+        <item>TR</item>
+    </string-array>
+    <string-array name="urlServers">
+        <item>euw1</item>
+        <item>eun1</item>
+        <item>br1</item>
+        <item>jp1</item>
+        <item>kr</item>
+        <item>la1</item>
+        <item>la2</item>
+        <item>na1</item>
+        <item>oc1</item>
+        <item>ru</item>
+        <item>tr1</item>
     </string-array>
 </resources>
