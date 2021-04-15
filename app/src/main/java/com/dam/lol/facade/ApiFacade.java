@@ -24,9 +24,7 @@ public class ApiFacade {
         this.api_key = api_key;
     }
 
-    //static para no crear la clase?
     public void getIdFromSummoner(String nombre, String servidor, Activity activity) {
-        //TODO el servidor va al principio de la url, EUW corresponde a euw1, hay que hacer una tabla con las equivalencias
 
         final String URL = "https://" + servidor + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + nombre + "?api_key=" + api_key;
 

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        apiFacade =  LolApplication.getInstance().getApiFacade();
+        apiFacade = LolApplication.getInstance().getApiFacade();
 
         servidorSpinner = findViewById(R.id.servidorSpinner);
         servidorSpinner.setOnItemSelectedListener(this);
@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Another interface callback
     }
 
-    //Metodo que busca al invocador y si lo encuentra lanza un intent con la nueva actividad
-    //Si no pues un toast de error?
+    //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
     public void BuscaInvocador(View view) {
         String nombre = nombreInvocadorInput.getEditText().getText().toString();
         Log.d("Server id", String.valueOf(server_id));

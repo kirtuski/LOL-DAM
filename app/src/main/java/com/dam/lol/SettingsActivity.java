@@ -1,18 +1,24 @@
 package com.dam.lol;
 
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 
 //TODO acabar esta clase con lo que corresponda
 //creo que el layout se genera con las propiedades que hay en xml/root_preferences.xml
-//TODO hay que ver como coger info de esta clase, como la api key y lo que se nos ocurra
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -30,13 +36,36 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        //Recuperamos el mensaje que pasamos antes
-        Log.d("Ajustes", String.valueOf(getIntent().getIntExtra("prueba",1)));
+        //TODO borrar
+        Log.d("Ajustes", String.valueOf(getIntent().getIntExtra("prueba", 1)));
     }
 
-    //TODO metodo que lanza un intent abriendo el navegador y llendo a la pagina donde obtener la key
     //A lo mejor podemos usar la clase ClipboardManager para pegar automaticamente del portapapeles
     public void irRiot(View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.riotgames.com/"));
+        startActivity(intent);
+    }
+
+    public void copyClipboard(View view) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+        if (clipboard.hasPrimaryClip()) {
+            String contenidoPortapapeles = (String) clipboard.getPrimaryClip().getItemAt(0).getText();
+            Log.d("Clipboard", contenidoPortapapeles);
+
+            if (contenidoPortapapeles.startsWith("RGAPI") && contenidoPortapapeles.length() == 42) {
+                Toast.makeText(this, "Contenido copiado", Toast.LENGTH_SHORT).show();
+                SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
+                preferenceManager.edit().putString("key", contenidoPortapapeles).apply();
+                //Refresca la actividad para mostrar el nuevo contenido
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            } else
+                Toast.makeText(this, "No se pudo copiar", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "No se pudo copiar", Toast.LENGTH_SHORT).show();
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
