@@ -1,12 +1,7 @@
 package com.dam.lol;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.preference.PreferenceManager;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,13 +13,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 //Funciona al extender Activity?
-public class llamaApi extends Activity {
-    //final private String api_key = PreferenceManager.getDefaultSharedPreferences(this).getString("key","");
+public class llamaApi {
+    final private String api_key;
 
     private Invocador invocador;
 
+    public llamaApi(String api_key) {
+        this.api_key = api_key;
+    }
+
     //static para no crear la clase?
-    public Invocador getIdFromSummoner(String nombre, String servidor, String api_key){
+    public void getIdFromSummoner(String nombre, String servidor, String api_key, EditText text){
         //TODO el servidor va al principio de la url, EUW corresponde a euw1, hay que hacer una tabla con las equivalencias
 
         final String URL = "https://" + servidor + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + nombre + "?api_key=" + api_key;
@@ -44,7 +43,7 @@ public class llamaApi extends Activity {
                         invocador.setProfileIconId( response.getInt("profileIconId"));
                         invocador.setSummonerLevel( response.getInt("summonerLevel"));
 
-                        EditText text= findViewById(R.id.activadorSummoner);
+
                         text.setText("ok");
 
                         } catch (JSONException e) {
@@ -58,13 +57,14 @@ public class llamaApi extends Activity {
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
                         VolleyLog.e("Error", error.getMessage());
-                        Toast.makeText(getApplicationContext(), "Ha petao", Toast.LENGTH_SHORT).show();
 
                     }
                 });
 
         lolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
-        return invocador;
     }
 
+    public Invocador getInvocador() {
+        return invocador;
+    }
 }
