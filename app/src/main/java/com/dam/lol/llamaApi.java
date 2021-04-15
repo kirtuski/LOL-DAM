@@ -1,7 +1,5 @@
 package com.dam.lol;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -17,13 +15,11 @@ import org.json.JSONObject;
 //Funciona al extender Activity?
 public class llamaApi {
     final private String api_key;
-    final private Activity activity;
 
     private Invocador invocador;
 
-    public llamaApi(String api_key, Activity activity) {
+    public llamaApi(String api_key) {
         this.api_key = api_key;
-        this.activity = activity;
     }
 
     //static para no crear la clase?
