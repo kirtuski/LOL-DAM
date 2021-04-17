@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 
 
@@ -59,6 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(this, "Contenido copiado", Toast.LENGTH_SHORT).show();
                 SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
                 preferenceManager.edit().putString("key", contenidoPortapapeles).apply();
+                LolApplication.getInstance().reloadApiKey();
                 //Refresca la actividad para mostrar el nuevo contenido
                 finish();
                 overridePendingTransition(0, 0);

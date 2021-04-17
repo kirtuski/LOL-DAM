@@ -49,4 +49,7 @@ public class LolApplication extends Application {
         return championFacade;
     }
 
+    public void reloadApiKey(){
+        this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
+    }
 }
