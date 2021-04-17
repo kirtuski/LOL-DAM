@@ -80,4 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void openChampionRotation(View view) {
+        Intent intent = new Intent(this, ChampionRotationActivity.class);
+        startActivity(intent);
+    }
 }

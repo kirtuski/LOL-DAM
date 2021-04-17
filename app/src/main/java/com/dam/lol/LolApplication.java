@@ -8,14 +8,18 @@ import androidx.preference.PreferenceManager;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dam.lol.facade.ApiFacade;
+import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.ImageFacade;
 
 //Clase application para implementar la cola de volley
 public class LolApplication extends Application {
     private static LolApplication sInstance;
     private RequestQueue mRequestQueue;
+
+    //Facades
     private ApiFacade apiFacade;
     private ImageFacade imageFacade;
+    private ChampionFacade championFacade;
 
     @Override
     public void onCreate() {
@@ -24,6 +28,7 @@ public class LolApplication extends Application {
         sInstance = this;
         this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
         this.imageFacade = new ImageFacade();
+        this.championFacade = new ChampionFacade();
     }
     public synchronized static LolApplication
     getInstance() {
@@ -39,6 +44,9 @@ public class LolApplication extends Application {
     }
     public ImageFacade getImageFacade() {
         return imageFacade;
+    }
+    public ChampionFacade getChampionFacade() {
+        return championFacade;
     }
 
 }

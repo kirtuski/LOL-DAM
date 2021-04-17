@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.dam.lol.LolApplication;
+import com.dam.lol.activities.ChampionRotationActivity;
 import com.dam.lol.activities.SettingsActivity;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.ChampionRotationResponse;
@@ -100,11 +101,8 @@ public class ApiFacade {
                             }
                             championRotationResponse.setFreeChampionIdsForNewPlayers(freeChampionIdsForNewPlayers);
 
-                           // Intent intent = new Intent(activity, SettingsActivity.class);
-                            //Podemos pasar informacion entre actividades con el intent
-                            //intent.putExtra("parametro", 2);
-                           // activity.startActivity(intent);
-
+                            ChampionRotationActivity championRotationActivity = (ChampionRotationActivity) activity;
+                            championRotationActivity.fillChampionRotationTable(championRotationResponse);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
