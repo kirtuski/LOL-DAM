@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
@@ -16,7 +16,13 @@ import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
+
+//TODO Lee esto antes de borrarme el implement y que luego tenga que buscar porque no se ejecuta
+//Si se quita ese implement no se puede ver cuando se cambia el selector, o se hace en otra clase o se queda aqui
+//Si se hace en otra clase los metodos que hay que llevarse son onItemSelected y onNothingSelected
+//Si se quita no funciona la app
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     //Elementos del layout
     Spinner servidorSpinner;
@@ -33,19 +39,18 @@ public class MainActivity extends AppCompatActivity {
         apiFacade = LolApplication.getInstance().getApiFacade();
 
         servidorSpinner = findViewById(R.id.servidorSpinner);
-        servidorSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        servidorSpinner.setOnItemSelectedListener(this);
 
-        ImageView imageView  =findViewById(R.id.logo);
-        try {
-            imageView.setImageDrawable(LolApplication.getInstance().getImageFacade().getChampionImageByName("Anivia"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         servidorSpinner.setAdapter(adapter);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        apiFacade = LolApplication.getInstance().getApiFacade();
     }
 
     //Metodo para cuando seleccionamos un elemento del selector
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
     public void BuscaInvocador(View view) {
-        String nombre = nombreInvocadorInput.getEditText().getText().toString();
+        String nombre = Objects.requireNonNull(nombreInvocadorInput.getEditText()).getText().toString();
         Log.d("Server id", String.valueOf(server_id));
         String server = getResources().getStringArray(R.array.urlServers)[server_id];
         apiFacade.getIdFromSummoner(nombre, server, this);
@@ -78,11 +83,19 @@ public class MainActivity extends AppCompatActivity {
         //En ajustes se ve como obtener la info
         intent.putExtra("parametro", 2);
 
-        startActivity(intent);
+        startActivityForResult( intent, 1);
     }
 
     public void openChampionRotation(View view) {
         Intent intent = new Intent(this, ChampionRotationActivity.class);
         startActivity(intent);
+    }
+
+    //Para recargar la api facade cuando regresemos de la actividad
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( requestCode == 1)
+            apiFacade = LolApplication.getInstance().getApiFacade();
     }
 }

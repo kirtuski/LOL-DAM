@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,11 +63,13 @@ public class ApiFacade {
 
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        Toast.makeText(activity, "No existe el nombre de invocador", Toast.LENGTH_SHORT).show();
+                        if( error.networkResponse.statusCode == 403)
+                            Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        if( error.networkResponse.statusCode == 404)
+                            Toast.makeText(activity, "No existe el nombre de invocador", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -103,7 +106,7 @@ public class ApiFacade {
 
                             ChampionRotationActivity championRotationActivity = (ChampionRotationActivity) activity;
                             championRotationActivity.fillChampionRotationTable(championRotationResponse);
-                        } catch (JSONException e) {
+                        } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
 
