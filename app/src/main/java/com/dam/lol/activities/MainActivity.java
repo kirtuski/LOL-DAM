@@ -1,4 +1,4 @@
-package com.dam.lol;
+package com.dam.lol.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,15 +6,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dam.lol.LolApplication;
+import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
 import com.google.android.material.textfield.TextInputLayout;
 
-//TODO a lo mejor se puede crear una clase para implementar el listener de AdapterView para limpiar el main?
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     //Elementos del layout
     Spinner servidorSpinner;
@@ -31,8 +33,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         apiFacade = LolApplication.getInstance().getApiFacade();
 
         servidorSpinner = findViewById(R.id.servidorSpinner);
-        servidorSpinner.setOnItemSelectedListener(this);
+        servidorSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
+        ImageView imageView  =findViewById(R.id.logo);
+        try {
+            imageView.setImageDrawable(LolApplication.getInstance().getImageFacade().getChampionImageByName("Anivia"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);

@@ -1,4 +1,4 @@
-package com.dam.lol;
+package com.dam.lol.activities;
 
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+
+import com.dam.lol.R;
 
 
 //TODO acabar esta clase con lo que corresponda
