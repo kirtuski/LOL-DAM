@@ -12,6 +12,8 @@ import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionRotationResponse;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,14 @@ public class ChampionRotationActivity extends AppCompatActivity {
         initializeFacades();
 
         super.onCreate(savedInstanceState);
+        //TODO hacer layout decente
         setContentView(R.layout.champion_rotation_activity);
 
-        apiFacade.getChampionsRotation("EUW1", this);
+        try {
+            fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeFacades() {
@@ -37,8 +44,9 @@ public class ChampionRotationActivity extends AppCompatActivity {
         this.championFacade = LolApplication.getInstance().getChampionFacade();
     }
 
-    public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) throws IOException {
-        List<ImageView> imageViewList = new ArrayList<ImageView>();
+
+    public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) throws IOException, JSONException {
+        List<ImageView> imageViewList = new ArrayList<>();
 
         imageViewList.add(findViewById(R.id.imageView1));
         imageViewList.add(findViewById(R.id.imageView2));
@@ -56,9 +64,12 @@ public class ChampionRotationActivity extends AppCompatActivity {
         imageViewList.add(findViewById(R.id.imageView14));
         imageViewList.add(findViewById(R.id.imageView15));
 
-        for(int i = 0 ; i <= 14; i++){
+        //Consumo de red de las 16 descargas aprox = 290kBytes, merece la pena guardar estas cosas en cache?
+        // Si sobra tiempo pues siempre se puede comprobar que android studio tiene abajo el profiler para mirar el rendimiento de la app, se puede hacer la comparación de las 2 formas
+        for(int i = 0 ; i < 15; i++){
+            getResources().openRawResource(R.raw.champion);
             imageViewList.get(i).setImageDrawable(
-                    imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i))));
+                    imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
         }
     }
 }

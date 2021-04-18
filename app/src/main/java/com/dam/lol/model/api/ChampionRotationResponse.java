@@ -1,8 +1,9 @@
 package com.dam.lol.model.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ChampionRotationResponse {
+public class ChampionRotationResponse implements Serializable {
     private int maxNewPlayerLevel;
     private List<Integer> freeChampionIdsForNewPlayers;
     private List<Integer> freeChampionIds;

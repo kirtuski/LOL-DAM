@@ -1,6 +1,8 @@
 package com.dam.lol.model.api;
 
-public class SummonerResponse {
+import java.io.Serializable;
+
+public class SummonerResponse implements Serializable {
     private String id;
     private String puuid;
     private String name;

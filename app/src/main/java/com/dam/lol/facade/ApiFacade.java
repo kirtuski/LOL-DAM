@@ -86,11 +86,11 @@ public class ApiFacade {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Volley", response.toString());
+                        ChampionRotationResponse championRotationResponse = new ChampionRotationResponse();
                         try {
-                            ChampionRotationResponse championRotationResponse = new ChampionRotationResponse();
                             championRotationResponse.setMaxNewPlayerLevel(response.getInt("maxNewPlayerLevel"));
 
-                            JSONArray freeChampionsIdsJSON = response.getJSONArray("freeChampionsIds");
+                            JSONArray freeChampionsIdsJSON = response.getJSONArray("freeChampionIds");
                             List<Integer> freeChampionsIds = new ArrayList<Integer>();
                             for (int i = 0; i < freeChampionsIdsJSON.length(); ++i) {
                                 freeChampionsIds.add(freeChampionsIdsJSON.getInt(i));
@@ -104,11 +104,13 @@ public class ApiFacade {
                             }
                             championRotationResponse.setFreeChampionIdsForNewPlayers(freeChampionIdsForNewPlayers);
 
-                            ChampionRotationActivity championRotationActivity = (ChampionRotationActivity) activity;
-                            championRotationActivity.fillChampionRotationTable(championRotationResponse);
-                        } catch (JSONException | IOException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+                        Intent intent = new Intent(activity, ChampionRotationActivity.class);
+                        intent.putExtra("ChampionRotationResponse", championRotationResponse);
+                        activity.startActivity(intent);
 
                     }
                 }, new Response.ErrorListener() {
@@ -116,7 +118,8 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        // Toast.makeText(activity, "No existe el nombre de invocador", Toast.LENGTH_SHORT).show();
+                        if( error.networkResponse.statusCode == 403)
+                            Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -169,7 +172,8 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        // Toast.makeText(activity, "No existe el nombre de invocador", Toast.LENGTH_SHORT).show();
+                        if( error.networkResponse.statusCode == 403)
+                            Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });
 

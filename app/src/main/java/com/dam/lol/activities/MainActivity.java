@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     TextInputLayout nombreInvocadorInput;
 
     //Guardar el servidor elejido
-    private int server_id;
+    private String server_url = "";
     private ApiFacade apiFacade;
 
     @Override
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo para cuando seleccionamos un elemento del selector
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        String server = getResources().getStringArray(R.array.servers)[(int) id];
-        Log.d("Main Selector Servidor", "Se ha seleccionado: " + id + " " + server);
-        server_id = (int) id;
+        server_url = getResources().getStringArray(R.array.urlServers)[(int) id];
+        Log.d("Main Selector Servidor", "Se ha seleccionado: " + server_url);
+
     }
 
     //Otro metodo que tiene que estar por implementar la interfaz
@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
     public void BuscaInvocador(View view) {
         String nombre = Objects.requireNonNull(nombreInvocadorInput.getEditText()).getText().toString();
-        Log.d("Server id", String.valueOf(server_id));
-        String server = getResources().getStringArray(R.array.urlServers)[server_id];
-        apiFacade.getIdFromSummoner(nombre, server, this);
+        apiFacade.getIdFromSummoner(nombre, server_url, this);
     }
 
     //Metodo que abre la nueva actividad con los ajustes
@@ -86,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivityForResult( intent, 1);
     }
 
+    //TODO Leeme: Lo he cambiado para que funcione de la misma forma que busca invocador, si tiene exito el metodo, cambia de actividad, borra despues de leer si estas de acuerdo
     public void openChampionRotation(View view) {
-        Intent intent = new Intent(this, ChampionRotationActivity.class);
-        startActivity(intent);
+        apiFacade.getChampionsRotation(server_url, this);
     }
 
     //Para recargar la api facade cuando regresemos de la actividad
