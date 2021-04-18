@@ -67,7 +67,6 @@ public class ChampionRotationActivity extends AppCompatActivity {
         //Consumo de red de las 16 descargas aprox = 290kBytes, merece la pena guardar estas cosas en cache?
         // Si sobra tiempo pues siempre se puede comprobar que android studio tiene abajo el profiler para mirar el rendimiento de la app, se puede hacer la comparación de las 2 formas
         for(int i = 0 ; i < 15; i++){
-            getResources().openRawResource(R.raw.champion);
             imageViewList.get(i).setImageDrawable(
                     imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
         }

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class ChampionFacade {
@@ -21,9 +22,7 @@ public class ChampionFacade {
         //TODO Este codigo obtiene el json como string, a lo mejor se puede encapsular como función?
         String jsonString;
         try {
-            InputStream champions = activity.getResources().openRawResource(R.raw.champion);
-            //Si se abre con ese metodo se puede encapsular la función, contra, no se escribir la ruta
-            //champions = activity.getAssets().open("champion.json");
+            InputStream champions = activity.getAssets().open("champion.json");
             int size = champions.available();
             byte[] buffer = new byte[size];
             champions.read(buffer);
@@ -41,7 +40,9 @@ public class ChampionFacade {
         JSONObject data = json.getJSONObject("data");
         Iterator<String> keys = data.keys();
         String name = "";
-        //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga los datos que queremos, similar a server y server_url
+        //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga
+        // los datos que queremos, similar a server y server_url, un array de los campeones ordenados por id vamos
+        //Y nos ahorramos tambien el codigo de arriba
         while(keys.hasNext()){
             String key = keys.next();
             JSONObject champ = data.getJSONObject(key);
