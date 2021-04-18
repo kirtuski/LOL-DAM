@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,8 +69,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
     public void BuscaInvocador(View view) {
-        String nombre = Objects.requireNonNull(nombreInvocadorInput.getEditText()).getText().toString();
-        apiFacade.getIdFromSummoner(nombre, server_url, this);
+        String nombre = nombreInvocadorInput.getEditText().getText().toString();
+        if(nombre.length() == 0)
+            Toast.makeText(this, "Introduce un nombre de invocador", Toast.LENGTH_SHORT).show();
+        else
+            apiFacade.getIdFromSummoner(nombre, server_url, this);
     }
 
     //Metodo que abre la nueva actividad con los ajustes
