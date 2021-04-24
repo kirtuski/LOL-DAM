@@ -21,4 +21,23 @@ public class ImageFacade {
         InputStream is = (InputStream) new URL("http://ddragon.leagueoflegends.com/cdn/11.8.1/img/champion/" + name + ".png").getContent();
         return Drawable.createFromStream(is, "src name");
     }
+
+    public Drawable getProfileIconById(int id) throws IOException{
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        InputStream is = (InputStream) new URL("http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/" + id + ".png").getContent();
+        return Drawable.createFromStream(is, "src name");
+    }
+
+
+    public Drawable getSplashByChampionName(String name) throws IOException{
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        InputStream is = (InputStream) new URL("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + name + "_0.jpg").getContent();
+        return Drawable.createFromStream(is, "src name");
+    }
+
+
 }

@@ -9,14 +9,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.dam.lol.activities.InvocadorActivity;
 import com.dam.lol.LolApplication;
 import com.dam.lol.activities.ChampionRotationActivity;
-import com.dam.lol.activities.SettingsActivity;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.ChampionRotationResponse;
+import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.SummonerResponse;
 import com.dam.lol.model.api.objects.ChampionMasteryDto;
+import com.dam.lol.model.api.objects.LeagueDto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,9 +55,11 @@ public class ApiFacade {
                                     .summonerLevel(response.getInt("summonerLevel"))
                                     .build();
 
-                            Intent intent = new Intent(activity, SettingsActivity.class);
+                            Intent intent = new Intent(activity, InvocadorActivity.class);
                             //Podemos pasar informacion entre actividades con el intent
-                            intent.putExtra("parametro", 2);
+                            intent.putExtra("datos", invocador);
+                            //TODO en lugar de llamar a la actividad, llamar a los metodos para conseguir
+                            // la info y que el ultimo metodo llame a la actividad?
                             activity.startActivity(intent);
 
                         } catch (JSONException e) {
@@ -91,14 +96,14 @@ public class ApiFacade {
                             championRotationResponse.setMaxNewPlayerLevel(response.getInt("maxNewPlayerLevel"));
 
                             JSONArray freeChampionsIdsJSON = response.getJSONArray("freeChampionIds");
-                            List<Integer> freeChampionsIds = new ArrayList<Integer>();
+                            List<Integer> freeChampionsIds = new ArrayList<>();
                             for (int i = 0; i < freeChampionsIdsJSON.length(); ++i) {
                                 freeChampionsIds.add(freeChampionsIdsJSON.getInt(i));
                             }
                             championRotationResponse.setFreeChampionIds(freeChampionsIds);
 
                             JSONArray freeChampionIdsForNewPlayersJSON = response.getJSONArray("freeChampionIdsForNewPlayers");
-                            List<Integer> freeChampionIdsForNewPlayers = new ArrayList<Integer>();
+                            List<Integer> freeChampionIdsForNewPlayers = new ArrayList<>();
                             for (int i = 0; i < freeChampionIdsForNewPlayersJSON.length(); ++i) {
                                 freeChampionIdsForNewPlayers.add(freeChampionIdsForNewPlayersJSON.getInt(i));
                             }
@@ -126,26 +131,25 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getChampionsMastery(String encryptedSummonerId, String servidor, Activity activity) {
+    public void getChampionsMastery(String encryptedSummonerId, String servidor, InvocadorActivity activity) {
 
         final String URL = "https://" + servidor + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         Log.d("Volley", response.toString());
                         try {
-                            JSONArray championMasteryDtosJSON = response.getJSONArray("ChampionMasteryDto");
                             List<ChampionMasteryDto> championMasteryDtos = new ArrayList<ChampionMasteryDto>();
-                            for (int i = 0; i < championMasteryDtosJSON.length(); ++i) {
+                            for (int i = 0; i < response.length(); ++i) {
                                 ChampionMasteryDto championMasteryDto = new ChampionMasteryDto();
 
-                                JSONObject championMasteryDtoJSON = championMasteryDtosJSON.getJSONObject(i);
-                                championMasteryDto.setChampionPointsUtilNextLevel(championMasteryDtoJSON.getLong("championPointsUtilNextLevel"));
+                                JSONObject championMasteryDtoJSON = response.getJSONObject(i);
+                                championMasteryDto.setChampionPointsUtilNextLevel(championMasteryDtoJSON.getLong("championPointsUntilNextLevel"));
                                 championMasteryDto.setChestGranted(championMasteryDtoJSON.getBoolean("chestGranted"));
-                                championMasteryDto.setChampionId(championMasteryDtoJSON.getLong("championId"));
+                                championMasteryDto.setChampionId(championMasteryDtoJSON.getInt("championId"));
                                 championMasteryDto.setLastPlayTime(championMasteryDtoJSON.getLong("lastPlayTime"));
                                 championMasteryDto.setChampionLevel(championMasteryDtoJSON.getInt("championLevel"));
                                 championMasteryDto.setSummonerId(championMasteryDtoJSON.getString("summonerId"));
@@ -156,11 +160,60 @@ public class ApiFacade {
                             ChampionMasteryResponse championMasteryResponse = new ChampionMasteryResponse();
                             championMasteryResponse.setChampionMasteryDtoList(championMasteryDtos);
 
+                            activity.ponChampionMastery(championMasteryResponse);
 
-                            // Intent intent = new Intent(activity, SettingsActivity.class);
-                            //Podemos pasar informacion entre actividades con el intent
-                            //intent.putExtra("parametro", 2);
-                            // activity.startActivity(intent);
+
+                        } catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.e("Error", error.getMessage());
+                        if( error.networkResponse.statusCode == 403)
+                            Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
+    }
+
+    public void getSummonerLeague(String encryptedSummonerId, String servidor, InvocadorActivity activity) {
+        final String URL = "https://" + servidor + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("Volley", response.toString());
+                        try {
+                            List<LeagueDto> leagueDtos = new ArrayList<>();
+                            for (int i = 0; i < response.length(); ++i) {
+                                LeagueDto leagueDto = new LeagueDto();
+                                JSONObject leaguesDtosDtoJSON = response.getJSONObject(i);
+
+                                leagueDto.setLeagueId(leaguesDtosDtoJSON.getString("leagueId"));
+                                leagueDto.setQueueType(leaguesDtosDtoJSON.getString("queueType"));
+                                leagueDto.setTier(leaguesDtosDtoJSON.getString("tier"));
+                                leagueDto.setRank(leaguesDtosDtoJSON.getString("rank"));
+                                leagueDto.setSummonerId(leaguesDtosDtoJSON.getString("summonerId"));
+                                leagueDto.setSummonerName(leaguesDtosDtoJSON.getString("summonerName"));
+                                leagueDto.setLeaguePoints(leaguesDtosDtoJSON.getInt("leaguePoints"));
+                                leagueDto.setWins(leaguesDtosDtoJSON.getInt("wins"));
+                                leagueDto.setLosses(leaguesDtosDtoJSON.getInt("losses"));
+                                leagueDto.setVeteran(leaguesDtosDtoJSON.getBoolean("veteran"));
+                                leagueDto.setInactive(leaguesDtosDtoJSON.getBoolean("inactive"));
+                                leagueDto.setFreshBlood(leaguesDtosDtoJSON.getBoolean("freshBlood"));
+                                leagueDto.setHotStreak(leaguesDtosDtoJSON.getBoolean("hotStreak"));
+                                leagueDtos.add(leagueDto);
+                            }
+
+                            LeagueResponse leagueResponse = new LeagueResponse(leagueDtos);
+
+                            activity.ponLeagueInfo(leagueResponse);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -3,10 +3,13 @@ package com.dam.lol.model.api.objects;
 public class ChampionMasteryDto {
     private long championPointsUtilNextLevel;
     private boolean chestGranted;
-    private long championId;
+    private int championId;
     private long lastPlayTime;
     private int championLevel;
     private String summonerId;
+    private int championPoints;
+    private long championPointsSinceLastLevel;
+    private int tokensEarned;
 
     public ChampionMasteryDto() {
     }
@@ -27,11 +30,11 @@ public class ChampionMasteryDto {
         this.chestGranted = chestGranted;
     }
 
-    public long getChampionId() {
+    public int getChampionId() {
         return championId;
     }
 
-    public void setChampionId(long championId) {
+    public void setChampionId(int championId) {
         this.championId = championId;
     }
 
@@ -83,9 +86,7 @@ public class ChampionMasteryDto {
         this.tokensEarned = tokensEarned;
     }
 
-    private int championPoints;
-    private long championPointsSinceLastLevel;
-    private int tokensEarned;
+
 
 
 }
