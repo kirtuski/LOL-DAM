@@ -1,7 +1,10 @@
 package com.dam.lol.activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +21,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Consumo de red de las 16 descargas aprox = 290kBytes, merece la pena guardar estas cosas en cache?
+// Si sobra tiempo pues siempre se puede comprobar que android studio tiene abajo el profiler para mirar el rendimiento de la app, se puede hacer la comparación de las 2 formas
 public class ChampionRotationActivity extends AppCompatActivity {
     private ApiFacade apiFacade;
     private ImageFacade imageFacade;
@@ -31,6 +36,8 @@ public class ChampionRotationActivity extends AppCompatActivity {
         //TODO hacer layout decente
         setContentView(R.layout.champion_rotation_activity);
 
+        this.setTitle("Campeones gratuitos en rotación");
+
         try {
             fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
         } catch (IOException | JSONException e) {
@@ -43,32 +50,40 @@ public class ChampionRotationActivity extends AppCompatActivity {
         this.imageFacade = LolApplication.getInstance().getImageFacade();
         this.championFacade = LolApplication.getInstance().getChampionFacade();
     }
-
-
+    //TODO añadir cambiar imagen
+    // imageViewList.get(i).setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
     public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) throws IOException, JSONException {
+        TableLayout tabla = findViewById(R.id.tabla_rotaciones);
         List<ImageView> imageViewList = new ArrayList<>();
 
-        imageViewList.add(findViewById(R.id.imageView1));
-        imageViewList.add(findViewById(R.id.imageView2));
-        imageViewList.add(findViewById(R.id.imageView3));
-        imageViewList.add(findViewById(R.id.imageView4));
-        imageViewList.add(findViewById(R.id.imageView5));
-        imageViewList.add(findViewById(R.id.imageView6));
-        imageViewList.add(findViewById(R.id.imageView7));
-        imageViewList.add(findViewById(R.id.imageView8));
-        imageViewList.add(findViewById(R.id.imageView9));
-        imageViewList.add(findViewById(R.id.imageView10));
-        imageViewList.add(findViewById(R.id.imageView11));
-        imageViewList.add(findViewById(R.id.imageView12));
-        imageViewList.add(findViewById(R.id.imageView13));
-        imageViewList.add(findViewById(R.id.imageView14));
-        imageViewList.add(findViewById(R.id.imageView15));
+        for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
+            ImageView imageView = new ImageView(this);
+            imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
+            //Propiedad para ajustar el tamaño ¿?
+            imageViewList.add(imageView);
+        }
 
-        //Consumo de red de las 16 descargas aprox = 290kBytes, merece la pena guardar estas cosas en cache?
-        // Si sobra tiempo pues siempre se puede comprobar que android studio tiene abajo el profiler para mirar el rendimiento de la app, se puede hacer la comparación de las 2 formas
-        for(int i = 0 ; i < 15; i++){
-            imageViewList.get(i).setImageDrawable(
-                    imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            //De pie 3*5
+            for (int i = 0; i < 3 ; i ++){
+                TableRow fila = new TableRow(this);
+                fila.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT) );
+                for (int j = 0; j  < 5 ; j ++){
+                    fila.addView(imageViewList.get(i*5+j));
+                }
+                tabla.addView(fila);
+            }
+        }
+        else{ //Apaisado 5*3
+            for (int i = 0; i < 5 ; i ++){
+                TableRow fila = new TableRow(this);
+                fila.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT) );
+                for (int j = 0; j  < 3 ; j ++){
+                    fila.addView(imageViewList.get(i*3+j));
+                }
+                tabla.addView(fila);
+            }
         }
     }
+
 }
