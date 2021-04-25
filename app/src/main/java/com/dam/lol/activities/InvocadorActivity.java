@@ -49,8 +49,28 @@ public class InvocadorActivity extends AppCompatActivity {
        for(int i = 0; i < leagueDtos.size() ; i++){
            LeagueDto leagueDto = leagueDtos.get(i);
            if(leagueDto.getQueueType().equals("RANKED_FLEX_SR")){
-                //TODO
+               TextView winFlex = findViewById(R.id.wins_flex);
+               winFlex.setText("Wins: " + leagueDto.getWins());
+
+               TextView loseFlex = findViewById(R.id.loses_flex);
+               loseFlex.setText("Loses: " + leagueDto.getLosses());
+
+               TextView winRatio = findViewById(R.id.win_ratio_flex);
+               float winRatiof = (float)100*leagueDto.getWins()/(leagueDto.getWins() + leagueDto.getLosses()) ;
+               winRatio.setText("Winrate: " + (int) (winRatiof+0.5) + "%");
+
+               ImageView rankFlexIcon = findViewById(R.id.rankIcon_flex);
+
+               int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
+               rankFlexIcon.setImageDrawable( this.getResources().getDrawable(identifier) );
+
+               TextView rankFlexText = findViewById(R.id.rank_flex);
+               rankFlexText.setText(leagueDto.getTier() + " " + leagueDto.getRank());
+
+               TextView rankFlexLp = findViewById(R.id.lp_flex);
+               rankFlexLp.setText("Lp: " + leagueDto.getLeaguePoints());
            }
+
            if(leagueDto.getQueueType().equals("RANKED_SOLO_5x5")){
                TextView winSolo = findViewById(R.id.wins_solo);
                winSolo.setText("Wins: " + leagueDto.getWins());
@@ -69,6 +89,9 @@ public class InvocadorActivity extends AppCompatActivity {
 
                TextView rankSoloText = findViewById(R.id.rank_solo);
                rankSoloText.setText(leagueDto.getTier() + " " + leagueDto.getRank());
+
+               TextView rankSoloLp = findViewById(R.id.lp_solo);
+               rankSoloLp.setText("Lp: " + leagueDto.getLeaguePoints());
            }
        }
     }
@@ -77,9 +100,11 @@ public class InvocadorActivity extends AppCompatActivity {
         //TODO check != 0
         int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
         String campeonName = championFacade.getChampionNameById(campeon, this);
-
+        /*
         ImageView fondo = findViewById(R.id.fondo);
         fondo.setImageDrawable(imageFacade.getSplashByChampionName(campeonName));
+
+         */
 
     }
 
