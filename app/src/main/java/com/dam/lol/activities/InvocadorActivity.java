@@ -101,7 +101,7 @@ public class InvocadorActivity extends AppCompatActivity {
         int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
         String campeonName = championFacade.getChampionNameById(campeon, this);
 
-
+        //TODO  se distorsiona, hay que arreglar la forma que se muestra la imagen
         ImageView fondo = findViewById(R.id.fondo);
         fondo.setImageDrawable(imageFacade.getSplashByChampionName(campeonName));
 
