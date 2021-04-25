@@ -2,6 +2,7 @@ package com.dam.lol.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
+import com.dam.lol.customViews.SquareImageView;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.ImageFacade;
@@ -39,7 +41,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
         //TODO hacer layout decente
         setContentView(R.layout.champion_rotation_activity);
 
-        this.setTitle("Campeones gratuitos en rotación");
+        this.setTitle("CAMPEONES GRATUITOS EN ROTACION");
 
         try {
             fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
@@ -54,22 +56,23 @@ public class ChampionRotationActivity extends AppCompatActivity {
         this.championFacade = LolApplication.getInstance().getChampionFacade();
     }
 
-    // TODO eliminar marcos entre imagenes, ajustar bien layout
+    // TODO eliminar altura sobrante de cada fila
     public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) throws IOException, JSONException {
         TableLayout tabla = findViewById(R.id.tabla_rotaciones);
         List<ImageView> imageViewList = new ArrayList<>();
 
         //Se usa el Params de quien lo contiene, filas estan contenidas en tabla, imagenes en filas
-        TableLayout.LayoutParams filaProperties = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        TableLayout.LayoutParams filaProperties = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
         TableRow.LayoutParams imageProperties = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
 
         for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
-            ImageView imageView = new ImageView(this);
+            ImageView imageView = new SquareImageView(this);
             imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
 
             imageViewList.add(imageView);
         }
 
+        //Crea tabla
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             //De pie 3*5
             for (int i = 0; i < 3 ; i ++){
@@ -77,7 +80,9 @@ public class ChampionRotationActivity extends AppCompatActivity {
                 fila.setLayoutParams( filaProperties );
 
                 for (int j = 0; j  < 5 ; j ++){
+
                     fila.addView(imageViewList.get(i*5+j));
+
                 }
                 tabla.addView(fila);
             }
@@ -93,9 +98,10 @@ public class ChampionRotationActivity extends AppCompatActivity {
             }
         }
 
+        //Ajusta¿?
         for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
-            imageViewList.get(i).setLayoutParams(imageProperties);
-            imageViewList.get(i).setAdjustViewBounds(true);
+            ImageView imageViewTemp = imageViewList.get(i);
+            imageViewTemp.setLayoutParams(imageProperties);
         }
 
     }
