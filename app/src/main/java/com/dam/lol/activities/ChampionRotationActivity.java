@@ -2,7 +2,10 @@ package com.dam.lol.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -50,16 +53,20 @@ public class ChampionRotationActivity extends AppCompatActivity {
         this.imageFacade = LolApplication.getInstance().getImageFacade();
         this.championFacade = LolApplication.getInstance().getChampionFacade();
     }
-    //TODO añadir cambiar imagen
-    // imageViewList.get(i).setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
+
+    // TODO eliminar marcos entre imagenes, ajustar bien layout
     public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) throws IOException, JSONException {
         TableLayout tabla = findViewById(R.id.tabla_rotaciones);
         List<ImageView> imageViewList = new ArrayList<>();
 
+        //Se usa el Params de quien lo contiene, filas estan contenidas en tabla, imagenes en filas
+        TableLayout.LayoutParams filaProperties = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        TableRow.LayoutParams imageProperties = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+
         for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
             ImageView imageView = new ImageView(this);
             imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
-            //Propiedad para ajustar el tamaño ¿?
+
             imageViewList.add(imageView);
         }
 
@@ -67,7 +74,8 @@ public class ChampionRotationActivity extends AppCompatActivity {
             //De pie 3*5
             for (int i = 0; i < 3 ; i ++){
                 TableRow fila = new TableRow(this);
-                fila.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT) );
+                fila.setLayoutParams( filaProperties );
+
                 for (int j = 0; j  < 5 ; j ++){
                     fila.addView(imageViewList.get(i*5+j));
                 }
@@ -77,13 +85,19 @@ public class ChampionRotationActivity extends AppCompatActivity {
         else{ //Apaisado 5*3
             for (int i = 0; i < 5 ; i ++){
                 TableRow fila = new TableRow(this);
-                fila.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT) );
+                fila.setLayoutParams(filaProperties );
                 for (int j = 0; j  < 3 ; j ++){
                     fila.addView(imageViewList.get(i*3+j));
                 }
                 tabla.addView(fila);
             }
         }
+
+        for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
+            imageViewList.get(i).setLayoutParams(imageProperties);
+            imageViewList.get(i).setAdjustViewBounds(true);
+        }
+
     }
 
 }
