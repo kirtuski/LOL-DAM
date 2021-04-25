@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="380dp"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -21,13 +21,14 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed" >
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/fondo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitStart"
-                android:src="@drawable/logo"
-                android:contentDescription="TODO" />
+                android:adjustViewBounds="true"
+                android:contentDescription="TODO"
+                android:scaleType="fitXY"
+                android:src="@drawable/aatrox_0" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -69,6 +70,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="35dp"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/emblem_unranked"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/summonerIcon" />
@@ -77,13 +79,13 @@
                     android:id="@+id/rank_solo_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="Solo/Duo"
                     android:textColor="@color/design_default_color_background"
                     android:textSize="16sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="5dp"
-                    app:layout_constraintStart_toStartOf="@+id/rankIcon_solo"
-                    app:layout_constraintBottom_toTopOf="@+id/rankIcon_solo" />
+                    app:layout_constraintBottom_toTopOf="@+id/rankIcon_solo"
+                    app:layout_constraintEnd_toEndOf="@+id/rankIcon_solo"
+                    app:layout_constraintStart_toStartOf="@+id/rankIcon_solo" />
 
                 <TextView
                     android:id="@+id/wins_solo"
@@ -136,29 +138,33 @@
                     android:text="Unranked"
                     android:textColor="@color/design_default_color_background"
                     android:textSize="16sp"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
                     app:layout_constraintTop_toTopOf="@id/rank_solo_text" />
 
+                <!--TODO alinear esto bien respecto a la derecha,
+                     probar distintos tamaños de pantalla-->
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/rankIcon_flex"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:src="@drawable/emblem_unranked"
-                    android:layout_marginLeft="100dp"
-                    app:layout_constraintStart_toEndOf="@id/rankIcon_solo"
-                    app:layout_constraintTop_toTopOf="@id/rankIcon_solo" />
+                    android:layout_marginTop="35dp"
+                    app:layout_constraintStart_toStartOf="@id/rankIcon_solo"
+                    app:layout_constraintTop_toBottomOf="@id/rankIcon_solo"
+                    />
 
                 <TextView
                     android:id="@+id/rank_flex_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="Flex"
                     android:textColor="@color/design_default_color_background"
                     android:textSize="16sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="5dp"
-                    app:layout_constraintStart_toStartOf="@+id/rankIcon_flex"
-                    app:layout_constraintBottom_toTopOf="@+id/rankIcon_flex" />
+                    app:layout_constraintBottom_toTopOf="@+id/rankIcon_flex"
+                    app:layout_constraintEnd_toEndOf="@+id/rankIcon_flex"
+                    app:layout_constraintStart_toStartOf="@+id/rankIcon_flex" />
 
                 <TextView
                     android:id="@+id/wins_flex"
@@ -211,6 +217,7 @@
                     android:text="Unranked"
                     android:textColor="@color/design_default_color_background"
                     android:textSize="16sp"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
                     app:layout_constraintTop_toTopOf="@+id/rank_flex_text" />
 

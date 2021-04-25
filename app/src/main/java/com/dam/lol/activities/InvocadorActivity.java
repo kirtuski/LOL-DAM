@@ -100,11 +100,10 @@ public class InvocadorActivity extends AppCompatActivity {
         //TODO check != 0
         int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
         String campeonName = championFacade.getChampionNameById(campeon, this);
-        /*
+
+
         ImageView fondo = findViewById(R.id.fondo);
         fondo.setImageDrawable(imageFacade.getSplashByChampionName(campeonName));
-
-         */
 
     }
 
