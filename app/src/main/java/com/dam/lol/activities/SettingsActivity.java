@@ -21,7 +21,6 @@ import com.dam.lol.R;
 
 
 //TODO acabar esta clase con lo que corresponda
-//creo que el layout se genera con las propiedades que hay en xml/root_preferences.xml
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -38,12 +37,8 @@ public class SettingsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        //TODO borrar
-        Log.d("Ajustes", String.valueOf(getIntent().getIntExtra("prueba", 1)));
     }
 
-    //A lo mejor podemos usar la clase ClipboardManager para pegar automaticamente del portapapeles
     public void irRiot(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.riotgames.com/"));
         startActivity(intent);
@@ -89,5 +84,4 @@ public class SettingsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
