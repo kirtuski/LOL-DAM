@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -15,8 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
+import com.dam.lol.facade.DatabaseFacade;
+import com.dam.lol.model.api.database.SimpleSummoner;
+import com.dam.lol.model.api.database.SimpleSummonerAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
 import java.util.Objects;
 
 //TODO Lee esto antes de borrarme el implement y que luego tenga que buscar porque no se ejecuta
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Guardar el servidor elejido
     private String server_url = "";
     private ApiFacade apiFacade;
+    private DatabaseFacade databaseFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +53,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         servidorSpinner.setAdapter(adapter);
+
+        initializeFavoriteSummonerList();
+    }
+
+    private void initializeFavoriteSummonerList() {
+        this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
+        List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
+        ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
+        SimpleSummonerAdapter simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorite_summoner_layout, simpleSummoners);
+        favoriteChampionsList.setAdapter(simpleSummonerAdapter);
     }
 
     protected void onResume() {
         super.onResume();
+        initializeFavoriteSummonerList();
         apiFacade = LolApplication.getInstance().getApiFacade();
+
     }
 
     //Metodo para cuando seleccionamos un elemento del selector

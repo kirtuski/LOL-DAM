@@ -6,6 +6,7 @@ public class SummonerResponse implements Serializable {
     private String id;
     private String puuid;
     private String name;
+    private String server;
     private int profileIconId;
     private int summonerLevel;
 
@@ -15,6 +16,7 @@ public class SummonerResponse implements Serializable {
         this.name = invocadorResponseBuilder.name;
         this.profileIconId = invocadorResponseBuilder.profileIconId;
         this.summonerLevel = invocadorResponseBuilder.summonerLevel;
+        this.server = invocadorResponseBuilder.server;
     }
 
     public String getId() {
@@ -37,10 +39,16 @@ public class SummonerResponse implements Serializable {
         return summonerLevel;
     }
 
+    public String getServer(){
+        return server;
+    }
+
+
     public static class InvocadorResponseBuilder {
         private String id;
         private String puuid;
         private String name;
+        private String server;
         private int profileIconId = 0;
         private int summonerLevel = 0;
 
@@ -70,6 +78,11 @@ public class SummonerResponse implements Serializable {
 
         public InvocadorResponseBuilder summonerLevel(int summonerLevel){
             this.summonerLevel = summonerLevel;
+            return this;
+        }
+
+        public InvocadorResponseBuilder server(String server){
+            this.server = server;
             return this;
         }
     }

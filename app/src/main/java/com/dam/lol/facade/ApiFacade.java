@@ -53,6 +53,7 @@ public class ApiFacade {
                                     .name(response.getString("name"))
                                     .profileIconId(response.getInt("profileIconId"))
                                     .summonerLevel(response.getInt("summonerLevel"))
+                                    .server("servidor")
                                     .build();
 
                             Intent intent = new Intent(activity, InvocadorActivity.class);

@@ -13,6 +13,7 @@ import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.ChampionFacade;
+import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.LeagueResponse;
@@ -36,11 +37,13 @@ public class InvocadorActivity extends AppCompatActivity {
     private ApiFacade apiFacade;
     private ImageFacade imageFacade;
     private ChampionFacade championFacade;
+    private DatabaseFacade databaseFacade;
 
     private void initializeFacades() {
         this.apiFacade = LolApplication.getInstance().getApiFacade();
         this.imageFacade = LolApplication.getInstance().getImageFacade();
         this.championFacade = LolApplication.getInstance().getChampionFacade();
+        this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
     }
 
     public void ponLeagueInfo(LeagueResponse leagueResponse){
@@ -162,10 +165,12 @@ public class InvocadorActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO esto es como un Toast pero más gordo, a lo mejor es conveniente?
-                // el toast no se ve muy bien cuando esta el traclado
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                if(databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1)
+                    Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                else
+                    Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
             }
         });
 
