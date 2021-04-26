@@ -53,14 +53,11 @@ public class ApiFacade {
                                     .name(response.getString("name"))
                                     .profileIconId(response.getInt("profileIconId"))
                                     .summonerLevel(response.getInt("summonerLevel"))
-                                    .server("servidor")
+                                    .server(servidor)
                                     .build();
 
                             Intent intent = new Intent(activity, InvocadorActivity.class);
-                            //Podemos pasar informacion entre actividades con el intent
                             intent.putExtra("datos", invocador);
-                            //TODO en lugar de llamar a la actividad, llamar a los metodos para conseguir
-                            // la info y que el ultimo metodo llame a la actividad?
                             activity.startActivity(intent);
 
                         } catch (JSONException e) {

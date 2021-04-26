@@ -120,9 +120,11 @@ public class InvocadorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initializeFacades();
-
         summoner = (SummonerResponse) this.getIntent().getSerializableExtra("datos");
-        // Icono nombre y nivel
+
+        apiFacade.getChampionsMastery(summoner.getId(), summoner.getServer(), this);
+        apiFacade.getSummonerLeague(summoner.getId(), summoner.getServer(), this);
+
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());
 
@@ -135,11 +137,6 @@ public class InvocadorActivity extends AppCompatActivity {
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
         summonerLevel.setText("Level: " + summoner.getSummonerLevel() );
-
-        //TODO poner bien el servidor en la llamada, sacar del intent
-        apiFacade.getSummonerLeague(summoner.getId(), "euw1", this);
-        apiFacade.getChampionsMastery(summoner.getId(), "euw1", this);
-
 
         CollapsingToolbarLayout collapse = findViewById(R.id.toolbar_layout);
         AppBarLayout appBar = findViewById(R.id.app_bar);
@@ -155,7 +152,7 @@ public class InvocadorActivity extends AppCompatActivity {
                     collapse.setTitle(summoner.getName());
                     isShow = true;
                 } else if(isShow) {
-                    collapse.setTitle(" ");//careful there should a space between double quote otherwise it wont work
+                    collapse.setTitle(" ");
                     isShow = false;
                 }
             }
