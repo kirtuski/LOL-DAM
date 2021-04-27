@@ -235,7 +235,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_scrolling" />
+    <include layout="@layout/match_list" />
 
     <!--TODO cambiar por un boton para añadir a fav? -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,6 +1,5 @@
 package com.dam.lol.activities;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +16,8 @@ import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.LeagueResponse;
+import com.dam.lol.model.api.MatchListResponse;
+import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
 import com.dam.lol.model.api.objects.LeagueDto;
 import com.google.android.material.appbar.AppBarLayout;
@@ -110,6 +111,18 @@ public class InvocadorActivity extends AppCompatActivity {
 
     }
 
+    public void ponPartidaEnActivity(MatchResponse partidaResponse){
+        //TODO usar linealLayout.addView(partida, index)
+        // cual debe ser el indice? Existe getNChilds?
+        //se debe insertar penultimo para dejar el boton siempre al final
+    }
+
+    public void buscaPartidas(MatchListResponse matchListResponse){
+        //TODO arreglar lo del servidor, explicado en ApiFacade
+        for( String matchId : matchListResponse.getMatchList())
+            apiFacade.getMatchById(matchId, summoner.getServer(), this);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +137,15 @@ public class InvocadorActivity extends AppCompatActivity {
 
         apiFacade.getChampionsMastery(summoner.getId(), summoner.getServer(), this);
         apiFacade.getSummonerLeague(summoner.getId(), summoner.getServer(), this);
+
+        //TODO organizar el proceso de mostrar partidas
+        // Mostrar 5 partidas( parametro por defecto), vista resumen, si pulsar sobre una, activity con información expandida?
+        // Aporta algo nuevo al proyecto? No -> No mostrar info expandida Si -> ya sabes
+        // Boton para mostrar más partidas al final de la lista
+        // Usar layout inflater con layout predefinido para mostrar los datos
+        // xml -> tableLayout (al que añadir partidas, lineas) + boton para buscar más partidas (usar la otra llamada con start)
+        // parametro para contar cuantas veces se ha llamado ?
+        //apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServer(),this);
 
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());

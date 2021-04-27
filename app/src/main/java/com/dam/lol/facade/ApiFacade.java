@@ -17,6 +17,7 @@ import com.dam.lol.activities.ChampionRotationActivity;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.ChampionRotationResponse;
 import com.dam.lol.model.api.LeagueResponse;
+import com.dam.lol.model.api.MatchListResponse;
 import com.dam.lol.model.api.SummonerResponse;
 import com.dam.lol.model.api.objects.ChampionMasteryDto;
 import com.dam.lol.model.api.objects.LeagueDto;
@@ -231,5 +232,93 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
+    //TODO hace entera
+    public void getMatchById(String matchId, String servidor, InvocadorActivity activity) {
+        //TODO servidor ha cambiado, mirar siguietne función para + info
+        servidor = "europe";
+        final String URL ="https://" + servidor + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("Volley", response.toString());
+                        try {
+                            List<LeagueDto> leagueDtos = new ArrayList<>();
+                            for (int i = 0; i < response.length(); ++i) {
+                                LeagueDto leagueDto = new LeagueDto();
+                                JSONObject leaguesDtosDtoJSON = response.getJSONObject(i);
+
+                                leagueDto.setHotStreak(leaguesDtosDtoJSON.getBoolean("hotStreak"));
+                                leagueDtos.add(leagueDto);
+                            }
+
+                            LeagueResponse leagueResponse = new LeagueResponse(leagueDtos);
+
+                            activity.ponLeagueInfo(leagueResponse);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.e("Error", error.getMessage());
+                        if( error.networkResponse.statusCode == 403)
+                            Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
+    }
+
+
+    public void getMatchListByPuuid(String summonerPuuid, String servidor, InvocadorActivity activity) {
+        getMatchListByPuuid(summonerPuuid,  servidor, 0, 2, activity);
+    }
+
+    public void getMatchListByPuuid(String summonerPuuid, String servidor, int start, int count,InvocadorActivity activity) {
+        //TODO servidor ha cambiado
+        // The AMERICAS routing value serves NA, BR, LAN, LAS, and OCE. The ASIA routing value serves KR and JP. The EUROPE routing value serves EUNE, EUW, TR, and RU.
+        //  Hacer apaño
+        servidor = "europe";
+
+        final String URL = "https://" + servidor + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"+ summonerPuuid +"/ids?start="+ start +"&count=" + count + "&api_key=" + api_key;
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("Volley", response.toString());
+                        try {
+                            ArrayList<String> matchList = new ArrayList<>();
+                            for (int i = 0; i < response.length(); ++i)
+                                matchList.add(response.getString(i));
+
+                            MatchListResponse matchListResponse = new MatchListResponse(matchList);
+                            activity.buscaPartidas(matchListResponse);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.e("Error", error.getMessage());
+                        if( error.networkResponse.statusCode == 403)
+                            Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
+    }
 
 }

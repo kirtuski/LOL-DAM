@@ -16,17 +16,16 @@
         <activity
             android:name=".activities.InvocadorActivity"
             android:label="@string/title_activity_invocador"
-            android:theme="@style/Theme.LOLDAM.NoActionBar"></activity>
+            android:theme="@style/Theme.LOLDAM.NoActionBar" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".activities.ChampionRotationActivity"
-            android:label="ChampionRotationActivity"></activity>
+            android:label="ChampionRotationActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
