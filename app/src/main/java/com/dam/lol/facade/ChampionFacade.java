@@ -43,6 +43,7 @@ public class ChampionFacade {
         //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga
         // los datos que queremos, similar a server y server_url, un array de los campeones ordenados por id vamos
         //Y nos ahorramos tambien el codigo de arriba
+        // TODO constructor crea diccionario que luego usa esta funcion
         while(keys.hasNext()){
             String key = keys.next();
             JSONObject champ = data.getJSONObject(key);

@@ -79,8 +79,8 @@ public class InvocadorActivity extends AppCompatActivity {
                TextView winSolo = findViewById(R.id.wins_solo);
                winSolo.setText("Wins: " + leagueDto.getWins());
 
-               TextView loseSolo = findViewById(R.id.loses_solo);
-               loseSolo.setText("Loses: " + leagueDto.getLosses());
+               TextView losesSolo = findViewById(R.id.loses_solo);
+               losesSolo.setText("Loses: " + leagueDto.getLosses());
 
                TextView winRatio = findViewById(R.id.win_ratio_solo);
                float winRatiof = (float)100*leagueDto.getWins()/(leagueDto.getWins() + leagueDto.getLosses()) ;

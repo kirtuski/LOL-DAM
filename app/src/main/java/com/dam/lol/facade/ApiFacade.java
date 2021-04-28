@@ -18,9 +18,11 @@ import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.ChampionRotationResponse;
 import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.MatchListResponse;
+import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
 import com.dam.lol.model.api.objects.ChampionMasteryDto;
 import com.dam.lol.model.api.objects.LeagueDto;
+import com.dam.lol.model.api.objects.ParticipantDto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -232,31 +234,47 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    //TODO hace entera
     public void getMatchById(String matchId, String servidor, InvocadorActivity activity) {
         //TODO servidor ha cambiado, mirar siguietne función para + info
         servidor = "europe";
         final String URL ="https://" + servidor + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
 
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         Log.d("Volley", response.toString());
                         try {
-                            List<LeagueDto> leagueDtos = new ArrayList<>();
-                            for (int i = 0; i < response.length(); ++i) {
-                                LeagueDto leagueDto = new LeagueDto();
-                                JSONObject leaguesDtosDtoJSON = response.getJSONObject(i);
-
-                                leagueDto.setHotStreak(leaguesDtosDtoJSON.getBoolean("hotStreak"));
-                                leagueDtos.add(leagueDto);
+                            String matchId = response.getJSONObject("metadata").getString("matchId");
+                            double gameCreation = response.getJSONObject("info").getDouble("gameCreation");
+                            double gameDuration = response.getJSONObject("info").getDouble("gameDuration");
+                            int queueId  = response.getJSONObject("info").getInt("queueId");
+                            ArrayList<ParticipantDto> participants = new ArrayList<>();
+                            for( int i = 0 ; i < response.getJSONArray("participants").length() ; i++){
+                                JSONObject oneParticipant = response.getJSONArray("participants").getJSONObject(i);
+                                ParticipantDto participantDto = new ParticipantDto();
+                                participantDto.setSummonerName(oneParticipant.getString("summonerName") );
+                                participantDto.setPuuid(oneParticipant.getString("puuid"));
+                                participantDto.setChampionId(oneParticipant.getInt("championId"));
+                                participantDto.setChampionLevel(oneParticipant.getInt("championLevel"));
+                                participantDto.setTeamPosition(oneParticipant.getString("teamPosition"));
+                                participantDto.setSummoner1Id(oneParticipant.getInt("summonerId1"));
+                                participantDto.setSummoner2Id(oneParticipant.getInt("summonerId2"));
+                                participantDto.setKills(oneParticipant.getInt("kills"));
+                                participantDto.setDeaths(oneParticipant.getInt("deaths"));
+                                participantDto.setAssists(oneParticipant.getInt("assists"));
+                                participantDto.setTotalMinionsKilled(oneParticipant.getInt("totalMinionsKilled"));
+                                participantDto.setLargestKillingSpree(oneParticipant.getInt("largestKillingSpree"));
+                                participantDto.setLargestMultiKill(oneParticipant.getInt("largestMultiKill"));
+                                participantDto.setLongestTimeSpentLiving(oneParticipant.getInt("longestTimeSpentLiving"));
+                                participantDto.setTeamId(oneParticipant.getInt("teamId"));
+                                participantDto.setParticipantId(oneParticipant.getInt("participantId"));
+                                participantDto.setWin(oneParticipant.getBoolean("win"));
+                                participants.add(participantDto);
                             }
 
-                            LeagueResponse leagueResponse = new LeagueResponse(leagueDtos);
-
-                            activity.ponLeagueInfo(leagueResponse);
+                            activity.ponPartidaEnActivity(new MatchResponse(matchId, gameCreation, gameDuration, queueId, participants));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -300,8 +318,7 @@ public class ApiFacade {
                             for (int i = 0; i < response.length(); ++i)
                                 matchList.add(response.getString(i));
 
-                            MatchListResponse matchListResponse = new MatchListResponse(matchList);
-                            activity.buscaPartidas(matchListResponse);
+                            activity.buscaPartidas(new MatchListResponse(matchList));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

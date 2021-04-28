@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onResume();
         initializeFavoriteSummonerList();
         apiFacade = LolApplication.getInstance().getApiFacade();
-
     }
 
     //Metodo para cuando seleccionamos un elemento del selector
@@ -97,21 +96,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo que abre la nueva actividad con los ajustes
     public void AbrirAjustes(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-
-        //TODO podemos usar esto para pasar el objeto invocador
-        //Podemos pasar informacion entre actividades con el intent
-        //En ajustes se ve como obtener la info
-        intent.putExtra("parametro", 2);
-
         startActivityForResult( intent, 1);
     }
 
-    //TODO Leeme: Lo he cambiado para que funcione de la misma forma que busca invocador, si tiene exito el metodo, cambia de actividad, borra despues de leer si estas de acuerdo
     public void openChampionRotation(View view) {
         apiFacade.getChampionsRotation(server_url, this);
     }
 
-    //Para recargar la api facade cuando regresemos de la actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
