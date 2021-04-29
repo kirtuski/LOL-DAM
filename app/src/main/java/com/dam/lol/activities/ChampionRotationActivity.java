@@ -2,11 +2,8 @@ package com.dam.lol.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -14,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.customViews.SquareImageView;
+import com.dam.lol.customviews.SquareImageView;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.ImageFacade;
