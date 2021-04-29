@@ -305,7 +305,7 @@ public class ApiFacade {
         getMatchListByPuuid(summonerPuuid,  servidorV5, 0, 2, activity);
     }
 
-    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count,InvocadorActivity activity) {
+    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count, InvocadorActivity activity) {
         final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"+ summonerPuuid +"/ids?start="+ start +"&count=" + count + "&api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest

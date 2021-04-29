@@ -1,10 +1,15 @@
 package com.dam.lol.activities;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -183,7 +188,7 @@ public class InvocadorActivity extends AppCompatActivity {
     public void buscaPartidas(MatchListResponse matchListResponse){
         //TODO arreglar lo del servidor, explicado en ApiFacade
         for( String matchId : matchListResponse.getMatchList())
-            apiFacade.getMatchById(matchId, summoner.getServer(), this);
+            apiFacade.getMatchById(matchId, summoner.getServerV5(), this);
 
     }
 
@@ -210,7 +215,7 @@ public class InvocadorActivity extends AppCompatActivity {
         // parametro para contar cuantas veces se ha llamado ?
 
         //TODO descomentar para probar
-        //apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServer(),this);
+        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(),this);
 
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());
