@@ -24,6 +24,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 import java.util.Objects;
 
+//TODO hay que revisar bien como tratamos las exepciones
+
 //TODO Lee esto antes de borrarme el implement y que luego tenga que buscar porque no se ejecuta
 //Si se quita ese implement no se puede ver cuando se cambia el selector, o se hace en otra clase o se queda aqui
 //Si se hace en otra clase los metodos que hay que llevarse son onItemSelected y onNothingSelected

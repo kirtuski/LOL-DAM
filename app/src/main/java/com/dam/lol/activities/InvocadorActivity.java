@@ -146,7 +146,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 //Datos de la partida
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
-                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId(), this);
+                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId(), this));
                 //howLongAgo
                 Date diaP = new Date((long) partidaResponse.getGameCreation());
                 Date diaA = new Date();
@@ -208,17 +208,17 @@ public class InvocadorActivity extends AppCompatActivity {
         // Usar layout inflater con layout predefinido para mostrar los datos
         // xml -> tableLayout (al que añadir partidas, lineas) + boton para buscar más partidas (usar la otra llamada con start)
         // parametro para contar cuantas veces se ha llamado ?
+
+        //TODO descomentar para probar
         //apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServer(),this);
 
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());
 
         ImageView summonerIcon = findViewById(R.id.summonerIcon);
-        try {
-            summonerIcon.setImageDrawable(imageFacade.getProfileIconById(summoner.getProfileIconId()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        summonerIcon.setImageDrawable(imageFacade.getProfileIconById(summoner.getProfileIconId()));
+
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
         summonerLevel.setText("Level: " + summoner.getSummonerLevel() );
