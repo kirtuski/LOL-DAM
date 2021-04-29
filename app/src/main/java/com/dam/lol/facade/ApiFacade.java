@@ -269,6 +269,13 @@ public class ApiFacade {
                                 participantDto.setTeamId(oneParticipant.getInt("teamId"));
                                 participantDto.setParticipantId(oneParticipant.getInt("participantId"));
                                 participantDto.setWin(oneParticipant.getBoolean("win"));
+                                participantDto.setItem0(oneParticipant.getInt("item0"));
+                                participantDto.setItem0(oneParticipant.getInt("item1"));
+                                participantDto.setItem0(oneParticipant.getInt("item2"));
+                                participantDto.setItem0(oneParticipant.getInt("item3"));
+                                participantDto.setItem0(oneParticipant.getInt("item4"));
+                                participantDto.setItem0(oneParticipant.getInt("item5"));
+                                participantDto.setItem0(oneParticipant.getInt("item6"));
                                 participants.add(participantDto);
                             }
 

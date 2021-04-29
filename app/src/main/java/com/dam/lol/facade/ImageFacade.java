@@ -22,6 +22,14 @@ public class ImageFacade {
         return Drawable.createFromStream(is, "src name");
     }
 
+    public Drawable getSummonerSpellImageByName(String name) throws IOException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        InputStream is = (InputStream) new URL("http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/" + name + ".png").getContent();
+        return Drawable.createFromStream(is, "src name");
+    }
+
     public Drawable getProfileIconById(int id) throws IOException{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
