@@ -45,6 +45,11 @@ public class DatabaseFacade extends SQLiteOpenHelper {
         return database.insert("FAVORITE_SUMMONERS", null, insertSummonerValues);
     }
 
+    public int deleteSummoner(String summonerName, String server){
+        SQLiteDatabase database = getWritableDatabase();
+        return database.delete("FAVORITE_SUMMONERS", "SUMMONER_NAME = ? AND SERVER = ?", new String[]{summonerName, server});
+    }
+
     public List<SimpleSummoner> findFavoriteSummoners(){
         SQLiteDatabase database = getReadableDatabase();
         String[] valores_recuperar = {"SUMMONER_NAME", "SERVER"};

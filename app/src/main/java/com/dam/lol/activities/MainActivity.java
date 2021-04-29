@@ -43,32 +43,42 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        apiFacade = LolApplication.getInstance().getApiFacade();
 
-        servidorSpinner = findViewById(R.id.servidorSpinner);
-        servidorSpinner.setOnItemSelectedListener(this);
-
-        nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        servidorSpinner.setAdapter(adapter);
-
+        initializeInput();
+        initializeFacades();
+        initializeSpinner();
         initializeFavoriteSummonerList();
-    }
-
-    private void initializeFavoriteSummonerList() {
-        this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
-        List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
-        ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
-        SimpleSummonerAdapter simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorite_summoner_layout, simpleSummoners);
-        favoriteChampionsList.setAdapter(simpleSummonerAdapter);
     }
 
     protected void onResume() {
         super.onResume();
         initializeFavoriteSummonerList();
+        initializeFacades();
+    }
+
+    private void initializeInput() {
+        nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
+    }
+
+    private void initializeFacades() {
         apiFacade = LolApplication.getInstance().getApiFacade();
+        this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
+    }
+
+    private void initializeSpinner() {
+        servidorSpinner = findViewById(R.id.servidorSpinner);
+        servidorSpinner.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        servidorSpinner.setAdapter(adapter);
+    }
+
+    private void initializeFavoriteSummonerList() {
+        List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
+        ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
+        SimpleSummonerAdapter simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorite_summoner_layout, simpleSummoners, this);
+        favoriteChampionsList.setAdapter(simpleSummonerAdapter);
     }
 
     //Metodo para cuando seleccionamos un elemento del selector
@@ -96,13 +106,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo que abre la nueva actividad con los ajustes
     public void AbrirAjustes(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
+
+        //TODO podemos usar esto para pasar el objeto invocador
+        //Podemos pasar informacion entre actividades con el intent
+        //En ajustes se ve como obtener la info
+        intent.putExtra("parametro", 2);
+
         startActivityForResult( intent, 1);
     }
 
+    //TODO Leeme: Lo he cambiado para que funcione de la misma forma que busca invocador, si tiene exito el metodo, cambia de actividad, borra despues de leer si estas de acuerdo
     public void openChampionRotation(View view) {
         apiFacade.getChampionsRotation(server_url, this);
     }
 
+    //Para recargar la api facade cuando regresemos de la actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

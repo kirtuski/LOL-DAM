@@ -1,4 +1,4 @@
-package com.dam.lol.customViews;
+package com.dam.lol.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
