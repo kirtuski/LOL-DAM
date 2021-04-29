@@ -234,10 +234,8 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getMatchById(String matchId, String servidor, InvocadorActivity activity) {
-        //TODO servidor ha cambiado, mirar siguietne función para + info
-        servidor = "europe";
-        final String URL ="https://" + servidor + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
+    public void getMatchById(String matchId, String servidorV5, InvocadorActivity activity) {
+        final String URL ="https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
@@ -295,17 +293,12 @@ public class ApiFacade {
     }
 
 
-    public void getMatchListByPuuid(String summonerPuuid, String servidor, InvocadorActivity activity) {
-        getMatchListByPuuid(summonerPuuid,  servidor, 0, 2, activity);
+    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, InvocadorActivity activity) {
+        getMatchListByPuuid(summonerPuuid,  servidorV5, 0, 2, activity);
     }
 
-    public void getMatchListByPuuid(String summonerPuuid, String servidor, int start, int count,InvocadorActivity activity) {
-        //TODO servidor ha cambiado
-        // The AMERICAS routing value serves NA, BR, LAN, LAS, and OCE. The ASIA routing value serves KR and JP. The EUROPE routing value serves EUNE, EUW, TR, and RU.
-        //  Hacer apaño
-        servidor = "europe";
-
-        final String URL = "https://" + servidor + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"+ summonerPuuid +"/ids?start="+ start +"&count=" + count + "&api_key=" + api_key;
+    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count,InvocadorActivity activity) {
+        final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"+ summonerPuuid +"/ids?start="+ start +"&count=" + count + "&api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
