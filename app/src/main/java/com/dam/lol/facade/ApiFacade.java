@@ -251,16 +251,17 @@ public class ApiFacade {
                             double gameDuration = response.getJSONObject("info").getDouble("gameDuration");
                             int queueId  = response.getJSONObject("info").getInt("queueId");
                             ArrayList<ParticipantDto> participants = new ArrayList<>();
-                            for( int i = 0 ; i < response.getJSONArray("participants").length() ; i++){
-                                JSONObject oneParticipant = response.getJSONArray("participants").getJSONObject(i);
+
+                            for( int i = 0 ; i < response.getJSONObject("info").getJSONArray("participants").length() ; i++){
+                                JSONObject oneParticipant = response.getJSONObject("info").getJSONArray("participants").getJSONObject(i);
                                 ParticipantDto participantDto = new ParticipantDto();
                                 participantDto.setSummonerName(oneParticipant.getString("summonerName") );
                                 participantDto.setPuuid(oneParticipant.getString("puuid"));
                                 participantDto.setChampionId(oneParticipant.getInt("championId"));
-                                participantDto.setChampionLevel(oneParticipant.getInt("championLevel"));
+                                participantDto.setChampionLevel(oneParticipant.getInt("champLevel"));
                                 participantDto.setTeamPosition(oneParticipant.getString("teamPosition"));
-                                participantDto.setSummoner1Id(oneParticipant.getInt("summonerId1"));
-                                participantDto.setSummoner2Id(oneParticipant.getInt("summonerId2"));
+                                participantDto.setSummoner1Id(oneParticipant.getInt("summoner1Id"));
+                                participantDto.setSummoner2Id(oneParticipant.getInt("summoner2Id"));
                                 participantDto.setKills(oneParticipant.getInt("kills"));
                                 participantDto.setDeaths(oneParticipant.getInt("deaths"));
                                 participantDto.setAssists(oneParticipant.getInt("assists"));
