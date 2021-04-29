@@ -112,6 +112,7 @@ public class InvocadorActivity extends AppCompatActivity {
     }
 
     public void ponPartidaEnActivity(MatchResponse partidaResponse){
+        this.getLayoutInflater().createView(this, )
         //TODO usar linealLayout.addView(partida, index)
         // cual debe ser el indice? Existe getNChilds?
         //se debe insertar penultimo para dejar el boton siempre al final

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/matchTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ranked SOLO"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/howLongAgoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hace 30 dias"
+        app:layout_constraintStart_toStartOf="@id/matchTypeText"
+        app:layout_constraintTop_toBottomOf="@id/matchTypeText" />
+
+    <TextView
+        android:id="@+id/isWinText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Victoria"
+        app:layout_constraintStart_toStartOf="@id/matchTypeText"
+        app:layout_constraintTop_toBottomOf="@id/howLongAgoText" />
+
+    <TextView
+        android:id="@+id/matchDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="40min 40s"
+        app:layout_constraintStart_toStartOf="@id/matchTypeText"
+        app:layout_constraintTop_toBottomOf="@id/isWinText" />
+
+    <ImageView
+        android:id="@+id/championImage"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/matchDurationText"
+        app:layout_constraintStart_toEndOf="@id/matchTypeText"
+        app:layout_constraintTop_toTopOf="@id/matchTypeText"
+        app:srcCompat="@drawable/default_champion" />
+
+    <ImageView
+        android:id="@+id/summoner1Image"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        app:layout_constraintStart_toEndOf="@id/championImage"
+        app:layout_constraintTop_toTopOf="@id/championImage"
+        app:srcCompat="@drawable/default_champion" />
+
+    <ImageView
+        android:id="@+id/summoner2Image"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        app:layout_constraintStart_toEndOf="@id/championImage"
+        app:layout_constraintTop_toBottomOf="@id/summoner1Image"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/KDALabel"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="KDA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/championImage" />
+
+    <TextView
+        android:id="@+id/KDAText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10/10/10"
+        app:layout_constraintEnd_toEndOf="@+id/KDALabel"
+        app:layout_constraintStart_toStartOf="@+id/KDALabel"
+        app:layout_constraintTop_toBottomOf="@+id/KDALabel" />
+
+    <TextView
+        android:id="@+id/CSLabel"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="CS"
+        app:layout_constraintEnd_toEndOf="@+id/summoner2Image"
+        app:layout_constraintStart_toStartOf="@id/championImage"
+        app:layout_constraintTop_toTopOf="@id/KDALabel" />
+
+    <TextView
+        android:id="@+id/CSText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="200 (5.0)CS"
+        app:layout_constraintEnd_toEndOf="@+id/CSLabel"
+        app:layout_constraintStart_toStartOf="@+id/CSLabel"
+        app:layout_constraintTop_toBottomOf="@+id/CSLabel" />
+
+    <TextView
+        android:id="@+id/largestKillingSpreeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Racha más larga: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/KDAText" />
+
+    <TextView
+        android:id="@+id/longestKillingSpreeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        app:layout_constraintStart_toEndOf="@id/largestKillingSpreeLabel"
+        app:layout_constraintTop_toTopOf="@id/largestKillingSpreeLabel" />
+
+    <TextView
+        android:id="@+id/largestMultiKillLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Mayor asesinato multiple: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/longestKillingSpreeText" />
+
+    <TextView
+        android:id="@+id/largestMultiKillText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        app:layout_constraintStart_toEndOf="@id/largestMultiKillLabel"
+        app:layout_constraintTop_toTopOf="@id/largestMultiKillLabel" />
+
+    <TextView
+        android:id="@+id/longestTimeSpentLivingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Mayor tiempo sin morir: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/largestMultiKillText" />
+
+    <TextView
+        android:id="@+id/longestTimeSpentLivingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10min15s"
+        app:layout_constraintStart_toEndOf="@id/longestTimeSpentLivingLabel"
+        app:layout_constraintTop_toTopOf="@id/longestTimeSpentLivingLabel" />
+
+    <ImageView
+        android:id="@+id/participant1Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant1Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant6Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant6Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteY="21dp" />
+
+    <ImageView
+        android:id="@+id/participant2Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant2Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant3Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant3Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant4Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant4Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant5Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant5Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant7Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant7Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="40dp" />
+
+    <ImageView
+        android:id="@+id/participant8Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant8Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant9Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant9Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/participant10Image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/default_champion" />
+
+    <TextView
+        android:id="@+id/participant10Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
