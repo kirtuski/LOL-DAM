@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
 
     <TextView
         android:id="@+id/matchTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="2dp"
         android:text="Ranked SOLO"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hace 30 dias"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@id/matchTypeText"
         app:layout_constraintTop_toBottomOf="@id/matchTypeText" />
 
@@ -27,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Victoria"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@id/matchTypeText"
         app:layout_constraintTop_toBottomOf="@id/howLongAgoText" />
 
@@ -35,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="40min 40s"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@id/matchTypeText"
         app:layout_constraintTop_toBottomOf="@id/isWinText" />
 
@@ -42,7 +46,7 @@
         android:id="@+id/championImage"
         android:layout_width="74dp"
         android:layout_height="74dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="5dp"
         app:layout_constraintBottom_toBottomOf="@id/matchDurationText"
         app:layout_constraintStart_toEndOf="@id/matchTypeText"
         app:layout_constraintTop_toTopOf="@id/matchTypeText"
@@ -108,6 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Racha más larga: "
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/KDAText" />
 
@@ -116,6 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10"
+        android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@id/largestKillingSpreeLabel"
         app:layout_constraintTop_toTopOf="@id/largestKillingSpreeLabel" />
 
@@ -125,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Mayor asesinato multiple: "
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/longestKillingSpreeText" />
 
@@ -133,6 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="6"
+        android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@id/largestMultiKillLabel"
         app:layout_constraintTop_toTopOf="@id/largestMultiKillLabel" />
 
@@ -142,14 +150,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Mayor tiempo sin morir: "
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/largestMultiKillText" />
+        app:layout_constraintTop_toBottomOf="@id/largestMultiKillLabel" />
 
     <TextView
         android:id="@+id/longestTimeSpentLivingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10min15s"
+        android:text="10m15s"
+        android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@id/longestTimeSpentLivingLabel"
         app:layout_constraintTop_toTopOf="@id/longestTimeSpentLivingLabel" />
 
@@ -157,123 +167,171 @@
         android:id="@+id/participant1Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toStartOf="@id/participant1Name"
+        app:layout_constraintStart_toEndOf="@+id/summoner1Image"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toStartOf="@id/participant6Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant1Image" />
 
     <ImageView
         android:id="@+id/participant6Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        app:layout_constraintEnd_toStartOf="@id/participant6Name"
+        app:layout_constraintBottom_toBottomOf="@id/participant1Image" />
 
     <TextView
         android:id="@+id/participant6Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteY="21dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/participant1Image" />
 
     <ImageView
         android:id="@+id/participant2Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintTop_toBottomOf="@id/participant1Image"
+        app:layout_constraintStart_toStartOf="@id/participant1Image" />
 
     <TextView
         android:id="@+id/participant2Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant2Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant2Image" />
 
     <ImageView
         android:id="@+id/participant3Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintTop_toBottomOf="@id/participant2Image"
+        app:layout_constraintStart_toStartOf="@id/participant1Image" />
 
     <TextView
         android:id="@+id/participant3Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant1Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant3Image"/>
 
     <ImageView
         android:id="@+id/participant4Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant1Image"
+        app:layout_constraintTop_toBottomOf="@id/participant3Image" />
 
     <TextView
         android:id="@+id/participant4Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant1Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant4Image" />
 
     <ImageView
         android:id="@+id/participant5Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant1Image"
+        app:layout_constraintTop_toBottomOf="@id/participant4Image" />
 
     <TextView
         android:id="@+id/participant5Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant1Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant5Image" />
 
     <ImageView
         android:id="@+id/participant7Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant6Image"
+        app:layout_constraintTop_toBottomOf="@id/participant6Image" />
 
     <TextView
         android:id="@+id/participant7Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="40dp" />
+        app:layout_constraintStart_toEndOf="@id/participant6Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant7Image" />
 
     <ImageView
         android:id="@+id/participant8Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant6Image"
+        app:layout_constraintTop_toBottomOf="@id/participant7Image" />
 
     <TextView
         android:id="@+id/participant8Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant6Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant8Image" />
 
     <ImageView
         android:id="@+id/participant9Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        app:srcCompat="@drawable/default_champion"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant6Image"
+        app:layout_constraintTop_toBottomOf="@id/participant8Image" />
 
     <TextView
         android:id="@+id/participant9Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant6Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant9Image"  />
 
     <ImageView
         android:id="@+id/participant10Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion" />
+        android:layout_marginTop="3dp"
+        app:srcCompat="@drawable/default_champion"
+        app:layout_constraintStart_toStartOf="@id/participant6Image"
+        app:layout_constraintTop_toBottomOf="@id/participant9Image" />
 
     <TextView
         android:id="@+id/participant10Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@id/participant6Image"
+        app:layout_constraintBottom_toBottomOf="@id/participant10Image"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
