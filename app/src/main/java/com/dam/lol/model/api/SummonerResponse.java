@@ -9,6 +9,7 @@ public class SummonerResponse implements Serializable {
     private String server;
     private int profileIconId;
     private int summonerLevel;
+    private String serverV5;
 
     public SummonerResponse(InvocadorResponseBuilder invocadorResponseBuilder) {
         this.id = invocadorResponseBuilder.id;
@@ -17,6 +18,7 @@ public class SummonerResponse implements Serializable {
         this.profileIconId = invocadorResponseBuilder.profileIconId;
         this.summonerLevel = invocadorResponseBuilder.summonerLevel;
         this.server = invocadorResponseBuilder.server;
+        this.serverV5 = getServerV5(this.server);
     }
 
     public String getId() {
@@ -39,8 +41,23 @@ public class SummonerResponse implements Serializable {
         return summonerLevel;
     }
 
-    public String getServer(){
-        return server;
+    public String getServer(){ return server; }
+
+    public String getServerV5(String server)
+    {
+        if(server == "na1" || server == "br1" || server == "la1" || server == "la2" || server == "oc1")
+        {
+            return "americas";
+        }
+        else if (server == "jp1" || server == "kr")
+        {
+            return "asia";
+        }
+        else
+        {
+            return "europe";
+        }
+
     }
 
 

@@ -20,6 +20,7 @@ import com.dam.lol.model.api.MatchListResponse;
 import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
 import com.dam.lol.model.api.objects.LeagueDto;
+import com.dam.lol.model.api.objects.ParticipantDto;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 //TODO cambiar el color de arriba, la barra, por el que más hay en el splash art
@@ -116,6 +118,66 @@ public class InvocadorActivity extends AppCompatActivity {
         //TODO usar linealLayout.addView(partida, index)
         // cual debe ser el indice? Existe getNChilds?
         //se debe insertar penultimo para dejar el boton siempre al final
+        for(ParticipantDto participant : partidaResponse.getParticipants()){
+            if(participant.getPuuid() == summoner.getPuuid()) {
+                //Imagenes
+                //Champion
+                ImageView imageChamp = findViewById(R.id.championImage);
+                imageChamp.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId(), this)));
+                //Summoner1
+                ImageView imageSummoner1 = findViewById(R.id.summoner1Image);
+                imageSummoner1.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id(), this)));
+                //Summoner2
+                ImageView imageSummoner2 = findViewById(R.id.summoner1Image);
+                imageSummoner2.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id(), this)));
+
+                //Datos del jugador
+                //kda
+                String kdaFormat = participant.getKills() + "/" + participant.getDeaths() + "/" + participant.getAssists();
+                TextView kda = findViewById(R.id.KDAText);
+                kda.setText(kdaFormat);
+                //CS
+                double cM = participant.getTotalMinionsKilled()/(partidaResponse.getGameDuration()/60000);
+                double csMin = Math.round(cM*100.0)/100.0; // Para coger solo dos decimales
+                String csFormat = participant.getTotalMinionsKilled() + "(" + csMin + ")CS";
+                TextView cs = findViewById(R.id.CSText);
+                cs.setText(csFormat);
+
+                //Datos de la partida
+                //matchType
+                TextView matchType = findViewById(R.id.matchTypeText);
+                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId(), this);
+                //howLongAgo
+                Date diaP = new Date((long) partidaResponse.getGameCreation());
+                Date diaA = new Date();
+                int dias = (int) ((diaA.getTime()-diaP.getTime())/86400000);
+                String date = "Hace " + dias + "dias";
+                TextView howLongAgoText = findViewById(R.id.howLongAgoText);
+                howLongAgoText.setText(date);
+                //isWin
+                TextView isWin = findViewById(R.id.isWinText);
+                if(participant.isWin()) {
+                    isWin.setText("Victoria");
+                }
+                else{
+                    isWin.setText("Derrota");
+                }
+                //matchDuration
+                double duration = Math.round((partidaResponse.getGameDuration()/60000)*100.0)/100.0;
+                double seg = duration % 1;
+                double min = duration - seg;
+                String durationFormat = min + "min " + seg + "s";
+                TextView matchDurationText = findViewById(R.id.matchDurationText);
+                matchDurationText.setText(durationFormat);
+            }
+            int rIdImagen = this.getResources().getIdentifier("participant"+participant.getParticipantId()+"Imagen", "string", this.getPackageName());
+            ImageView imageChampMin = findViewById(rIdImagen);
+            imageChampMin.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId(), this)));
+
+            int rIdText = this.getResources().getIdentifier("participant"+participant.getParticipantId()+"Name", "string", this.getPackageName());
+            TextView participantNameMin = findViewById(rIdText);
+            participantNameMin.setText(participant.getSummonerName());
+        }
     }
 
     public void buscaPartidas(MatchListResponse matchListResponse){
