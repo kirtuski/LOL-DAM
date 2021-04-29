@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
@@ -122,9 +124,13 @@ public class InvocadorActivity extends AppCompatActivity {
         //this.getLayoutInflater().createView(this, );
         //TODO usar linealLayout.addView(partida, index)
         // cual debe ser el indice? Existe getNChilds?
+        LinearLayoutCompat listaPartidas = findViewById(R.id.listaPartidas);
+        ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
+        listaPartidas.addView(oneMatch);
+
         //se debe insertar penultimo para dejar el boton siempre al final
         for(ParticipantDto participant : partidaResponse.getParticipants()){
-            if(participant.getPuuid() == summoner.getPuuid()) {
+            if(participant.getPuuid().equals(summoner.getPuuid())) {
                 //Imagenes
                 //Champion
                 ImageView imageChamp = findViewById(R.id.championImage);
@@ -133,7 +139,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 ImageView imageSummoner1 = findViewById(R.id.summoner1Image);
                 imageSummoner1.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id(), this)));
                 //Summoner2
-                ImageView imageSummoner2 = findViewById(R.id.summoner1Image);
+                ImageView imageSummoner2 = findViewById(R.id.summoner2Image);
                 imageSummoner2.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id(), this)));
 
                 //Datos del jugador
@@ -175,13 +181,13 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView matchDurationText = findViewById(R.id.matchDurationText);
                 matchDurationText.setText(durationFormat);
             }
-            int rIdImagen = this.getResources().getIdentifier("participant"+participant.getParticipantId()+"Imagen", "string", this.getPackageName());
+            int rIdImagen = this.getResources().getIdentifier("participant"+ participant.getParticipantId() +"Image", "id", this.getPackageName());
             ImageView imageChampMin = findViewById(rIdImagen);
             imageChampMin.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId(), this)));
-
-            int rIdText = this.getResources().getIdentifier("participant"+participant.getParticipantId()+"Name", "string", this.getPackageName());
+            int rIdText = this.getResources().getIdentifier("participant"+participant.getParticipantId()+"Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);
             participantNameMin.setText(participant.getSummonerName());
+
         }
     }
 
@@ -248,6 +254,7 @@ public class InvocadorActivity extends AppCompatActivity {
             }
         });
 
+        //TODO si el invocador esta en fav o se ha pulsado el boton se podría poner la estrella en dorada
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
