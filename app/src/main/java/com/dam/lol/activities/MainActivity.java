@@ -26,10 +26,6 @@ import java.util.Objects;
 
 //TODO hay que revisar bien como tratamos las exepciones
 
-//TODO Lee esto antes de borrarme el implement y que luego tenga que buscar porque no se ejecuta
-//Si se quita ese implement no se puede ver cuando se cambia el selector, o se hace en otra clase o se queda aqui
-//Si se hace en otra clase los metodos que hay que llevarse son onItemSelected y onNothingSelected
-//Si se quita no funciona la app
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     //Elementos del layout
@@ -108,16 +104,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo que abre la nueva actividad con los ajustes
     public void AbrirAjustes(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-
-        //TODO podemos usar esto para pasar el objeto invocador
-        //Podemos pasar informacion entre actividades con el intent
-        //En ajustes se ve como obtener la info
-        intent.putExtra("parametro", 2);
-
         startActivityForResult( intent, 1);
     }
 
-    //TODO Leeme: Lo he cambiado para que funcione de la misma forma que busca invocador, si tiene exito el metodo, cambia de actividad, borra despues de leer si estas de acuerdo
     public void openChampionRotation(View view) {
         apiFacade.getChampionsRotation(server_url, this);
     }
