@@ -164,7 +164,15 @@ public class InvocadorActivity extends AppCompatActivity {
                 Date diaP = new Date((long) partidaResponse.getGameCreation());
                 Date diaA = new Date();
                 int dias = (int) ((diaA.getTime()-diaP.getTime())/86400000);
-                String date = "Hace " + dias + "dias";
+                String date="";
+                if (dias != 0) {
+                    date = "Hace " + dias + " dias";
+                }
+                else{
+                    long diff = (diaA.getTime()-diaP.getTime());
+                    long horas = diff / (60*60*1000);
+                    date = "Hace " + horas + " h";
+                }
                 TextView howLongAgoText = findViewById(R.id.howLongAgoText);
                 howLongAgoText.setText(date);
                 //isWin
@@ -176,9 +184,9 @@ public class InvocadorActivity extends AppCompatActivity {
                     isWin.setText("Derrota");
                 }
                 //matchDuration
-                double duration = Math.round((partidaResponse.getGameDuration()/60000)*100.0)/100.0;
-                double seg = duration % 1;
-                double min = duration - seg;
+                double duration = partidaResponse.getGameDuration();
+                long min = ((long)duration / 1000)  / 60;
+                int seg = (int)((duration / 1000) % 60);
                 String durationFormat = min + "min " + seg + "s";
                 TextView matchDurationText = findViewById(R.id.matchDurationText);
                 matchDurationText.setText(durationFormat);
