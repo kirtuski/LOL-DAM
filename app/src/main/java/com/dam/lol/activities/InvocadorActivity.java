@@ -32,7 +32,9 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -45,9 +47,11 @@ public class InvocadorActivity extends AppCompatActivity {
     private ImageFacade imageFacade;
     private ChampionFacade championFacade;
     private DatabaseFacade databaseFacade;
+
     private int matchNumber;
-    private final int COUNT = 4;
+    private final int COUNT = 5;
     private LinearLayoutCompat listaPartidas;
+    private ArrayList<String> matchListOnView;
 
     private void initializeFacades() {
         this.apiFacade = LolApplication.getInstance().getApiFacade();
@@ -120,6 +124,20 @@ public class InvocadorActivity extends AppCompatActivity {
 
     }
 
+    //TODO no ordena
+    private int getIndicePartida(String matchId){
+        int index = 0;
+        for( int i = 0; i < matchListOnView.size(); i++){
+            if( matchId.compareTo(matchListOnView.get(i)) > 0){
+                index = i;
+            }
+        }
+        matchListOnView.add(matchId);
+        Collections.sort(matchListOnView, Collections.reverseOrder());
+        return index;
+    }
+
+
     public void ponPartidaEnActivity(MatchResponse partidaResponse){
         //TODO usar linealLayout.addView(partida, index)
         // getChildCount()
@@ -129,7 +147,6 @@ public class InvocadorActivity extends AppCompatActivity {
         listaPartidas.addView(oneMatch,0);
         Log.d("Numero de child", String.valueOf(listaPartidas.getChildCount()));
 
-        //se debe insertar penultimo para dejar el boton siempre al final
         for(ParticipantDto participant : partidaResponse.getParticipants()){
             if(participant.getPuuid().equals(summoner.getPuuid())) {
                 //Imagenes
@@ -215,11 +232,15 @@ public class InvocadorActivity extends AppCompatActivity {
             participantNameMin.setText(participant.getSummonerName());
         }
 
+        int index = getIndicePartida(partidaResponse.getMatchId());
+        View tempView = listaPartidas.getChildAt(0);
+        listaPartidas.removeViewAt(0);
+        listaPartidas.addView(tempView,index);
+
     }
 
     public void buscaPartidas(MatchListResponse matchListResponse){
-        //TODO arreglar lo del servidor, explicado en ApiFacade
-        Collections.reverse(matchListResponse.getMatchList());
+        this.matchListOnView = new ArrayList<>();
         for( String matchId : matchListResponse.getMatchList())
             apiFacade.getMatchById(matchId, summoner.getServerV5(), this);
     }
@@ -227,10 +248,8 @@ public class InvocadorActivity extends AppCompatActivity {
     public void cargaAntiguas(View view){
         while (listaPartidas.getChildCount() != 1)
             listaPartidas.removeViewAt(0);
-
-        Log.d("partidas count", String.valueOf(matchNumber));
         matchNumber += COUNT;
-        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(), matchNumber, COUNT, this );
+        buscaListaPartidas();
 
     }
 
@@ -241,7 +260,10 @@ public class InvocadorActivity extends AppCompatActivity {
         matchNumber -= COUNT;
         if (matchNumber < 0)
                 matchNumber = 0;
-        Log.d("partidas count", String.valueOf(matchNumber));
+        buscaListaPartidas();
+    }
+
+    private void buscaListaPartidas(){
         apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(), matchNumber, COUNT, this );
     }
 
@@ -269,7 +291,7 @@ public class InvocadorActivity extends AppCompatActivity {
         // parametro para contar cuantas veces se ha llamado ?
 
         //TODO descomentar para probar
-        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(),0, COUNT, this);
+        buscaListaPartidas();
         matchNumber = COUNT;
 
         TextView summonerName = findViewById(R.id.summonerName);
