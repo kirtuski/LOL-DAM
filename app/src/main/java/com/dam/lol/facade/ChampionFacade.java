@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.dam.lol.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -97,7 +98,7 @@ public class ChampionFacade {
         return name;
     }
 
-    public String getQueueNameById(int id, Activity activity) {
+    public String getQueueNameById(int id, Activity activity){
         //TODO Este codigo obtiene el json como string, a lo mejor se puede encapsular como función?
         String jsonString;
         try {
@@ -115,26 +116,17 @@ public class ChampionFacade {
 
         String name = "";
         try {
-            JSONObject json = new JSONObject(jsonString);
-            Log.d("json", json.toString());
-            Log.d("json", json.getJSONObject("data").toString());
-            JSONObject data = json.getJSONObject("data");
-            Iterator<String> keys = data.keys();
-            //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga
-            // los datos que queremos, similar a server y server_url, un array de los campeones ordenados por id vamos
-            //Y nos ahorramos tambien el codigo de arriba
-            // TODO constructor crea diccionario que luego usa esta funcion
-            while (keys.hasNext()) {
-                String key = keys.next();
-                JSONObject champ = data.getJSONObject(key);
-                if (champ.getInt("key") == id)
-                    name = key;
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getInt("queueId") == id) {
+                    name = jsonObject.getString("description");
+                }
             }
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return name;
     }
 }

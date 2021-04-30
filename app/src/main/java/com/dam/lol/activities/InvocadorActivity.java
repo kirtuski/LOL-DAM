@@ -156,6 +156,22 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView cs = findViewById(R.id.CSText);
                 cs.setText(csFormat);
 
+                //LargestKillingSpree
+                int lks = participant.getLargestKillingSpree();
+                TextView largestKillingSpreeText = findViewById(R.id.largestKillingSpreeText);
+                largestKillingSpreeText.setText(String.valueOf(lks));
+                //largestMultiKill
+                int lms = participant.getLargestMultiKill();
+                TextView largestMultiKillText = findViewById(R.id.largestMultiKillText);
+                largestMultiKillText.setText(String.valueOf(lms));
+                //longestTimeSpentLiving
+                double ltsl = participant.getLongestTimeSpentLiving();
+                long minu = ((long)ltsl /60);
+                int segu = (int)(ltsl - (minu*60));
+                String format = minu +"m" +segu+ "s";
+                TextView longestTimeSpentLivingText = findViewById(R.id.longestTimeSpentLivingText);
+                longestTimeSpentLivingText.setText(format);
+
                 //Datos de la partida
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
