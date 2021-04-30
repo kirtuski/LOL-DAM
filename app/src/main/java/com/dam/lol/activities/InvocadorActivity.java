@@ -49,7 +49,7 @@ public class InvocadorActivity extends AppCompatActivity {
     private DatabaseFacade databaseFacade;
 
     private int matchNumber;
-    private final int COUNT = 5;
+    private final int COUNT = 5; //Numero de partidas que se muestran
     private LinearLayoutCompat listaPartidas;
     private ArrayList<String> matchListOnView;
 
@@ -133,9 +133,7 @@ public class InvocadorActivity extends AppCompatActivity {
     public void ponPartidaEnActivity(MatchResponse partidaResponse){
 
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
-        Log.d("Numero de child", String.valueOf(listaPartidas.getChildCount()));
         listaPartidas.addView(oneMatch,0);
-        Log.d("Numero de child", String.valueOf(listaPartidas.getChildCount()));
 
         for(ParticipantDto participant : partidaResponse.getParticipants()){
             if(participant.getPuuid().equals(summoner.getPuuid())) {
@@ -226,7 +224,6 @@ public class InvocadorActivity extends AppCompatActivity {
         View tempView = listaPartidas.getChildAt(0);
         listaPartidas.removeViewAt(0);
         listaPartidas.addView(tempView,index);
-
     }
 
     public void buscaPartidas(MatchListResponse matchListResponse){
@@ -240,13 +237,11 @@ public class InvocadorActivity extends AppCompatActivity {
             listaPartidas.removeViewAt(0);
         matchNumber += COUNT;
         buscaListaPartidas();
-
     }
 
     public void cargaNuevas(View view){
         while (listaPartidas.getChildCount() != 1)
             listaPartidas.removeViewAt(0);
-
         matchNumber -= COUNT;
         if (matchNumber < 0)
                 matchNumber = 0;
@@ -261,7 +256,6 @@ public class InvocadorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invocador);
-        //TODO hace referencia a la barra de arriba? Util si queremos botones
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -272,23 +266,12 @@ public class InvocadorActivity extends AppCompatActivity {
         apiFacade.getChampionsMastery(summoner.getId(), summoner.getServer(), this);
         apiFacade.getSummonerLeague(summoner.getId(), summoner.getServer(), this);
 
-        //TODO organizar el proceso de mostrar partidas
-        // Mostrar 5 partidas( parametro por defecto), vista resumen, si pulsar sobre una, activity con información expandida?
-        // Aporta algo nuevo al proyecto? No -> No mostrar info expandida Si -> ya sabes
-        // Boton para mostrar más partidas al final de la lista
-        // Usar layout inflater con layout predefinido para mostrar los datos
-        // xml -> tableLayout (al que añadir partidas, lineas) + boton para buscar más partidas (usar la otra llamada con start)
-        // parametro para contar cuantas veces se ha llamado ?
-
-        //TODO descomentar para probar
         buscaListaPartidas();
-        matchNumber = COUNT;
 
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());
 
         ImageView summonerIcon = findViewById(R.id.summonerIcon);
-
         summonerIcon.setImageDrawable(imageFacade.getProfileIconById(summoner.getProfileIconId()));
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
@@ -315,6 +298,7 @@ public class InvocadorActivity extends AppCompatActivity {
         });
 
         //TODO si el invocador esta en fav o se ha pulsado el boton se podría poner la estrella en dorada
+        // Si pulsas otra vez se quita de fav?
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
