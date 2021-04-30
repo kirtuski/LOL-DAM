@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/matchTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginLeft="2dp"
-        android:text="Ranked SOLO"
+        android:text="SOLO RANKED "
         android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/summoner1Image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,10 +22,12 @@
         android:id="@+id/howLongAgoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hace 30 dias"
+        android:text="Hace 30 dias"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/matchTypeText"
-        app:layout_constraintTop_toBottomOf="@id/matchTypeText" />
+        app:layout_constraintBottom_toTopOf="@id/isWinText"
+        app:layout_constraintEnd_toStartOf="@+id/championImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/championImage" />
 
     <TextView
         android:id="@+id/isWinText"
@@ -30,7 +35,9 @@
         android:layout_height="wrap_content"
         android:text="Victoria"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/matchTypeText"
+        app:layout_constraintBottom_toTopOf="@id/matchDurationText"
+        app:layout_constraintEnd_toStartOf="@+id/championImage"
+        app:layout_constraintStart_toStartOf="@id/howLongAgoText"
         app:layout_constraintTop_toBottomOf="@id/howLongAgoText" />
 
     <TextView
@@ -39,31 +46,33 @@
         android:layout_height="wrap_content"
         android:text="40min 40s"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/matchTypeText"
+        app:layout_constraintBottom_toBottomOf="@+id/championImage"
+        app:layout_constraintEnd_toStartOf="@+id/championImage"
+        app:layout_constraintStart_toStartOf="@id/howLongAgoText"
         app:layout_constraintTop_toBottomOf="@id/isWinText" />
 
     <ImageView
         android:id="@+id/championImage"
-        android:layout_width="74dp"
-        android:layout_height="74dp"
-        android:layout_marginLeft="5dp"
-        app:layout_constraintBottom_toBottomOf="@id/matchDurationText"
-        app:layout_constraintStart_toEndOf="@id/matchTypeText"
-        app:layout_constraintTop_toTopOf="@id/matchTypeText"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchTypeText"
         app:srcCompat="@drawable/default_champion" />
 
     <ImageView
         android:id="@+id/summoner1Image"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintStart_toEndOf="@id/championImage"
         app:layout_constraintTop_toTopOf="@id/championImage"
         app:srcCompat="@drawable/default_champion" />
 
     <ImageView
         android:id="@+id/summoner2Image"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintStart_toEndOf="@id/championImage"
         app:layout_constraintTop_toBottomOf="@id/summoner1Image"
         app:srcCompat="@drawable/default_champion" />
@@ -75,6 +84,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="KDA"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/championImage" />
 
@@ -83,6 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10/10/10"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/KDALabel"
         app:layout_constraintStart_toStartOf="@+id/KDALabel"
         app:layout_constraintTop_toBottomOf="@+id/KDALabel" />
@@ -93,6 +104,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="CS"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/summoner2Image"
         app:layout_constraintStart_toStartOf="@id/championImage"
         app:layout_constraintTop_toTopOf="@id/KDALabel" />
@@ -102,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="200 (5.0)CS"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/CSLabel"
         app:layout_constraintStart_toStartOf="@+id/CSLabel"
         app:layout_constraintTop_toBottomOf="@+id/CSLabel" />
@@ -110,6 +123,7 @@
         android:id="@+id/largestKillingSpreeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="8dp"
         android:text="Racha más larga: "
         android:textSize="13sp"
@@ -117,7 +131,7 @@
         app:layout_constraintTop_toBottomOf="@id/KDAText" />
 
     <TextView
-        android:id="@+id/longestKillingSpreeText"
+        android:id="@+id/largestKillingSpreeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10"
@@ -132,8 +146,8 @@
         android:layout_marginTop="2dp"
         android:text="Mayor asesinato multiple: "
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/longestKillingSpreeText" />
+        app:layout_constraintStart_toStartOf="@id/largestKillingSpreeLabel"
+        app:layout_constraintTop_toBottomOf="@id/largestKillingSpreeText" />
 
     <TextView
         android:id="@+id/largestMultiKillText"
@@ -141,8 +155,8 @@
         android:layout_height="wrap_content"
         android:text="6"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@id/largestMultiKillLabel"
-        app:layout_constraintTop_toTopOf="@id/largestMultiKillLabel" />
+        app:layout_constraintBottom_toBottomOf="@+id/largestMultiKillLabel"
+        app:layout_constraintStart_toEndOf="@id/largestMultiKillLabel" />
 
     <TextView
         android:id="@+id/longestTimeSpentLivingLabel"
@@ -151,7 +165,7 @@
         android:layout_marginTop="2dp"
         android:text="Mayor tiempo sin morir: "
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/largestKillingSpreeLabel"
         app:layout_constraintTop_toBottomOf="@id/largestMultiKillLabel" />
 
     <TextView
@@ -159,16 +173,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10m15s"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@id/longestTimeSpentLivingLabel"
-        app:layout_constraintTop_toTopOf="@id/longestTimeSpentLivingLabel" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/longestTimeSpentLivingLabel"
+        app:layout_constraintStart_toEndOf="@id/longestTimeSpentLivingLabel" />
 
     <ImageView
         android:id="@+id/participant1Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintEnd_toStartOf="@id/participant1Name"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="165dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/summoner1Image"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/default_champion" />
@@ -178,160 +193,170 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@id/participant6Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant1Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant1Image"
+        app:layout_constraintStart_toEndOf="@id/participant1Image" />
 
     <ImageView
         android:id="@+id/participant6Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
-        app:layout_constraintEnd_toStartOf="@id/participant6Name"
-        app:layout_constraintBottom_toBottomOf="@id/participant1Image" />
+        android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toBottomOf="@id/participant1Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant6Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/participant1Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant1Image"
+        app:layout_constraintStart_toEndOf="@id/participant6Image" />
 
     <ImageView
         android:id="@+id/participant2Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant1Image"
         app:layout_constraintTop_toBottomOf="@id/participant1Image"
-        app:layout_constraintStart_toStartOf="@id/participant1Image" />
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant2Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant2Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant2Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant2Image"
+        app:layout_constraintStart_toEndOf="@id/participant2Image" />
 
     <ImageView
         android:id="@+id/participant3Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/participant1Image"
         app:layout_constraintTop_toBottomOf="@id/participant2Image"
-        app:layout_constraintStart_toStartOf="@id/participant1Image" />
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant3Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant1Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant3Image"/>
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant3Image"
+        app:layout_constraintStart_toEndOf="@id/participant1Image" />
 
     <ImageView
         android:id="@+id/participant4Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant1Image"
-        app:layout_constraintTop_toBottomOf="@id/participant3Image" />
+        app:layout_constraintTop_toBottomOf="@id/participant3Image"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant4Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant1Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant4Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant4Image"
+        app:layout_constraintStart_toEndOf="@id/participant1Image" />
 
     <ImageView
         android:id="@+id/participant5Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant1Image"
-        app:layout_constraintTop_toBottomOf="@id/participant4Image" />
+        app:layout_constraintTop_toBottomOf="@id/participant4Image"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant5Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant1Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant5Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant5Image"
+        app:layout_constraintStart_toEndOf="@id/participant1Image" />
 
     <ImageView
         android:id="@+id/participant7Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant6Image" />
+        app:layout_constraintTop_toBottomOf="@id/participant6Image"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant7Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant6Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant7Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant7Image"
+        app:layout_constraintStart_toEndOf="@id/participant6Image" />
 
     <ImageView
         android:id="@+id/participant8Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant7Image" />
+        app:layout_constraintTop_toBottomOf="@id/participant7Image"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant8Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant6Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant8Image" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant8Image"
+        app:layout_constraintStart_toEndOf="@id/participant6Image" />
 
     <ImageView
         android:id="@+id/participant9Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/default_champion"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant8Image" />
+        app:layout_constraintTop_toBottomOf="@id/participant8Image"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant9Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant6Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant9Image"  />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant9Image"
+        app:layout_constraintStart_toEndOf="@id/participant6Image" />
 
     <ImageView
         android:id="@+id/participant10Image"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
-        app:srcCompat="@drawable/default_champion"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant9Image" />
+        app:layout_constraintTop_toBottomOf="@id/participant9Image"
+        app:srcCompat="@drawable/default_champion" />
 
     <TextView
         android:id="@+id/participant10Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@id/participant6Image"
-        app:layout_constraintBottom_toBottomOf="@id/participant10Image"  />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/participant10Image"
+        app:layout_constraintStart_toEndOf="@id/participant6Image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
