@@ -124,23 +124,13 @@ public class InvocadorActivity extends AppCompatActivity {
 
     }
 
-    //TODO no ordena
     private int getIndicePartida(String matchId){
-        int index = 0;
-        for( int i = 0; i < matchListOnView.size(); i++){
-            if( matchId.compareTo(matchListOnView.get(i)) > 0){
-                index = i;
-            }
-        }
         matchListOnView.add(matchId);
         Collections.sort(matchListOnView, Collections.reverseOrder());
-        return index;
+        return matchListOnView.indexOf(matchId);
     }
 
-
     public void ponPartidaEnActivity(MatchResponse partidaResponse){
-        //TODO usar linealLayout.addView(partida, index)
-        // getChildCount()
 
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
         Log.d("Numero de child", String.valueOf(listaPartidas.getChildCount()));
