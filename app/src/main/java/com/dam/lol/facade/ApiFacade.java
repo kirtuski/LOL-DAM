@@ -279,7 +279,6 @@ public class ApiFacade {
                                 participantDto.setItem0(oneParticipant.getInt("item6"));
                                 participants.add(participantDto);
                             }
-
                             activity.ponPartidaEnActivity(new MatchResponse(matchId, gameCreation, gameDuration, queueId, participants));
 
                         } catch (JSONException e) {

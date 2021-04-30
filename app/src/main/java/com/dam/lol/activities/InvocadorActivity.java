@@ -1,15 +1,11 @@
 package com.dam.lol.activities;
 
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +45,9 @@ public class InvocadorActivity extends AppCompatActivity {
     private ImageFacade imageFacade;
     private ChampionFacade championFacade;
     private DatabaseFacade databaseFacade;
+    private int matchNumber;
+    private final int COUNT = 4;
+    private LinearLayoutCompat listaPartidas;
 
     private void initializeFacades() {
         this.apiFacade = LolApplication.getInstance().getApiFacade();
@@ -122,12 +121,13 @@ public class InvocadorActivity extends AppCompatActivity {
     }
 
     public void ponPartidaEnActivity(MatchResponse partidaResponse){
-        //this.getLayoutInflater().createView(this, );
         //TODO usar linealLayout.addView(partida, index)
-        // cual debe ser el indice? Existe getNChilds?
-        LinearLayoutCompat listaPartidas = findViewById(R.id.listaPartidas);
+        // getChildCount()
+
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
+        Log.d("Numero de child", String.valueOf(listaPartidas.getChildCount()));
         listaPartidas.addView(oneMatch,0);
+        Log.d("Numero de child", String.valueOf(listaPartidas.getChildCount()));
 
         //se debe insertar penultimo para dejar el boton siempre al final
         for(ParticipantDto participant : partidaResponse.getParticipants()){
@@ -197,8 +197,8 @@ public class InvocadorActivity extends AppCompatActivity {
             int rIdText = this.getResources().getIdentifier("participant"+participant.getParticipantId()+"Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);
             participantNameMin.setText(participant.getSummonerName());
-
         }
+
     }
 
     public void buscaPartidas(MatchListResponse matchListResponse){
@@ -206,6 +206,27 @@ public class InvocadorActivity extends AppCompatActivity {
         Collections.reverse(matchListResponse.getMatchList());
         for( String matchId : matchListResponse.getMatchList())
             apiFacade.getMatchById(matchId, summoner.getServerV5(), this);
+    }
+
+    public void cargaAntiguas(View view){
+        while (listaPartidas.getChildCount() != 1)
+            listaPartidas.removeViewAt(0);
+
+        Log.d("partidas count", String.valueOf(matchNumber));
+        matchNumber += COUNT;
+        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(), matchNumber, COUNT, this );
+
+    }
+
+    public void cargaNuevas(View view){
+        while (listaPartidas.getChildCount() != 1)
+            listaPartidas.removeViewAt(0);
+
+        matchNumber -= COUNT;
+        if (matchNumber < 0)
+                matchNumber = 0;
+        Log.d("partidas count", String.valueOf(matchNumber));
+        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(), matchNumber, COUNT, this );
     }
 
     @Override
@@ -216,9 +237,10 @@ public class InvocadorActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        listaPartidas = findViewById(R.id.listaPartidas);
+
         initializeFacades();
         summoner = (SummonerResponse) this.getIntent().getSerializableExtra("datos");
-
         apiFacade.getChampionsMastery(summoner.getId(), summoner.getServer(), this);
         apiFacade.getSummonerLeague(summoner.getId(), summoner.getServer(), this);
 
@@ -231,7 +253,8 @@ public class InvocadorActivity extends AppCompatActivity {
         // parametro para contar cuantas veces se ha llamado ?
 
         //TODO descomentar para probar
-        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(),this);
+        apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(),0, COUNT, this);
+        matchNumber = COUNT;
 
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());
@@ -239,7 +262,6 @@ public class InvocadorActivity extends AppCompatActivity {
         ImageView summonerIcon = findViewById(R.id.summonerIcon);
 
         summonerIcon.setImageDrawable(imageFacade.getProfileIconById(summoner.getProfileIconId()));
-
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
         summonerLevel.setText("Level: " + summoner.getSummonerLevel() );

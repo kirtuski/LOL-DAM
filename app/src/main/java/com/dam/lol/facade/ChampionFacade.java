@@ -37,8 +37,6 @@ public class ChampionFacade {
         String name = "";
         try {
             JSONObject json = new JSONObject(jsonString);
-            Log.d("json", json.toString());
-            Log.d("json", json.getJSONObject("data").toString());
             JSONObject data = json.getJSONObject("data");
             Iterator<String> keys = data.keys();
             //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga
@@ -77,8 +75,6 @@ public class ChampionFacade {
         String name = "";
         try {
             JSONObject json = new JSONObject(jsonString);
-            Log.d("json", json.toString());
-            Log.d("json", json.getJSONObject("data").toString());
             JSONObject data = json.getJSONObject("data");
             Iterator<String> keys = data.keys();
             //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga
@@ -116,8 +112,6 @@ public class ChampionFacade {
         String name = "";
         try {
             JSONObject json = new JSONObject(jsonString);
-            Log.d("json", json.toString());
-            Log.d("json", json.getJSONObject("data").toString());
             JSONObject data = json.getJSONObject("data");
             Iterator<String> keys = data.keys();
             //Hay que recorrer siempre el json completo, se podría simplificar si creamos un archivo xml que contenga
