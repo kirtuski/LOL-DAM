@@ -36,6 +36,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -126,12 +127,13 @@ public class InvocadorActivity extends AppCompatActivity {
         // cual debe ser el indice? Existe getNChilds?
         LinearLayoutCompat listaPartidas = findViewById(R.id.listaPartidas);
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
-        listaPartidas.addView(oneMatch);
+        listaPartidas.addView(oneMatch,0);
 
         //se debe insertar penultimo para dejar el boton siempre al final
         for(ParticipantDto participant : partidaResponse.getParticipants()){
             if(participant.getPuuid().equals(summoner.getPuuid())) {
                 //Imagenes
+
                 //Champion
                 ImageView imageChamp = findViewById(R.id.championImage);
                 imageChamp.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId(), this)));
@@ -193,9 +195,9 @@ public class InvocadorActivity extends AppCompatActivity {
 
     public void buscaPartidas(MatchListResponse matchListResponse){
         //TODO arreglar lo del servidor, explicado en ApiFacade
+        Collections.reverse(matchListResponse.getMatchList());
         for( String matchId : matchListResponse.getMatchList())
             apiFacade.getMatchById(matchId, summoner.getServerV5(), this);
-
     }
 
     @Override
