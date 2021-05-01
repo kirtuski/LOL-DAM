@@ -162,12 +162,18 @@ public class InvocadorActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1)
-                    Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                else
-                    Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
+                if(!databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
+                    if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
+                        Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    } else {
+                        Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                } else {
+                    Snackbar.make(view, "El invocador ya se encuentra en favoritos", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                }
             }
         });
 
