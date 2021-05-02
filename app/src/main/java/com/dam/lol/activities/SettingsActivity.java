@@ -20,7 +20,7 @@ import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 
 
-//TODO acabar esta clase con lo que corresponda
+//TODO añadir idioma? Hacer temas?
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -67,13 +67,6 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, "No se pudo copiar", Toast.LENGTH_SHORT).show();
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -83,5 +76,12 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static class SettingsFragment extends PreferenceFragmentCompat {
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        }
     }
 }

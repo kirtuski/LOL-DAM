@@ -1,10 +1,6 @@
 package com.dam.lol.facade;
 
 import android.app.Activity;
-import android.icu.text.Edits;
-import android.util.Log;
-
-import com.dam.lol.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +8,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 public class ChampionFacade {
@@ -28,8 +24,7 @@ public class ChampionFacade {
             byte[] buffer = new byte[size];
             champions.read(buffer);
             champions.close();
-            //Ese warning se puede arreglar y si subimos un poco la api minima
-            jsonString = new String(buffer, "UTF-8");
+            jsonString = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -50,7 +45,7 @@ public class ChampionFacade {
                 if (champ.getInt("key") == id)
                     name = key;
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return name;
@@ -66,8 +61,7 @@ public class ChampionFacade {
             byte[] buffer = new byte[size];
             summoner.read(buffer);
             summoner.close();
-            //Ese warning se puede arreglar y si subimos un poco la api minima
-            jsonString = new String(buffer, "UTF-8");
+            jsonString = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -88,13 +82,13 @@ public class ChampionFacade {
                 if (champ.getInt("key") == id)
                     name = key;
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return name;
     }
 
-    public String getQueueNameById(int id, Activity activity){
+    public String getQueueNameById(int id, Activity activity) {
         //TODO Este codigo obtiene el json como string, a lo mejor se puede encapsular como función?
         String jsonString;
         try {
@@ -103,8 +97,7 @@ public class ChampionFacade {
             byte[] buffer = new byte[size];
             queue.read(buffer);
             queue.close();
-            //Ese warning se puede arreglar y si subimos un poco la api minima
-            jsonString = new String(buffer, "UTF-8");
+            jsonString = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

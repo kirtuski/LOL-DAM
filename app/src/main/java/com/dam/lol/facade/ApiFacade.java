@@ -11,9 +11,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.dam.lol.activities.InvocadorActivity;
 import com.dam.lol.LolApplication;
 import com.dam.lol.activities.ChampionRotationActivity;
+import com.dam.lol.activities.InvocadorActivity;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.ChampionRotationResponse;
 import com.dam.lol.model.api.LeagueResponse;
@@ -50,7 +50,7 @@ public class ApiFacade {
                     public void onResponse(JSONObject response) {
                         Log.d("Volley", response.toString());
                         try {
-                            SummonerResponse invocador  = new SummonerResponse.InvocadorResponseBuilder()
+                            SummonerResponse invocador = new SummonerResponse.InvocadorResponseBuilder()
                                     .id(response.getString("id"))
                                     .puuid(response.getString("puuid"))
                                     .name(response.getString("name"))
@@ -72,9 +72,9 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        if( error.networkResponse.statusCode == 403)
+                        if (error.networkResponse.statusCode == 403)
                             Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
-                        if( error.networkResponse.statusCode == 404)
+                        if (error.networkResponse.statusCode == 404)
                             Toast.makeText(activity, "No existe el nombre de invocador", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -124,7 +124,7 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        if( error.networkResponse.statusCode == 403)
+                        if (error.networkResponse.statusCode == 403)
                             Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -173,7 +173,7 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        if( error.networkResponse.statusCode == 403)
+                        if (error.networkResponse.statusCode == 403)
                             Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -226,7 +226,7 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        if( error.networkResponse.statusCode == 403)
+                        if (error.networkResponse.statusCode == 403)
                             Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -235,7 +235,7 @@ public class ApiFacade {
     }
 
     public void getMatchById(String matchId, String servidorV5, InvocadorActivity activity) {
-        final String URL ="https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
+        final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
@@ -247,13 +247,13 @@ public class ApiFacade {
                             String matchId = response.getJSONObject("metadata").getString("matchId");
                             double gameCreation = response.getJSONObject("info").getDouble("gameCreation");
                             double gameDuration = response.getJSONObject("info").getDouble("gameDuration");
-                            int queueId  = response.getJSONObject("info").getInt("queueId");
+                            int queueId = response.getJSONObject("info").getInt("queueId");
                             ArrayList<ParticipantDto> participants = new ArrayList<>();
 
-                            for( int i = 0 ; i < response.getJSONObject("info").getJSONArray("participants").length() ; i++){
+                            for (int i = 0; i < response.getJSONObject("info").getJSONArray("participants").length(); i++) {
                                 JSONObject oneParticipant = response.getJSONObject("info").getJSONArray("participants").getJSONObject(i);
                                 ParticipantDto participantDto = new ParticipantDto();
-                                participantDto.setSummonerName(oneParticipant.getString("summonerName") );
+                                participantDto.setSummonerName(oneParticipant.getString("summonerName"));
                                 participantDto.setPuuid(oneParticipant.getString("puuid"));
                                 participantDto.setChampionId(oneParticipant.getInt("championId"));
                                 participantDto.setChampionLevel(oneParticipant.getInt("champLevel"));
@@ -291,7 +291,7 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        if( error.networkResponse.statusCode == 403)
+                        if (error.networkResponse.statusCode == 403)
                             Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -300,7 +300,7 @@ public class ApiFacade {
     }
 
     public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count, InvocadorActivity activity) {
-        final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"+ summonerPuuid +"/ids?start="+ start +"&count=" + count + "&api_key=" + api_key;
+        final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
@@ -325,7 +325,7 @@ public class ApiFacade {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.e("Error", error.getMessage());
-                        if( error.networkResponse.statusCode == 403)
+                        if (error.networkResponse.statusCode == 403)
                             Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
                     }
                 });

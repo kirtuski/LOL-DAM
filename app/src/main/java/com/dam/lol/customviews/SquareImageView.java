@@ -24,7 +24,7 @@ public class SquareImageView extends androidx.appcompat.widget.AppCompatImageVie
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
 
-        if(width < height)
+        if (width < height)
             setMeasuredDimension(width, width);
         else
             setMeasuredDimension(height, height);

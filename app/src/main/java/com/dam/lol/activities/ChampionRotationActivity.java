@@ -35,7 +35,6 @@ public class ChampionRotationActivity extends AppCompatActivity {
         initializeFacades();
 
         super.onCreate(savedInstanceState);
-        //TODO hacer layout decente
         setContentView(R.layout.champion_rotation_activity);
 
         this.setTitle("CAMPEONES GRATUITOS EN ROTACION");
@@ -62,7 +61,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
         TableLayout.LayoutParams filaProperties = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
         TableRow.LayoutParams imageProperties = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
 
-        for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
+        for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
             ImageView imageView = new SquareImageView(this);
             imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
 
@@ -70,33 +69,32 @@ public class ChampionRotationActivity extends AppCompatActivity {
         }
 
         //Crea tabla
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             //De pie 3*5
-            for (int i = 0; i < 3 ; i ++){
+            for (int i = 0; i < 3; i++) {
                 TableRow fila = new TableRow(this);
-                fila.setLayoutParams( filaProperties );
+                fila.setLayoutParams(filaProperties);
 
-                for (int j = 0; j  < 5 ; j ++){
+                for (int j = 0; j < 5; j++) {
 
-                    fila.addView(imageViewList.get(i*5+j));
+                    fila.addView(imageViewList.get(i * 5 + j));
 
                 }
                 tabla.addView(fila);
             }
-        }
-        else{ //Apaisado 5*3
-            for (int i = 0; i < 5 ; i ++){
+        } else { //Apaisado 5*3
+            for (int i = 0; i < 5; i++) {
                 TableRow fila = new TableRow(this);
-                fila.setLayoutParams(filaProperties );
-                for (int j = 0; j  < 3 ; j ++){
-                    fila.addView(imageViewList.get(i*3+j));
+                fila.setLayoutParams(filaProperties);
+                for (int j = 0; j < 3; j++) {
+                    fila.addView(imageViewList.get(i * 3 + j));
                 }
                 tabla.addView(fila);
             }
         }
 
         //Ajusta¿?
-        for( int i = 0 ; i < championRotationResponse.getFreeChampionIds().size() ; i++){
+        for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
             ImageView imageViewTemp = imageViewList.get(i);
             imageViewTemp.setLayoutParams(imageProperties);
         }

@@ -22,11 +22,10 @@ import com.dam.lol.model.api.database.SimpleSummonerAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
-import java.util.Objects;
 
 //TODO hay que revisar bien como tratamos las exepciones
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //Elementos del layout
     Spinner servidorSpinner;
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
     public void BuscaInvocador(View view) {
         String nombre = nombreInvocadorInput.getEditText().getText().toString();
-        if(nombre.length() == 0)
+        if (nombre.length() == 0)
             Toast.makeText(this, "Introduce un nombre de invocador", Toast.LENGTH_SHORT).show();
         else
             apiFacade.getIdFromSummoner(nombre, server_url, this);
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Metodo que abre la nueva actividad con los ajustes
     public void AbrirAjustes(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-        startActivityForResult( intent, 1);
+        startActivityForResult(intent, 1);
     }
 
     public void openChampionRotation(View view) {
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if( requestCode == 1)
+        if (requestCode == 1)
             apiFacade = LolApplication.getInstance().getApiFacade();
     }
 }
