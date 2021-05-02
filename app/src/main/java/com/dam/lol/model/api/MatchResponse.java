@@ -5,13 +5,11 @@ import com.dam.lol.model.api.objects.ParticipantDto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-// TODO Clase con los campos minimos para mostrar, merece la pena ampliar para mostrar más info?
+//TODO Builder to wapo?
 public class MatchResponse implements Serializable {
-    //TODO Builder to wapo?
     private String matchId;
     private double gameCreation;
     private double gameDuration;
-    // TODO Hace referencia al modo de juego, hay que parsear info de queues.json
     private int queueId;
     private ArrayList<ParticipantDto> participants;
 

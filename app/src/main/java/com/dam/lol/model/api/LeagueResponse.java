@@ -1,6 +1,5 @@
 package com.dam.lol.model.api;
 
-import com.dam.lol.model.api.objects.ChampionMasteryDto;
 import com.dam.lol.model.api.objects.LeagueDto;
 
 import java.io.Serializable;
@@ -12,7 +11,7 @@ public class LeagueResponse implements Serializable {
     public LeagueResponse() {
     }
 
-    public LeagueResponse(List<LeagueDto> leagueDtoList){
+    public LeagueResponse(List<LeagueDto> leagueDtoList) {
         this.leagueDtoList = leagueDtoList;
     }
 

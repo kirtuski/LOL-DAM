@@ -1,7 +1,6 @@
 package com.dam.lol;
 
 import android.app.Application;
-import android.media.Image;
 
 import androidx.preference.PreferenceManager;
 
@@ -23,6 +22,11 @@ public class LolApplication extends Application {
     private ChampionFacade championFacade;
     private DatabaseFacade databaseFacade;
 
+    public synchronized static LolApplication
+    getInstance() {
+        return sInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,10 +37,6 @@ public class LolApplication extends Application {
         this.championFacade = new ChampionFacade();
         this.databaseFacade = new DatabaseFacade(this.getApplicationContext(), "DatabaseFacade", null, 1);
     }
-    public synchronized static LolApplication
-    getInstance() {
-        return sInstance;
-    }
 
     public RequestQueue getRequestQueue() {
         return mRequestQueue;
@@ -45,17 +45,20 @@ public class LolApplication extends Application {
     public ApiFacade getApiFacade() {
         return apiFacade;
     }
+
     public ImageFacade getImageFacade() {
         return imageFacade;
     }
+
     public ChampionFacade getChampionFacade() {
         return championFacade;
     }
+
     public DatabaseFacade getDatabaseFacade() {
         return databaseFacade;
     }
 
-    public void reloadApiKey(){
+    public void reloadApiKey() {
         this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
     }
 }

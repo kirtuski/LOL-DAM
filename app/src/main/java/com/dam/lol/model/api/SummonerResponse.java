@@ -3,13 +3,13 @@ package com.dam.lol.model.api;
 import java.io.Serializable;
 
 public class SummonerResponse implements Serializable {
-    private String id;
-    private String puuid;
-    private String name;
-    private String server;
-    private int profileIconId;
-    private int summonerLevel;
-    private String serverV5;
+    private final String id;
+    private final String puuid;
+    private final String name;
+    private final String server;
+    private final int profileIconId;
+    private final int summonerLevel;
+    private final String serverV5;
 
     public SummonerResponse(InvocadorResponseBuilder invocadorResponseBuilder) {
         this.id = invocadorResponseBuilder.id;
@@ -29,29 +29,28 @@ public class SummonerResponse implements Serializable {
         return puuid;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public int getProfileIconId(){
+    public int getProfileIconId() {
         return profileIconId;
     }
 
-    public int getSummonerLevel(){
+    public int getSummonerLevel() {
         return summonerLevel;
     }
 
-    public String getServer(){ return server; }
+    public String getServer() {
+        return server;
+    }
 
-    public String convertServerToV5(String server)
-    {
-        if(server.equals("na1") || server.equals("br1") || server.equals("la1") || server.equals("la2") || server.equals("oc1")){
+    public String convertServerToV5(String server) {
+        if (server.equals("na1") || server.equals("br1") || server.equals("la1") || server.equals("la2") || server.equals("oc1")) {
             return "americas";
-        }
-        else if (server.equals("jp1") || server.equals("kr")){
+        } else if (server.equals("jp1") || server.equals("kr")) {
             return "asia";
-        }
-        else{
+        } else {
             return "europe";
         }
 
@@ -59,10 +58,6 @@ public class SummonerResponse implements Serializable {
 
     public String getServerV5() {
         return serverV5;
-    }
-
-    public void setServerV5(String serverV5) {
-        this.serverV5 = serverV5;
     }
 
     public static class InvocadorResponseBuilder {
@@ -77,32 +72,32 @@ public class SummonerResponse implements Serializable {
             return new SummonerResponse(this);
         }
 
-        public InvocadorResponseBuilder id(String id){
+        public InvocadorResponseBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public InvocadorResponseBuilder puuid(String puuid){
+        public InvocadorResponseBuilder puuid(String puuid) {
             this.puuid = puuid;
             return this;
         }
 
-        public InvocadorResponseBuilder name(String name){
+        public InvocadorResponseBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public InvocadorResponseBuilder profileIconId(int profileIconId){
+        public InvocadorResponseBuilder profileIconId(int profileIconId) {
             this.profileIconId = profileIconId;
             return this;
         }
 
-        public InvocadorResponseBuilder summonerLevel(int summonerLevel){
+        public InvocadorResponseBuilder summonerLevel(int summonerLevel) {
             this.summonerLevel = summonerLevel;
             return this;
         }
 
-        public InvocadorResponseBuilder server(String server){
+        public InvocadorResponseBuilder server(String server) {
             this.server = server;
             return this;
         }
