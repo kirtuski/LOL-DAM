@@ -140,10 +140,10 @@ public class InvocadorActivity extends AppCompatActivity {
                 imageChamp.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId())));
                 //Summoner1
                 ImageView imageSummoner1 = findViewById(R.id.summoner1Image);
-                imageSummoner1.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id(), this)));
+                imageSummoner1.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id())));
                 //Summoner2
                 ImageView imageSummoner2 = findViewById(R.id.summoner2Image);
-                imageSummoner2.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id(), this)));
+                imageSummoner2.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id())));
 
                 //Datos del jugador
                 //kda
@@ -176,7 +176,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 //Datos de la partida
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
-                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId(), this));
+                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId()));
                 //howLongAgo
                 Date diaP = new Date((long) partidaResponse.getGameCreation());
                 Date diaA = new Date();
