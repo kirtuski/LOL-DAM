@@ -34,7 +34,7 @@ public class LolApplication extends Application {
         sInstance = this;
         this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
         this.imageFacade = new ImageFacade();
-        this.championFacade = new ChampionFacade();
+        this.championFacade = new ChampionFacade(this );
         this.databaseFacade = new DatabaseFacade(this.getApplicationContext(), "DatabaseFacade", null, 1);
     }
 

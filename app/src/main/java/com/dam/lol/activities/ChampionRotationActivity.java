@@ -63,7 +63,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
 
         for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
             ImageView imageView = new SquareImageView(this);
-            imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i), this)));
+            imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i))));
 
             imageViewList.add(imageView);
         }

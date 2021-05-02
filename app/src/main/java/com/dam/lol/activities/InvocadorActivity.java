@@ -112,7 +112,7 @@ public class InvocadorActivity extends AppCompatActivity {
     public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) throws JSONException, IOException {
         //TODO check != 0
         int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
-        String campeonName = championFacade.getChampionNameById(campeon, this);
+        String campeonName = championFacade.getChampionNameById(campeon);
 
         //TODO  se distorsiona, hay que arreglar la forma que se muestra la imagen
         ImageView fondo = findViewById(R.id.fondo);
@@ -137,7 +137,7 @@ public class InvocadorActivity extends AppCompatActivity {
 
                 //Champion
                 ImageView imageChamp = findViewById(R.id.championImage);
-                imageChamp.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId(), this)));
+                imageChamp.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId())));
                 //Summoner1
                 ImageView imageSummoner1 = findViewById(R.id.summoner1Image);
                 imageSummoner1.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id(), this)));
@@ -208,7 +208,7 @@ public class InvocadorActivity extends AppCompatActivity {
             }
             int rIdImagen = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Image", "id", this.getPackageName());
             ImageView imageChampMin = findViewById(rIdImagen);
-            imageChampMin.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId(), this)));
+            imageChampMin.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId())));
             int rIdText = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);
             participantNameMin.setText(participant.getSummonerName());
