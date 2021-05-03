@@ -22,6 +22,7 @@ import java.util.List;
 
 public class ChampionRotationActivity extends AppCompatActivity {
     private ChampionFacade championFacade;
+    private ImageFacade imageFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
 
     private void initializeFacades() {
         this.championFacade = LolApplication.getInstance().getChampionFacade();
+        this.imageFacade = LolApplication.getInstance().getImageFacade();
     }
 
     public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) {
@@ -50,7 +52,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
             NetworkImageView nv = new NetworkImageView(this);
             nv.setDefaultImageResId(R.drawable.default_champion);
             String champName = championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i));
-            nv.setImageUrl("http://ddragon.leagueoflegends.com/cdn/11.8.1/img/champion/" + champName + ".png", LolApplication.getInstance().getImageLoader());
+            imageFacade.setChampionImageByName(champName, nv);
             imageViewList.add(nv);
         }
 

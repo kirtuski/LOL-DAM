@@ -56,7 +56,7 @@ public class ChampionFacade {
         //Initialise queueMap
         queueMap = new HashMap<>();
         try {
-            JSONArray jsonArray = new JSONArray(openJsonAssetAsString("summoner.json", application));
+            JSONArray jsonArray = new JSONArray(openJsonAssetAsString("queues.json", application));
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 queueMap.put(jsonObject.getInt("queueId"), jsonObject.getString("description"));

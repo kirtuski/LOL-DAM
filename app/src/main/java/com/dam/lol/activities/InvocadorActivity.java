@@ -10,6 +10,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
@@ -37,7 +38,6 @@ import java.util.Date;
 import java.util.List;
 
 //TODO cambiar el color de arriba, la barra, por el que más hay en el splash art
-
 public class InvocadorActivity extends AppCompatActivity {
     private final int COUNT = 5; //Numero de partidas que se muestran
     private SummonerResponse summoner;
@@ -112,12 +112,11 @@ public class InvocadorActivity extends AppCompatActivity {
     public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) throws JSONException, IOException {
         //TODO check != 0
         int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
-        String campeonName = championFacade.getChampionNameById(campeon);
+        String champName = championFacade.getChampionNameById(campeon);
 
         //TODO  se distorsiona, hay que arreglar la forma que se muestra la imagen
-        ImageView fondo = findViewById(R.id.fondo);
-        fondo.setImageDrawable(imageFacade.getSplashByChampionName(campeonName));
-
+        NetworkImageView fondo = findViewById(R.id.fondo);
+        imageFacade.setSplashByChampionName(champName, fondo);
     }
 
     private int getIndicePartida(String matchId) {
@@ -136,17 +135,17 @@ public class InvocadorActivity extends AppCompatActivity {
                 //Imagenes
 
                 //Champion
-                ImageView imageChamp = findViewById(R.id.championImage);
-                imageChamp.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId())));
+                NetworkImageView imageChamp = findViewById(R.id.championImage);
+                imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChamp);
                 //Summoner1
-                ImageView imageSummoner1 = findViewById(R.id.summoner1Image);
-                imageSummoner1.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id())));
+                NetworkImageView imageSummoner1 = findViewById(R.id.summoner1Image);
+                imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id()), imageSummoner1);
                 //Summoner2
-                ImageView imageSummoner2 = findViewById(R.id.summoner2Image);
-                imageSummoner2.setImageDrawable(imageFacade.getSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id())));
+                NetworkImageView imageSummoner2 = findViewById(R.id.summoner2Image);
+                imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
 
                 //Datos del jugador
-                //kda
+                //KDA
                 String kdaFormat = participant.getKills() + "/" + participant.getDeaths() + "/" + participant.getAssists();
                 TextView kda = findViewById(R.id.KDAText);
                 kda.setText(kdaFormat);
@@ -206,9 +205,11 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView matchDurationText = findViewById(R.id.matchDurationText);
                 matchDurationText.setText(durationFormat);
             }
+
             int rIdImagen = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Image", "id", this.getPackageName());
-            ImageView imageChampMin = findViewById(rIdImagen);
-            imageChampMin.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(participant.getChampionId())));
+            NetworkImageView imageChampMin = findViewById(rIdImagen);
+            imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChampMin);
+
             int rIdText = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);
             participantNameMin.setText(participant.getSummonerName());
@@ -265,8 +266,8 @@ public class InvocadorActivity extends AppCompatActivity {
         TextView summonerName = findViewById(R.id.summonerName);
         summonerName.setText(summoner.getName());
 
-        ImageView summonerIcon = findViewById(R.id.summonerIcon);
-        summonerIcon.setImageDrawable(imageFacade.getProfileIconById(summoner.getProfileIconId()));
+        NetworkImageView summonerIcon = findViewById(R.id.summonerIcon);
+        imageFacade.setProfileIconById(summoner.getProfileIconId(), summonerIcon);
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
         summonerLevel.setText("Level: " + summoner.getSummonerLevel());
