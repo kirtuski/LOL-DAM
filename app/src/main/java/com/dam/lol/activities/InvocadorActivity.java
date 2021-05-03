@@ -1,5 +1,6 @@
 package com.dam.lol.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -193,10 +194,13 @@ public class InvocadorActivity extends AppCompatActivity {
                 howLongAgoText.setText(date);
                 //isWin
                 TextView isWin = findViewById(R.id.isWinText);
+                ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.boxmatch);
                 if (participant.isWin()) {
                     isWin.setText("Victoria");
+                    bgElement.setBackgroundColor(Color.argb(100, 137, 200, 242));
                 } else {
                     isWin.setText("Derrota");
+                    bgElement.setBackgroundColor(Color.argb(100, 243, 172, 167));
                 }
                 //matchDuration
                 double duration = partidaResponse.getGameDuration();
