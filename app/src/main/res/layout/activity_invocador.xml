@@ -44,7 +44,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/summonerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/summonerIcon"
                     app:layout_constraintStart_toEndOf="@+id/summonerIcon" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/summonerLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

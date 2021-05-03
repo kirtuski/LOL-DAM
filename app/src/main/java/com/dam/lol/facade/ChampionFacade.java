@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 
+//TODO Habría que cambiarle el nombre a esta clase, ya hace mucho más que solo campeones
 public class ChampionFacade {
     private final HashMap<Integer, String> championMap;
     private final HashMap<Integer, String> summonerSpellMap;

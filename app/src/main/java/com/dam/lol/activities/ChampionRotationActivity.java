@@ -9,63 +9,49 @@ import android.widget.TableRow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.customviews.SquareImageView;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionRotationResponse;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Consumo de red de las 16 descargas aprox = 290kBytes, merece la pena guardar estas cosas en cache?
-// Si sobra tiempo pues siempre se puede comprobar que android studio tiene abajo el profiler para mirar el rendimiento de la app, se puede hacer la comparación de las 2 formas
 public class ChampionRotationActivity extends AppCompatActivity {
-    private ApiFacade apiFacade;
-    private ImageFacade imageFacade;
     private ChampionFacade championFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initializeFacades();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.champion_rotation_activity);
 
-        this.setTitle("CAMPEONES GRATUITOS EN ROTACION");
-
-        try {
-            fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
+        initializeFacades();
+        this.setTitle("CAMPEONES EN ROTACION");
+        fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
     }
 
     private void initializeFacades() {
-        this.apiFacade = LolApplication.getInstance().getApiFacade();
-        this.imageFacade = LolApplication.getInstance().getImageFacade();
         this.championFacade = LolApplication.getInstance().getChampionFacade();
     }
 
-    // TODO eliminar altura sobrante de cada fila
-    public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) throws IOException, JSONException {
+    public void fillChampionRotationTable(ChampionRotationResponse championRotationResponse) {
         TableLayout tabla = findViewById(R.id.tabla_rotaciones);
         List<ImageView> imageViewList = new ArrayList<>();
 
+        // TODO eliminar altura sobrante de cada fila, son esas propiedades que hacen rellenar el layout
         //Se usa el Params de quien lo contiene, filas estan contenidas en tabla, imagenes en filas
         TableLayout.LayoutParams filaProperties = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
         TableRow.LayoutParams imageProperties = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
 
         for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
-            ImageView imageView = new SquareImageView(this);
-            imageView.setImageDrawable(imageFacade.getChampionImageByName(championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i))));
-
-            imageViewList.add(imageView);
+            NetworkImageView nv = new NetworkImageView(this);
+            nv.setDefaultImageResId(R.drawable.default_champion);
+            String champName = championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i));
+            nv.setImageUrl("http://ddragon.leagueoflegends.com/cdn/11.8.1/img/champion/" + champName + ".png", LolApplication.getInstance().getImageLoader());
+            imageViewList.add(nv);
         }
 
         //Crea tabla
@@ -76,9 +62,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
                 fila.setLayoutParams(filaProperties);
 
                 for (int j = 0; j < 5; j++) {
-
                     fila.addView(imageViewList.get(i * 5 + j));
-
                 }
                 tabla.addView(fila);
             }
