@@ -1,4 +1,4 @@
-package com.dam.lol.refactorizaesto;
+package com.dam.lol.cache;
 
 import android.graphics.Bitmap;
 

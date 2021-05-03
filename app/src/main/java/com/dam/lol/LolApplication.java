@@ -11,7 +11,7 @@ import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
-import com.dam.lol.refactorizaesto.LruBitmapCache;
+import com.dam.lol.cache.LruBitmapCache;
 
 //Clase application para implementar la cola de volley
 public class LolApplication extends Application {

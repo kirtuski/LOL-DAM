@@ -50,7 +50,6 @@ public class ChampionRotationActivity extends AppCompatActivity {
 
         for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
             NetworkImageView nv = new NetworkImageView(this);
-            nv.setDefaultImageResId(R.drawable.default_champion);
             String champName = championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i));
             imageFacade.setChampionImageByName(champName, nv);
             imageViewList.add(nv);
