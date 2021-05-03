@@ -232,15 +232,15 @@
 
     <include layout="@layout/match_list" />
 
-    <!--TODO cambiar por un toggleButton y quitar de fav desde ahí?? -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:theme="@style/Theme.LOLDAM.fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
         android:contentDescription="TODO"
+        android:src="@drawable/star_border"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/star_on" />
+        app:layout_anchorGravity="bottom|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

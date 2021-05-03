@@ -2,6 +2,7 @@ package com.dam.lol.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -297,9 +298,14 @@ public class InvocadorActivity extends AppCompatActivity {
             }
         });
 
-        //TODO si el invocador esta en fav o se ha pulsado el boton se podría poner la estrella en dorada
-        // Si pulsas otra vez se quita de fav, usar un toogleButton?
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        if (databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
+            fab.setImageResource(R.drawable.star);
+        } else {
+            fab.setImageResource(R.drawable.star_border);
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -307,13 +313,21 @@ public class InvocadorActivity extends AppCompatActivity {
                     if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
                         Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                        fab.setImageResource(R.drawable.star);
+
                     } else {
                         Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
                 } else {
-                    Snackbar.make(view, "El invocador ya se encuentra en favoritos", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    if (databaseFacade.deleteSummoner(summoner.getName(), summoner.getServer()) == 0)
+                        Snackbar.make(view, "Error borrando el invocador", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    else {
+                        Snackbar.make(view, "Invocador eliminado de favoritos", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        fab.setImageResource(R.drawable.star_border);
+                    }
                 }
             }
         });

@@ -14,6 +14,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.LOLDAM.fab">
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/white</item>
+    </style>
+
     <style name="Theme.LOLDAM.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
