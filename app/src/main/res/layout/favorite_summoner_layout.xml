@@ -37,13 +37,6 @@
                     android:layout_weight="0.30"
                     android:gravity="center"/>
             </LinearLayout>
-            <ImageButton
-                android:id="@+id/delete"
-                android:layout_width="0dp"
-                android:layout_weight="0.30"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
         </LinearLayout>
     </TableRow>
 

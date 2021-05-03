@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.dam.lol.model.api.database.SimpleSummoner;
+import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.dam.lol.model.api.database;
+package com.dam.lol.model.database.simplesummoner;
 
 public class SimpleSummoner {
     private String name;
