@@ -2,16 +2,16 @@
     <!-- Base application theme. -->
     <style name="Theme.LOLDAM" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimarySurface">@color/primaryLightColor</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/secondaryDarkColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/back</item>
@@ -19,8 +19,8 @@
     </style>
 
     <style name="Theme.LOLDAM.fab">
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">?attr/colorPrimary</item>
+        <item name="colorOnSecondary">?attr/colorOnPrimary</item>
     </style>
 
     <style name="Theme.LOLDAM.NoActionBar">
