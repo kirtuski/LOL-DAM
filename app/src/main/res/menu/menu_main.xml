@@ -6,6 +6,7 @@
         android:id="@+id/settingsButton"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="ajustes"
+        android:onClick="AbrirAjustes"
         app:showAsAction="ifRoom"
         />
 
