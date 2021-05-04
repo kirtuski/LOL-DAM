@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Metodo que abre la nueva actividad con los ajustes
-    public void AbrirAjustes(View view) {
+    public void AbrirAjustes(MenuItem menuItem) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivityForResult(intent, 1);
     }
