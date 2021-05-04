@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,6 +74,8 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView winRatio = findViewById(R.id.win_ratio_flex);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
                 winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
+                ProgressBar bar = findViewById(R.id.stats_barFlex);
+                bar.setProgress((int) (winRatiof + 0.5));
 
                 ImageView rankFlexIcon = findViewById(R.id.rankIcon_flex);
 
@@ -96,6 +99,8 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView winRatio = findViewById(R.id.win_ratio_solo);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
                 winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
+                ProgressBar bar = findViewById(R.id.stats_barSolo);
+                bar.setProgress((int) (winRatiof + 0.5));
 
                 ImageView rankSoloIcon = findViewById(R.id.rankIcon_solo);
 
