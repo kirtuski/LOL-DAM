@@ -86,7 +86,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id){
                 SimpleSummoner simpleSummoner = (SimpleSummoner) simpleSummonerAdapter.getItem(position);
-                LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
+                if(simpleSummonerAdapter.getSelectedIds().size() == 0) {
+                    LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
+                }
+                else
+                {
+                    onListItemSelect(position);
+                }
             }
         });
 
