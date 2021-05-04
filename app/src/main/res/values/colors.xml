@@ -7,6 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="botones">#8F0BB8BA</color>
-    <color name="doradoLOL">#80E1B160</color>
+    <color name="dorado_lol">#F5B659</color>
+    <color name="azul_lol_1">#00807A</color>
+    <color name="azul_lol_2">#004D49</color>
+    <color name="azul_lol_3">#003774</color>
+
+
+
 </resources>
