@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
@@ -75,7 +76,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 ImageView rankFlexIcon = findViewById(R.id.rankIcon_flex);
 
                 int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
-                rankFlexIcon.setImageDrawable(this.getResources().getDrawable(identifier));
+                rankFlexIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
 
                 TextView rankFlexText = findViewById(R.id.rank_flex);
                 rankFlexText.setText(leagueDto.getTier() + " " + leagueDto.getRank());
@@ -100,7 +101,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 ImageView rankSoloIcon = findViewById(R.id.rankIcon_solo);
 
                 int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
-                rankSoloIcon.setImageDrawable(this.getResources().getDrawable(identifier));
+                rankSoloIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
 
                 TextView rankSoloText = findViewById(R.id.rank_solo);
                 rankSoloText.setText(leagueDto.getTier() + " " + leagueDto.getRank());
@@ -182,7 +183,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 Date diaP = new Date((long) partidaResponse.getGameCreation());
                 Date diaA = new Date();
                 int dias = (int) ((diaA.getTime() - diaP.getTime()) / 86400000);
-                String date = "";
+                String date;
                 if (dias != 0) {
                     date = "Hace " + dias + " dias";
                 } else {
