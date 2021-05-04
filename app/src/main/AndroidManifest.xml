@@ -7,10 +7,10 @@
     <application
         android:name=".LolApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/min"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/min"
+        android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LOLDAM">
         <activity
@@ -32,5 +32,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

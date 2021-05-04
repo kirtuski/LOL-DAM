@@ -39,7 +39,6 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
         this.simpleSummoners = items;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         this.v = convertView;
@@ -68,8 +67,7 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
 
         TypedValue typedValue = new TypedValue();
         activity.getTheme().resolveAttribute(R.attr.colorPrimarySurface, typedValue, true);
-        int color = typedValue.data;
-        v.setBackgroundColor(mSelectedItemsIds.get(position) ? color : Color.TRANSPARENT);
+        v.setBackgroundColor(mSelectedItemsIds.get(position) ? typedValue.data : Color.TRANSPARENT);
         return v;
     }
 
