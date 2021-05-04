@@ -3,27 +3,31 @@ package com.dam.lol.model.database.simplesummoner;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.SparseBooleanArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+
 // copiao del internete
 public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
 
-    private int resourceLayout;
-    private Context mContext;
-    private Activity activity;
-    private View v;
-
     List<SimpleSummoner> simpleSummoners;
+    private final int resourceLayout;
+    private final Context mContext;
+    private final Activity activity;
+    private View v;
     private SparseBooleanArray mSelectedItemsIds;
 
     public SimpleSummonerAdapter(Context context, int resource, List<SimpleSummoner> items, Activity activity) {
@@ -35,6 +39,7 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
         this.simpleSummoners = items;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         this.v = convertView;
@@ -60,8 +65,11 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
             }
 
         }
-        v.setBackgroundColor(mSelectedItemsIds.get(position) ? Color.argb(50,225,177,96)
-                        : Color.TRANSPARENT);
+
+        TypedValue typedValue = new TypedValue();
+        activity.getTheme().resolveAttribute(R.attr.colorPrimarySurface, typedValue, true);
+        int color = typedValue.data;
+        v.setBackgroundColor(mSelectedItemsIds.get(position) ? color : Color.TRANSPARENT);
         return v;
     }
 
@@ -69,7 +77,7 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
     public void remove(SimpleSummoner object) {
         // super.remove(object);
         simpleSummoners.remove(object);
-        if(LolApplication.getInstance().getDatabaseFacade().deleteSummoner(object.getName(), object.getServer()) != 0) {
+        if (LolApplication.getInstance().getDatabaseFacade().deleteSummoner(object.getName(), object.getServer()) != 0) {
             Snackbar.make(v, "Invocador eliminado satisfactoriamente", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             simpleSummoners.remove(object);
