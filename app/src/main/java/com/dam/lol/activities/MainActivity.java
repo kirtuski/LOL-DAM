@@ -2,7 +2,6 @@ package com.dam.lol.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             // inflate contextual menu
-            mode.getMenuInflater().inflate(R.menu.context_menu, menu);
+            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             return true;
         }
 
