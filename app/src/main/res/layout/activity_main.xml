@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo">
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -18,10 +19,11 @@
         android:id="@+id/logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lol_logo"
         tools:srcCompat="@drawable/lol_logo" />
 
@@ -58,6 +60,7 @@
         android:layout_height="wrap_content"
         android:onClick="BuscaInvocador"
         android:text="Buscar invocador"
+        app:backgroundTint="#8F0BB8BA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NombreInvocadorLayout" />
@@ -67,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Invocadores favoritos"
+        android:layout_centerHorizontal="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonBuscar" />
@@ -85,6 +89,7 @@
         android:layout_height="wrap_content"
         android:onClick="openChampionRotation"
         android:text="ChampionRotation"
+        app:backgroundTint="#8F0BB8BA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favoriteChampionsList" />

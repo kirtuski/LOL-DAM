@@ -62,7 +62,7 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
         }
 
         v.setBackgroundColor(mSelectedItemsIds.get(position) ? 0x9934B5E4
-                        : Color.TRANSPARENT);
+                        : Color.argb(50,225,177,96));
         return v;
     }
 
