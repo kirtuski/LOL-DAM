@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
+import com.dam.lol.SpinnerAdapter;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
@@ -29,12 +30,11 @@ import java.util.List;
 
 //TODO hay que revisar bien como tratamos las exepciones
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
 
-    //Elementos del layout
-    private Spinner servidorSpinner;
     private TextInputLayout nombreInvocadorInput;
     private ActionMode mActionMode;
+
     //Guardar el servidor elejido
     private String server_url = "";
     private ApiFacade apiFacade;
@@ -68,14 +68,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
     }
 
-    private void initializeSpinner() {
-        servidorSpinner = findViewById(R.id.servidorSpinner);
-        servidorSpinner.setOnItemSelectedListener(this);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        servidorSpinner.setAdapter(adapter);
-    }
 
     private void initializeFavoriteSummonerList() {
         List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
@@ -121,18 +114,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     .getSelectedCount()) + " selected");
     }
 
-
-    //Metodo para cuando seleccionamos un elemento del selector
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        server_url = getResources().getStringArray(R.array.urlServers)[(int) id];
-        Log.d("Main Selector Servidor", "Se ha seleccionado: " + server_url);
-
+    public void setServer_url(String server_url) {
+        this.server_url = server_url;
     }
 
-    //Otro metodo que tiene que estar por implementar la interfaz
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+    private void initializeSpinner() {
+        //Elementos del layout
+        Spinner servidorSpinner = findViewById(R.id.servidorSpinner);
+        servidorSpinner.setOnItemSelectedListener(new SpinnerAdapter(this));
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        servidorSpinner.setAdapter(adapter);
     }
 
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
