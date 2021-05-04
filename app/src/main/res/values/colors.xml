@@ -12,6 +12,14 @@
     <color name="azul_lol_2">#004D49</color>
     <color name="azul_lol_3">#003774</color>
 
+    <color name="primaryColor">#0091ea</color>
+    <color name="primaryLightColor">#64c1ff</color>
+    <color name="primaryDarkColor">#0064b7</color>
+    <color name="secondaryColor">#4db6ac</color>
+    <color name="secondaryLightColor">#82e9de</color>
+    <color name="secondaryDarkColor">#00867d</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
 
 
 </resources>
