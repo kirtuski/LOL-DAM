@@ -4,10 +4,9 @@
 
     <item
         android:id="@+id/settingsButton"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="ajustes"
+        android:icon="@drawable/settings_icon"
         android:onClick="AbrirAjustes"
-        app:showAsAction="ifRoom"
-        />
+        android:title="ajustes"
+        app:showAsAction="always" />
 
 </menu>
