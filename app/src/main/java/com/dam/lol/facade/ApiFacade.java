@@ -143,7 +143,7 @@ public class ApiFacade {
                     public void onResponse(JSONArray response) {
                         Log.d("Volley", response.toString());
                         try {
-                            List<ChampionMasteryDto> championMasteryDtos = new ArrayList<ChampionMasteryDto>();
+                            List<ChampionMasteryDto> championMasteryDtos = new ArrayList<>();
                             for (int i = 0; i < response.length(); ++i) {
                                 ChampionMasteryDto championMasteryDto = new ChampionMasteryDto();
 
@@ -164,7 +164,7 @@ public class ApiFacade {
                             activity.ponChampionMastery(championMasteryResponse);
 
 
-                        } catch (JSONException | IOException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }

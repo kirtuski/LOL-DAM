@@ -1,8 +1,6 @@
 package com.dam.lol.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -32,9 +30,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -116,7 +111,7 @@ public class InvocadorActivity extends AppCompatActivity {
         }
     }
 
-    public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) throws JSONException, IOException {
+    public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) {
         //TODO check != 0
         int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
         String champName = championFacade.getChampionNameById(campeon);
@@ -202,10 +197,10 @@ public class InvocadorActivity extends AppCompatActivity {
                 ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.boxmatch);
                 if (participant.isWin()) {
                     isWin.setText("Victoria");
-                    bgElement.setBackgroundColor(Color.argb(100, 137, 200, 242));
+                    bgElement.setBackgroundColor(this.getColor(R.color.primaryLightColor));
                 } else {
                     isWin.setText("Derrota");
-                    bgElement.setBackgroundColor(Color.argb(100, 243, 172, 167));
+                    bgElement.setBackgroundColor(this.getColor(R.color.redFill));
                 }
                 //matchDuration
                 double duration = partidaResponse.getGameDuration();
