@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Urls ddragon-->
+    <string name="champion_image_url" translatable="false">http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/%1$s.png</string>
+    <string name="spell_image_url" translatable="false">http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/%1$s.png</string>
+    <string name="profile_icon_url" translatable="false">http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/%1$d.png</string>
+    <string name="splash_url" translatable="false">http://ddragon.leagueoflegends.com/cdn/img/champion/splash/%1$s_0.jpg</string>
+
+    <!-- Queries database -->
+    <string name="sql_drop_favorites" translatable="false">drop table if exists FAVORITE_SUMMONERS</string>
+    <string name="sql_create_favorites" translatable="false">create table FAVORITE_SUMMONERS(TABLE_KEY INTEGER primary key autoincrement,SUMMONER_NAME text,SERVER text)"</string>
+
+</resources>

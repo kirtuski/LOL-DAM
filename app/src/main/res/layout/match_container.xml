@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.InvocadorActivity"
+    tools:context=".activities.SummonerActivity"
     tools:showIn="@layout/summoner_activity">
 
     <androidx.appcompat.widget.LinearLayoutCompat

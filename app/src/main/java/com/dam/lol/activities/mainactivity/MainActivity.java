@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFavoriteSummonerList() {
         List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
         ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
-        simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorite_summoner_layout, simpleSummoners, this);
+        simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorites_container, simpleSummoners, this);
         favoriteChampionsList.setAdapter(simpleSummonerAdapter);
-        favoriteChampionsList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
-            SimpleSummoner simpleSummoner = (SimpleSummoner) simpleSummonerAdapter.getItem(position);
+        favoriteChampionsList.setOnItemClickListener((parent, view, position, id) -> {
+            SimpleSummoner simpleSummoner = simpleSummonerAdapter.getItem(position);
             if (simpleSummonerAdapter.getSelectedIds().size() == 0) {
                 LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
             } else {

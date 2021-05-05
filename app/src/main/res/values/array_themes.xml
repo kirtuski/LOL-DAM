@@ -5,7 +5,6 @@
         <item>@string/light_theme</item>
         <item>@string/dark_theme</item>
     </string-array>
-
     <string-array name="themeInternals">
         <item>DEFAULT</item>
         <item>LIGHT</item>

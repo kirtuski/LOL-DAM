@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LOLDAM">
         <activity
-            android:name=".activities.InvocadorActivity"
+            android:name=".activities.SummonerActivity"
             android:theme="@style/Theme.LOLDAM.NoActionBar" />
         <activity
             android:name=".activities.SettingsActivity"

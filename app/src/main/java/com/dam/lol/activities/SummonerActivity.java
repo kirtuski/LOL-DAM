@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class InvocadorActivity extends AppCompatActivity {
+public class SummonerActivity extends AppCompatActivity {
     private final int COUNT = 5; //Numero de partidas que se muestran
     private SummonerResponse summoner;
     private ApiFacade apiFacade;
@@ -171,12 +171,11 @@ public class InvocadorActivity extends AppCompatActivity {
                     long diff = (diaA.getTime() - diaP.getTime());
                     int horas = (int) (diff / (60 * 60 * 1000));
                     howLongAgoText.setText(getString(R.string.hours_ago, horas));
-
                 }
 
                 //isWin
                 TextView isWin = findViewById(R.id.isWinText);
-                ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.box_match);
+                ConstraintLayout bgElement = findViewById(R.id.box_match);
                 if (participant.isWin()) {
                     isWin.setText(getString(R.string.win));
                     bgElement.setBackgroundColor(this.getColor(R.color.blueFill));
