@@ -1,6 +1,7 @@
 package com.dam.lol.activities;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -67,12 +68,15 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView loseFlex = findViewById(R.id.loses_flex);
                 loseFlex.setText("Loses: " + leagueDto.getLosses());
 
+                /*
                 TextView winRatio = findViewById(R.id.win_ratio_flex);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
                 winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
                 ProgressBar bar = findViewById(R.id.stats_barFlex);
                 bar.setProgress((int) (winRatiof + 0.5));
 
+
+                 */
                 ImageView rankFlexIcon = findViewById(R.id.rankIcon_flex);
 
                 int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
@@ -91,12 +95,14 @@ public class InvocadorActivity extends AppCompatActivity {
 
                 TextView losesSolo = findViewById(R.id.loses_solo);
                 losesSolo.setText("Loses: " + leagueDto.getLosses());
-
+/*
                 TextView winRatio = findViewById(R.id.win_ratio_solo);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
                 winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
                 ProgressBar bar = findViewById(R.id.stats_barSolo);
                 bar.setProgress((int) (winRatiof + 0.5));
+
+ */
 
                 ImageView rankSoloIcon = findViewById(R.id.rankIcon_solo);
 
@@ -198,7 +204,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.boxmatch);
                 if (participant.isWin()) {
                     isWin.setText("Victoria");
-                    bgElement.setBackgroundColor(this.getColor(R.color.primaryLightColor));
+                    bgElement.setBackgroundColor(this.getColor(R.color.blueFill));
                 } else {
                     isWin.setText("Derrota");
                     bgElement.setBackgroundColor(this.getColor(R.color.redFill));
@@ -279,6 +285,13 @@ public class InvocadorActivity extends AppCompatActivity {
         summonerLevel.setText("Level: " + summoner.getSummonerLevel());
 
         CollapsingToolbarLayout collapse = findViewById(R.id.toolbar_layout);
+
+        //TODO ver si se puede poner como atributo en el layout.xml
+        // pone el nombre de invocador en blanco cuando la barra se contrae
+        TypedValue typedValue = new TypedValue();
+        this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
+        collapse.setCollapsedTitleTextColor(typedValue.data);
+
         AppBarLayout appBar = findViewById(R.id.app_bar);
         appBar.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
             boolean isShow = true;

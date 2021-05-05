@@ -10,13 +10,13 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="400dp"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -34,248 +34,288 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!--TODO borrar src -->
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/summonerIcon"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="15dp"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/default_champion"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/summonerName"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="summonerName"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="28sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/summonerIcon"
-                    app:layout_constraintStart_toEndOf="@+id/summonerIcon" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/summonerLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LVL: 100"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="22sp"
-                    app:layout_constraintBottom_toTopOf="@id/summonerName"
-                    app:layout_constraintStart_toStartOf="@id/summonerName" />
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/rankIcon_solo"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="35dp"
-                    android:src="@drawable/emblem_unranked"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/summonerIcon" />
-
-                <TextView
-                    android:id="@+id/rank_solo_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="Solo/Duo"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/rankIcon_solo"
-                    app:layout_constraintEnd_toEndOf="@+id/rankIcon_solo"
-                    app:layout_constraintStart_toStartOf="@+id/rankIcon_solo" />
-
-                <TextView
-                    android:id="@+id/wins_solo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Wins: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
-                    app:layout_constraintTop_toTopOf="@+id/rankIcon_solo" />
-
-                <TextView
-                    android:id="@+id/loses_solo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Loses: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
-                    app:layout_constraintTop_toBottomOf="@+id/wins_solo" />
-
-                <ProgressBar
-                    android:id="@+id/bg_barSolo"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="50dp"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="100"
-                    android:progressDrawable="@drawable/stats_full"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/rankIcon_solo" />
-
-
-                <ProgressBar
-                    android:id="@+id/stats_barSolo"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="75"
-                    android:progressDrawable="@drawable/stats_progress"
-                    app:layout_constraintBottom_toBottomOf="@id/bg_barSolo"
-                    app:layout_constraintEnd_toEndOf="@id/bg_barSolo"
-                    app:layout_constraintStart_toStartOf="@id/bg_barSolo"
-                    app:layout_constraintTop_toTopOf="@id/bg_barSolo" />
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/TranslucentBlackSummoner"
+                    app:layout_constraintBottom_toBottomOf="@id/summonerIcon"
+                    app:layout_constraintStart_toEndOf="@id/summonerIcon"
+                    app:layout_constraintTop_toTopOf="@id/summonerIcon">
+                    <!-- ajustar este color -->
 
-                <TextView
-                    android:id="@+id/win_ratio_solo"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/summonerLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LVL: 100"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/summonerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="summonerName"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="28sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_solo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Winrate: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/bg_barSolo"
-                    app:layout_constraintEnd_toEndOf="@+id/bg_barSolo"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/bg_barSolo"
-                    app:layout_constraintTop_toTopOf="@+id/bg_barSolo" />
+                    android:layout_marginTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:background="@color/TranslucentBlackSummoner"
+                    app:layout_constraintStart_toStartOf="@id/summonerIcon"
+                    app:layout_constraintTop_toBottomOf="@id/summonerIcon">
 
-                <TextView
-                    android:id="@+id/lp_solo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Lp: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
-                    app:layout_constraintTop_toBottomOf="@+id/loses_solo" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/rankIcon_solo"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="35dp"
+                        android:src="@drawable/emblem_unranked"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/rank_solo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Unranked"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
-                    app:layout_constraintTop_toTopOf="@id/rank_solo_text" />
+                    <TextView
+                        android:id="@+id/rank_solo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Solo/Duo"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/rankIcon_solo"
+                        app:layout_constraintEnd_toEndOf="@+id/rankIcon_solo"
+                        app:layout_constraintStart_toStartOf="@+id/rankIcon_solo" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/rankIcon_flex"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="35dp"
-                    android:src="@drawable/emblem_unranked"
-                    app:layout_constraintStart_toStartOf="@id/rankIcon_solo"
-                    app:layout_constraintTop_toBottomOf="@id/rankIcon_solo" />
+                    <TextView
+                        android:id="@+id/wins_solo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Wins: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
+                        app:layout_constraintTop_toTopOf="@+id/rankIcon_solo" />
 
-                <TextView
-                    android:id="@+id/rank_flex_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="Flex"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/rankIcon_flex"
-                    app:layout_constraintEnd_toEndOf="@+id/rankIcon_flex"
-                    app:layout_constraintStart_toStartOf="@+id/rankIcon_flex" />
+                    <TextView
+                        android:id="@+id/loses_solo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Loses: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
+                        app:layout_constraintTop_toBottomOf="@+id/wins_solo" />
 
-                <TextView
-                    android:id="@+id/wins_flex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Wins: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
-                    app:layout_constraintTop_toTopOf="@+id/rankIcon_flex" />
+                    <TextView
+                        android:id="@+id/lp_solo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Lp: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
+                        app:layout_constraintTop_toBottomOf="@+id/loses_solo" />
 
-                <TextView
-                    android:id="@+id/loses_flex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Loses: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
-                    app:layout_constraintTop_toBottomOf="@+id/wins_flex" />
+                    <TextView
+                        android:id="@+id/rank_solo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Unranked"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_solo"
+                        app:layout_constraintTop_toTopOf="@id/rank_solo_text" />
 
-                <ProgressBar
-                    android:id="@+id/bg_barFlex"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="50dp"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="100"
-                    android:progressDrawable="@drawable/stats_full"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/rankIcon_flex" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ProgressBar
-                    android:id="@+id/stats_barFlex"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <!--
+                                <ProgressBar
+                                    android:id="@+id/bg_barSolo"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginEnd="50dp"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="100"
+                                    android:progressDrawable="@drawable/stats_full"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@id/rankIcon_solo" />
+
+
+                                <ProgressBar
+                                    android:id="@+id/stats_barSolo"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="75"
+                                    android:progressDrawable="@drawable/stats_progress"
+                                    app:layout_constraintBottom_toBottomOf="@id/bg_barSolo"
+                                    app:layout_constraintEnd_toEndOf="@id/bg_barSolo"
+                                    app:layout_constraintStart_toStartOf="@id/bg_barSolo"
+                                    app:layout_constraintTop_toTopOf="@id/bg_barSolo" />
+
+                                <TextView
+                                    android:id="@+id/win_ratio_solo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Winrate: 0"
+                                    android:textColor="?attr/colorOnPrimary"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="@+id/bg_barSolo"
+                                    app:layout_constraintEnd_toEndOf="@+id/bg_barSolo"
+                                    app:layout_constraintHorizontal_bias="0.5"
+                                    app:layout_constraintStart_toStartOf="@+id/bg_barSolo"
+                                    app:layout_constraintTop_toTopOf="@+id/bg_barSolo" />
+
+                -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_flex"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="75"
-                    android:progressDrawable="@drawable/stats_progress"
-                    app:layout_constraintBottom_toBottomOf="@id/bg_barFlex"
-                    app:layout_constraintEnd_toEndOf="@id/bg_barFlex"
-                    app:layout_constraintStart_toStartOf="@id/bg_barFlex"
-                    app:layout_constraintTop_toTopOf="@id/bg_barFlex" />
-
-                <TextView
-                    android:id="@+id/win_ratio_flex"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Winrate: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/bg_barFlex"
-                    app:layout_constraintEnd_toEndOf="@+id/bg_barFlex"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/bg_barFlex"
-                    app:layout_constraintTop_toTopOf="@+id/bg_barFlex" />
+                    android:background="@color/TranslucentBlackSummoner"
+                    app:layout_constraintStart_toStartOf="@id/layout_solo"
+                    app:layout_constraintEnd_toEndOf="@id/layout_solo"
+                    app:layout_constraintTop_toBottomOf="@id/layout_solo">
 
-                <TextView
-                    android:id="@+id/lp_flex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Lp: 0"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
-                    app:layout_constraintTop_toBottomOf="@+id/loses_flex" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/rankIcon_flex"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="35dp"
+                        android:src="@drawable/emblem_unranked"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/rank_flex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Unranked"
-                    android:textColor="@color/design_default_color_background"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
-                    app:layout_constraintTop_toTopOf="@+id/rank_flex_text" />
+                    <TextView
+                        android:id="@+id/rank_flex_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Flex"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/rankIcon_flex"
+                        app:layout_constraintEnd_toEndOf="@+id/rankIcon_flex"
+                        app:layout_constraintStart_toStartOf="@+id/rankIcon_flex" />
+
+                    <TextView
+                        android:id="@+id/wins_flex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Wins: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
+                        app:layout_constraintTop_toTopOf="@+id/rankIcon_flex" />
+
+                    <TextView
+                        android:id="@+id/loses_flex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Loses: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
+                        app:layout_constraintTop_toBottomOf="@+id/wins_flex" />
+
+                    <TextView
+                        android:id="@+id/lp_flex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Lp: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
+                        app:layout_constraintTop_toBottomOf="@+id/loses_flex" />
+
+                    <TextView
+                        android:id="@+id/rank_flex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Unranked"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/rankIcon_flex"
+                        app:layout_constraintTop_toTopOf="@+id/rank_flex_text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!--
+                                <ProgressBar
+                                    android:id="@+id/bg_barFlex"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginEnd="50dp"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="100"
+                                    android:progressDrawable="@drawable/stats_full"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@id/rankIcon_flex" />
+
+                                <ProgressBar
+                                    android:id="@+id/stats_barFlex"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="75"
+                                    android:progressDrawable="@drawable/stats_progress"
+                                    app:layout_constraintBottom_toBottomOf="@id/bg_barFlex"
+                                    app:layout_constraintEnd_toEndOf="@id/bg_barFlex"
+                                    app:layout_constraintStart_toStartOf="@id/bg_barFlex"
+                                    app:layout_constraintTop_toTopOf="@id/bg_barFlex" />
+
+                                <TextView
+                                    android:id="@+id/win_ratio_flex"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Winrate: 0"
+                                    android:textColor="?attr/colorOnPrimary"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="@+id/bg_barFlex"
+                                    app:layout_constraintEnd_toEndOf="@+id/bg_barFlex"
+                                    app:layout_constraintHorizontal_bias="0.5"
+                                    app:layout_constraintStart_toStartOf="@+id/bg_barFlex"
+                                    app:layout_constraintTop_toTopOf="@+id/bg_barFlex" />
+                -->
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

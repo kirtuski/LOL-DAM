@@ -17,6 +17,9 @@
     <color name="secondaryDarkColor">#c77f00</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
-    <color name="redFill">#F17D75</color>
+    <!-- Colores para ajustar -->
+    <color name="redFill">#99F17D75</color>
+    <color name="blueFill">#9964c1ff</color>
+    <color name="TranslucentBlackSummoner">#66000000</color>
 
 </resources>
