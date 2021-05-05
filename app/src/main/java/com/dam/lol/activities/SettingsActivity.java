@@ -21,9 +21,8 @@ import androidx.preference.PreferenceManager;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
+import com.google.android.material.snackbar.Snackbar;
 
-
-//TODO añadir idioma? Hacer temas?
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -51,23 +50,24 @@ public class SettingsActivity extends AppCompatActivity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
         if (clipboard.hasPrimaryClip()) {
-            String contenidoPortapapeles = (String) clipboard.getPrimaryClip().getItemAt(0).getText();
-            Log.d("Clipboard", contenidoPortapapeles);
+            String clipboardContent = (String) clipboard.getPrimaryClip().getItemAt(0).getText();
+            Log.d("Clipboard", clipboardContent);
 
-            if (contenidoPortapapeles.startsWith("RGAPI") && contenidoPortapapeles.length() == 42) {
-                Toast.makeText(this, "Contenido copiado", Toast.LENGTH_SHORT).show();
+            if (clipboardContent.startsWith("RGAPI") && clipboardContent.length() == 42) {
+                Toast.makeText(this, getString(R.string.clipboard_correct), Toast.LENGTH_SHORT).show();
                 SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
-                preferenceManager.edit().putString("key", contenidoPortapapeles).apply();
+                preferenceManager.edit().putString("key", clipboardContent).apply();
                 LolApplication.getInstance().reloadApiKey();
-                //Refresca la actividad para mostrar el nuevo contenido
+
+                //Refresh activity to show new api
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(getIntent());
                 overridePendingTransition(0, 0);
             } else
-                Toast.makeText(this, "No se pudo copiar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.clipboard_no_valid), Toast.LENGTH_SHORT).show();
         } else
-            Toast.makeText(this, "No se pudo copiar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.clipboard_no_content), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    //TODO Refactor https://github.com/danielme-com/android-light-dark/blob/main/app/src/main/java/com/danielme/android/dark/settings/ThemeSetup.java
+    //TODO Refactor
     public static class ThemeSetup {
         private ThemeSetup() {
         }
@@ -125,7 +125,6 @@ public class SettingsActivity extends AppCompatActivity {
         public enum Mode {
             DEFAULT, DARK, LIGHT
         }
-
     }
 
 }

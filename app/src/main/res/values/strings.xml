@@ -14,7 +14,6 @@
     <string name="miscellaneous_header">Miscellaneous</string>
     <string name="theme_title">Theme</string>
     <string name="theme_dialog">Choose a theme</string>
-    <string name="settings_theme">Theme</string>
     <string name="go_riot">Get key</string>
     <string name="copy_clipboard">Copy from clipboard</string>
     <string name="predetermined_theme">System\'s theme</string>
@@ -46,5 +45,9 @@
     <string name="largest_multikill">Largest multikill: %1$d</string>
     <string name="longest_time_alive">Longest time alive: </string>
     <string name="default_winrate" translatable="false">0%</string>
+    <!-- Toast and Snackbars -->
+    <string name="clipboard_correct">Content copied</string>
+    <string name="clipboard_no_content">Nothing on clipboard</string>
+    <string name="clipboard_no_valid">Are you sure this is a key?</string>
 
 </resources>

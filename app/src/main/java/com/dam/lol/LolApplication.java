@@ -13,7 +13,6 @@ import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.facade.cache.LruBitmapCache;
 
-//Clase application para implementar la cola de volley
 public class LolApplication extends Application {
     private static LolApplication sInstance;
     private RequestQueue mRequestQueue;

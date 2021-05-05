@@ -19,8 +19,8 @@ public class LeagueResponse implements Serializable {
         return leagueDtoList;
     }
 
-    public void setleagueDtoList(List<LeagueDto> leagueDtoList) {
+    public void setLeagueDtoList(List<LeagueDto> leagueDtoList) {
         this.leagueDtoList = leagueDtoList;
     }
-
 }
+

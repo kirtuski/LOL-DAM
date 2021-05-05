@@ -2,7 +2,7 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Api Key">
+    <PreferenceCategory android:title="@string/api_header">
         <EditTextPreference
             android:key="key"
             android:title="Api Key"

@@ -7,8 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <!-- Nuestros colores -->
+    <!-- Our colors -->
     <color name="primaryColor">#0091ea</color>
     <color name="primaryLightColor">#64c1ff</color>
     <color name="primaryDarkColor">#0064b7</color>
@@ -17,9 +16,8 @@
     <color name="secondaryDarkColor">#c77f00</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
-    <!-- Colores para ajustar -->
+    <!-- Colors to tune -->
     <color name="redFill">#99F17D75</color>
     <color name="blueFill">#9964c1ff</color>
     <color name="TranslucentBlackSummoner">#66000000</color>
-
 </resources>

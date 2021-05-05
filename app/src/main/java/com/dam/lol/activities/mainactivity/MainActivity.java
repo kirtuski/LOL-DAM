@@ -7,7 +7,6 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeInput() {
-        nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
+        nombreInvocadorInput = findViewById(R.id.name_input_layout);
     }
 
     private void initializeFacades() {
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeFavoriteSummonerList() {
         List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
-        ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
+        ListView favoriteChampionsList = findViewById(R.id.favorite_champions_list);
         simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorites_container, simpleSummoners, this);
         favoriteChampionsList.setAdapter(simpleSummonerAdapter);
         favoriteChampionsList.setOnItemClickListener((parent, view, position, id) -> {
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeSpinner() {
         //Elementos del layout
-        Spinner servidorSpinner = findViewById(R.id.servidorSpinner);
+        Spinner servidorSpinner = findViewById(R.id.servers_spinner);
         servidorSpinner.setOnItemSelectedListener(new ServersSpinnerAdapter(this));
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
-    public void BuscaInvocador(View view) {
+    public void searchSummoner(View view) {
         String nombre = Objects.requireNonNull(nombreInvocadorInput.getEditText()).getText().toString();
         if (nombre.length() == 0)
             Toast.makeText(this, "Introduce un nombre de invocador", Toast.LENGTH_SHORT).show();
