@@ -4,7 +4,7 @@
     android:id="@+id/box_match"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="8dp">
 
     <TextView
         android:id="@+id/matchTypeText"
@@ -120,7 +120,7 @@
         android:id="@+id/largestKillingSpree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:text="@string/largest_multikill"
         android:textSize="13sp"
@@ -131,7 +131,7 @@
         android:id="@+id/largestMultiKill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="3dp"
         android:text="@string/largest_multikill"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@id/largestKillingSpree"
@@ -141,7 +141,7 @@
         android:id="@+id/longestTimeSpentLiving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="3dp"
         android:text="@string/longest_time_alive"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@id/largestKillingSpree"

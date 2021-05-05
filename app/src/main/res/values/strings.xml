@@ -31,7 +31,7 @@
     <string name="before">Older</string>
     <string name="after">Newer</string>
     <string name="summoner_level">Level: %1$d</string>
-    "Level: " + summoner.getSummonerLevel()
+    <string name="default_lp" translatable="false">0LP</string>
     <!-- One match -->
     <string name="win">Win</string>
     <string name="lose">Lose</string>

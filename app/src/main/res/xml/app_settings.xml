@@ -12,8 +12,8 @@
     <PreferenceCategory android:title="@string/miscellaneous_header">
         <androidx.preference.ListPreference
             android:dialogTitle="@string/theme_dialog"
-            android:entries="@array/arrayTemas"
-            android:entryValues="@array/valoresTemas"
+            android:entries="@array/themesValues"
+            android:entryValues="@array/themeInternals"
             android:key="@string/settings_theme_key"
             android:summary="%s"
             android:title="@string/theme_title" />

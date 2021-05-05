@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-//TODO Habría que cambiarle el nombre a esta clase, ya hace mucho más que solo campeones
 public class ResourcesFacade {
     private final HashMap<Integer, String> championMap;
     private final HashMap<Integer, String> summonerSpellMap;

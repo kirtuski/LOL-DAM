@@ -159,7 +159,7 @@
                         android:id="@+id/lp_solo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/lp"
+                        android:text="@string/default_lp"
                         android:textColor="?attr/colorOnPrimary"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@id/bg_bar_solo"
@@ -176,6 +176,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/TranslucentBlackSummoner"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     app:layout_constraintEnd_toEndOf="@id/layout_solo"
                     app:layout_constraintStart_toStartOf="@id/layout_solo"
                     app:layout_constraintTop_toBottomOf="@id/layout_solo">
@@ -257,7 +259,7 @@
                         android:id="@+id/lp_flex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/lp"
+                        android:text="@string/default_lp"
                         android:textColor="?attr/colorOnPrimary"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@id/bg_bar_flex"
@@ -281,7 +283,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/match_list" />
+    <include layout="@layout/match_container" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

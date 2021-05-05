@@ -117,11 +117,11 @@ public class InvocadorActivity extends AppCompatActivity {
         return matchListOnView.indexOf(matchId);
     }
 
-    public void loadMatchInActivity(MatchResponse partidaResponse) {
+    public void loadMatchInActivity(MatchResponse matchResponse) {
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
         listaPartidas.addView(oneMatch, 0);
 
-        for (ParticipantDto participant : partidaResponse.getParticipants()) {
+        for (ParticipantDto participant : matchResponse.getParticipants()) {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
                 //Champion
                 NetworkImageView imageChamp = findViewById(R.id.championImage);
@@ -138,7 +138,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 TextView kda = findViewById(R.id.KDAText);
                 kda.setText(getString(R.string.kda_value, participant.getKills(), participant.getDeaths(), participant.getAssists()));
                 //CS
-                double cM = participant.getTotalMinionsKilled() / (partidaResponse.getGameDuration() / 60000);
+                double cM = participant.getTotalMinionsKilled() / (matchResponse.getGameDuration() / 60000);
                 double csMin = Math.round(cM * 100.0) / 100.0;
                 TextView cs = findViewById(R.id.CSText);
                 cs.setText(getString(R.string.cs_value, participant.getTotalMinionsKilled(), csMin));
@@ -159,14 +159,14 @@ public class InvocadorActivity extends AppCompatActivity {
                 //Match
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
-                matchType.setText(resourcesFacade.getQueueNameById(partidaResponse.getQueueId()));
+                matchType.setText(resourcesFacade.getQueueNameById(matchResponse.getQueueId()));
                 //howLongAgo
-                Date diaP = new Date((long) partidaResponse.getGameCreation());
+                Date diaP = new Date((long) matchResponse.getGameCreation());
                 Date diaA = new Date();
                 int dias = (int) ((diaA.getTime() - diaP.getTime()) / 86400000);
                 TextView howLongAgoText = findViewById(R.id.howLongAgoText);
                 if (dias != 0) {
-                    howLongAgoText.setText(getString(R.string.hours_ago, dias));
+                    howLongAgoText.setText(getString(R.string.days_ago, dias));
                 } else {
                     long diff = (diaA.getTime() - diaP.getTime());
                     int horas = (int) (diff / (60 * 60 * 1000));
@@ -185,7 +185,7 @@ public class InvocadorActivity extends AppCompatActivity {
                     bgElement.setBackgroundColor(this.getColor(R.color.redFill));
                 }
                 //matchDuration
-                double duration = partidaResponse.getGameDuration();
+                double duration = matchResponse.getGameDuration();
                 long m_min = ((long) duration / 1000) / 60;
                 int m_seg = (int) ((duration / 1000) % 60);
                 TextView matchDurationText = findViewById(R.id.matchDurationText);
@@ -201,7 +201,7 @@ public class InvocadorActivity extends AppCompatActivity {
             participantNameMin.setText(participant.getSummonerName());
         }
 
-        int index = getIndicePartida(partidaResponse.getMatchId());
+        int index = getIndicePartida(matchResponse.getMatchId());
         View tempView = listaPartidas.getChildAt(0);
         listaPartidas.removeViewAt(0);
         listaPartidas.addView(tempView, index);
