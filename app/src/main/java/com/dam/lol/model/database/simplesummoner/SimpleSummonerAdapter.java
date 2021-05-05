@@ -3,7 +3,6 @@ package com.dam.lol.model.database.simplesummoner;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
@@ -23,10 +20,10 @@ import java.util.List;
 // copiao del internete
 public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
 
-    List<SimpleSummoner> simpleSummoners;
     private final int resourceLayout;
     private final Context mContext;
     private final Activity activity;
+    List<SimpleSummoner> simpleSummoners;
     private View v;
     private SparseBooleanArray mSelectedItemsIds;
 
@@ -71,9 +68,9 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
         return v;
     }
 
-    public String convertirServidor(String servidor){
-        for(int i=0; i < activity.getResources().getStringArray(R.array.urlServers).length; i++){
-            if (servidor.equals(activity.getResources().getStringArray(R.array.urlServers)[i])){
+    public String convertirServidor(String servidor) {
+        for (int i = 0; i < activity.getResources().getStringArray(R.array.urlServers).length; i++) {
+            if (servidor.equals(activity.getResources().getStringArray(R.array.urlServers)[i])) {
                 return activity.getResources().getStringArray(R.array.servers)[i];
             }
         }

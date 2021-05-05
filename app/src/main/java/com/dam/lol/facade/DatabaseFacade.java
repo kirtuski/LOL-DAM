@@ -17,14 +17,13 @@ public class DatabaseFacade extends SQLiteOpenHelper {
     //PARA CORONARSE LAS QUERYS DEBERIAN ESTAR EN UN XML Y RECUPERARLAS DE ALLI CUANDO SE VAYAN A USAR
     private static final String SQL_DROP_FAVORITE_SUMMONERS = "drop table if exists FAVORITE_SUMMONERS";
     private static final String SQL_CREATE_FAVORITE_SUMMONERS = "create table FAVORITE_SUMMONERS(" +
-            "KEY INTEGER primary key autoincrement," +
+            "TABLE_KEY INTEGER primary key autoincrement," +
             "SUMMONER_NAME text," +
             "SERVER text)";
 
     public DatabaseFacade(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase database) {
@@ -65,7 +64,7 @@ public class DatabaseFacade extends SQLiteOpenHelper {
         String[] valores_recuperar = {"SUMMONER_NAME", "SERVER"};
         Cursor findFavoriteSummonersCursor = database.query("FAVORITE_SUMMONERS", valores_recuperar, null,
                 null, null, null, "SUMMONER_NAME", null);
-        List<SimpleSummoner> simpleSummoners = new ArrayList<SimpleSummoner>();
+        List<SimpleSummoner> simpleSummoners = new ArrayList<>();
 
         if (findFavoriteSummonersCursor.moveToFirst()) {
             do {

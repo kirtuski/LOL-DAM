@@ -115,7 +115,7 @@ public class InvocadorActivity extends AppCompatActivity {
 
     private int getIndicePartida(String matchId) {
         matchListOnView.add(matchId);
-        Collections.sort(matchListOnView, Collections.reverseOrder());
+        matchListOnView.sort(Collections.reverseOrder());
         return matchListOnView.indexOf(matchId);
     }
 
@@ -301,28 +301,25 @@ public class InvocadorActivity extends AppCompatActivity {
             fab.setImageResource(R.drawable.star_border);
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
-                    if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
-                        Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        fab.setImageResource(R.drawable.star);
+        fab.setOnClickListener(view -> {
+            if (!databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
+                if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
+                    Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    fab.setImageResource(R.drawable.star);
 
-                    } else {
-                        Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
                 } else {
-                    if (databaseFacade.deleteSummoner(summoner.getName(), summoner.getServer()) == 0)
-                        Snackbar.make(view, "Error borrando el invocador", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    else {
-                        Snackbar.make(view, "Invocador eliminado de favoritos", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        fab.setImageResource(R.drawable.star_border);
-                    }
+                    Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            } else {
+                if (databaseFacade.deleteSummoner(summoner.getName(), summoner.getServer()) == 0)
+                    Snackbar.make(view, "Error borrando el invocador", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                else {
+                    Snackbar.make(view, "Invocador eliminado de favoritos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    fab.setImageResource(R.drawable.star_border);
                 }
             }
         });

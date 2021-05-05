@@ -8,7 +8,7 @@ import com.dam.lol.activities.MainActivity;
 
 //TODO refactor a donde corresponda, a lo mejor paquete con el otro adapter?
 public class SpinnerAdapter implements AdapterView.OnItemSelectedListener {
-    MainActivity activity;
+    private final MainActivity activity;
 
     public SpinnerAdapter(MainActivity activity) {
         this.activity = activity;

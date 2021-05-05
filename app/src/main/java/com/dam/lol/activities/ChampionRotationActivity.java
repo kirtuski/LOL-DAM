@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.ChampionFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionRotationResponse;

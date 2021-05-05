@@ -26,6 +26,7 @@ import com.dam.lol.model.database.simplesummoner.SimpleSummonerAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
+import java.util.Objects;
 
 //TODO hay que revisar bien como tratamos las exepciones
 
@@ -71,26 +72,20 @@ public class MainActivity extends AppCompatActivity{
         ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
         simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorite_summoner_layout, simpleSummoners, this);
         favoriteChampionsList.setAdapter(simpleSummonerAdapter);
-        favoriteChampionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick (AdapterView<?> parent, View view, int position, long id){
-                SimpleSummoner simpleSummoner = (SimpleSummoner) simpleSummonerAdapter.getItem(position);
-                if(simpleSummonerAdapter.getSelectedIds().size() == 0) {
-                    LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
-                }
-                else
-                {
-                    onListItemSelect(position);
-                }
+        favoriteChampionsList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
+            SimpleSummoner simpleSummoner = (SimpleSummoner) simpleSummonerAdapter.getItem(position);
+            if(simpleSummonerAdapter.getSelectedIds().size() == 0) {
+                LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
+            }
+            else
+            {
+                onListItemSelect(position);
             }
         });
 
-        favoriteChampionsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> parent,
-                                           View view, int position, long id) {
-                onListItemSelect(position);
-                return true;
-            }
+        favoriteChampionsList.setOnItemLongClickListener((parent, view, position, id) -> {
+            onListItemSelect(position);
+            return true;
         });
     }
 
@@ -106,8 +101,8 @@ public class MainActivity extends AppCompatActivity{
             mActionMode.finish();
 
         if (mActionMode != null)
-            mActionMode.setTitle(String.valueOf(simpleSummonerAdapter
-                    .getSelectedCount()) + " selected");
+            mActionMode.setTitle(simpleSummonerAdapter
+                    .getSelectedCount() + " selected");
     }
 
     public void setServer_url(String server_url) {
@@ -126,7 +121,7 @@ public class MainActivity extends AppCompatActivity{
 
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
     public void BuscaInvocador(View view) {
-        String nombre = nombreInvocadorInput.getEditText().getText().toString();
+        String nombre = Objects.requireNonNull(nombreInvocadorInput.getEditText()).getText().toString();
         if (nombre.length() == 0)
             Toast.makeText(this, "Introduce un nombre de invocador", Toast.LENGTH_SHORT).show();
         else
@@ -167,23 +162,20 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
-            switch (item.getItemId()) {
-                case R.id.menu_delete:
-                    // retrieve selected items and delete them out
-                    SparseBooleanArray selected = simpleSummonerAdapter
-                            .getSelectedIds();
-                    for (int i = (selected.size() - 1); i >= 0; i--) {
-                        if (selected.valueAt(i)) {
-                            SimpleSummoner selectedItem = simpleSummonerAdapter
-                                    .getItem(selected.keyAt(i));
-                            simpleSummonerAdapter.remove(selectedItem);
-                        }
+            if (item.getItemId() == R.id.menu_delete) {
+                SparseBooleanArray selected = simpleSummonerAdapter
+                        .getSelectedIds();
+                for (int i = (selected.size() - 1); i >= 0; i--) {
+                    if (selected.valueAt(i)) {
+                        SimpleSummoner selectedItem = simpleSummonerAdapter
+                                .getItem(selected.keyAt(i));
+                        simpleSummonerAdapter.remove(selectedItem);
                     }
-                    mode.finish(); // Action picked, so close the CAB
-                    return true;
-                default:
-                    return false;
+                }
+                mode.finish();
+                return true;
             }
+            return false;
 
         }
 
