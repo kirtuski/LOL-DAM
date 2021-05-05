@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Api Key">
+        <EditTextPreference
+            android:key="key"
+            android:title="Api Key" />
+    </PreferenceCategory>
+
+    <androidx.preference.ListPreference
+        android:key="@string/settings_theme_key"
+        android:title="Temas"
+        android:dialogTitle="Elige un tema"
+        android:entries="@array/arrayTemas"
+        android:entryValues="@array/valoresTemas"
+        android:summary="%s"/>
+
+</androidx.preference.PreferenceScreen>

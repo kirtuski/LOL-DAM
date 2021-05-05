@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsActivity.ThemeSetup.applyTheme(this);
         setContentView(R.layout.activity_main);
 
         initializeInput();
