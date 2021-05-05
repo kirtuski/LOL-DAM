@@ -1,5 +1,6 @@
 package com.dam.lol.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -27,7 +28,6 @@ import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
 import com.dam.lol.model.api.objects.LeagueDto;
 import com.dam.lol.model.api.objects.ParticipantDto;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-//TODO cambiar el color de arriba, la barra, por el que más hay en el splash art
 public class InvocadorActivity extends AppCompatActivity {
     private final int COUNT = 5; //Numero de partidas que se muestran
     private SummonerResponse summoner;
@@ -104,13 +103,12 @@ public class InvocadorActivity extends AppCompatActivity {
     }
 
     public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) {
-        //TODO check != 0
-        int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
-        String champName = championFacade.getChampionNameById(campeon);
-
-        //TODO  se distorsiona, hay que arreglar la forma que se muestra la imagen
-        NetworkImageView fondo = findViewById(R.id.background_mastery);
-        imageFacade.setSplashByChampionName(champName, fondo);
+        if (championMasteryResponse.getChampionMasteryDtoList().size() != 0) {
+            int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
+            String champName = championFacade.getChampionNameById(campeon);
+            NetworkImageView fondo = findViewById(R.id.background_mastery);
+            imageFacade.setSplashByChampionName(champName, fondo);
+        }
     }
 
     private int getIndicePartida(String matchId) {
@@ -120,13 +118,11 @@ public class InvocadorActivity extends AppCompatActivity {
     }
 
     public void ponPartidaEnActivity(MatchResponse partidaResponse) {
-
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
         listaPartidas.addView(oneMatch, 0);
 
         for (ParticipantDto participant : partidaResponse.getParticipants()) {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
-
                 //Champion
                 NetworkImageView imageChamp = findViewById(R.id.championImage);
                 imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChamp);
@@ -144,7 +140,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 kda.setText(kdaFormat);
                 //CS
                 double cM = participant.getTotalMinionsKilled() / (partidaResponse.getGameDuration() / 60000);
-                double csMin = Math.round(cM * 100.0) / 100.0; // Para coger solo dos decimales
+                double csMin = Math.round(cM * 100.0) / 100.0;
                 String csFormat = participant.getTotalMinionsKilled() + "(" + csMin + ")CS";
                 TextView cs = findViewById(R.id.CSText);
                 cs.setText(csFormat);
@@ -183,6 +179,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 }
                 TextView howLongAgoText = findViewById(R.id.howLongAgoText);
                 howLongAgoText.setText(date);
+
                 //isWin
                 TextView isWin = findViewById(R.id.isWinText);
                 ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.boxmatch);
@@ -272,29 +269,9 @@ public class InvocadorActivity extends AppCompatActivity {
         TypedValue typedValue = new TypedValue();
         this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
         collapse.setCollapsedTitleTextColor(typedValue.data);
-
-        AppBarLayout appBar = findViewById(R.id.app_bar);
-        appBar.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
-            boolean isShow = true;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    collapse.setTitle(summoner.getName());
-                    isShow = true;
-                } else if (isShow) {
-                    collapse.setTitle(" ");
-                    isShow = false;
-                }
-            }
-        });
+        collapse.setExpandedTitleColor(Color.argb(0, 0, 0, 0)); //Transparent
 
         FloatingActionButton fab = findViewById(R.id.fab);
-
         if (databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
             fab.setImageResource(R.drawable.star);
         } else {

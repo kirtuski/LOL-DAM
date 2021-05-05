@@ -28,18 +28,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 import java.util.Objects;
 
-//TODO hay que revisar bien como tratamos las exepciones
-
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
+    SimpleSummonerAdapter simpleSummonerAdapter;
     private TextInputLayout nombreInvocadorInput;
     private ActionMode mActionMode;
-
     //Guardar el servidor elejido
     private String server_url;
     private ApiFacade apiFacade;
     private DatabaseFacade databaseFacade;
-
-    SimpleSummonerAdapter simpleSummonerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +70,9 @@ public class MainActivity extends AppCompatActivity{
         favoriteChampionsList.setAdapter(simpleSummonerAdapter);
         favoriteChampionsList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
             SimpleSummoner simpleSummoner = (SimpleSummoner) simpleSummonerAdapter.getItem(position);
-            if(simpleSummonerAdapter.getSelectedIds().size() == 0) {
+            if (simpleSummonerAdapter.getSelectedIds().size() == 0) {
                 LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
-            }
-            else
-            {
+            } else {
                 onListItemSelect(position);
             }
         });
