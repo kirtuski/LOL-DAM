@@ -15,7 +15,6 @@
         android:theme="@style/Theme.LOLDAM">
         <activity
             android:name=".activities.InvocadorActivity"
-            android:label="@string/title_activity_invocador"
             android:theme="@style/Theme.LOLDAM.NoActionBar" />
         <activity
             android:name=".activities.SettingsActivity"
