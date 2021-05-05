@@ -141,13 +141,12 @@ public class InvocadorActivity extends AppCompatActivity {
                 double cM = participant.getTotalMinionsKilled() / (partidaResponse.getGameDuration() / 60000);
                 double csMin = Math.round(cM * 100.0) / 100.0;
                 TextView cs = findViewById(R.id.CSText);
-                cs.setText(getString(R.string.cs_value, participant.getTotalMinionsKilled(), csMin ));
+                cs.setText(getString(R.string.cs_value, participant.getTotalMinionsKilled(), csMin));
 
                 //LargestKillingSpree
                 TextView largestKillingSpreeText = findViewById(R.id.largestKillingSpree);
                 largestKillingSpreeText.setText(getString(R.string.largest_spree, participant.getLargestKillingSpree()));
                 //largestMultiKill
-                int lms = participant.getLargestMultiKill();
                 TextView largestMultiKillText = findViewById(R.id.largestMultiKill);
                 largestMultiKillText.setText(getString(R.string.largest_multikill, participant.getLargestMultiKill()));
                 //longestTimeSpentLiving
@@ -264,6 +263,7 @@ public class InvocadorActivity extends AppCompatActivity {
         this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
         collapse.setCollapsedTitleTextColor(typedValue.data);
         collapse.setExpandedTitleColor(Color.argb(0, 0, 0, 0)); //Transparent
+        this.setTitle(summoner.getName());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         if (databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {

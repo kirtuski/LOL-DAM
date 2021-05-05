@@ -10,7 +10,7 @@
     <string name="champion_rotation">Rotacion de campeones</string>
     <!-- Settings -->
     <string name="miscellaneous_header">Varios</string>
-    <string name="theme_title">Elige tu tema</string>
+    <string name="theme_title">Tema</string>
     <string name="go_riot">Conseguir key</string>
     <string name="copy_clipboard">Copiar del portapapeles</string>
     <string name="before">Más antiguas</string>
@@ -18,12 +18,17 @@
     <string name="summoner_level">Nivel: %1$d</string>
     <string name="win">Victoria</string>
     <string name="lose">Derrota</string>
-    <string name="days_ago">Hace %1%d dias</string>
+    <string name="days_ago">Hace %1%d días</string>
     <string name="hours_ago">Hace %1$dh</string>
-    <string name="largest_spree">Mayor racha de bajas</string>
-    <string name="largest_multikill">Mayor baja multiple</string>
-    <string name="longest_time_alive">Mayor tiempo sin morir</string>
+    <string name="largest_spree">Mayor racha de bajas: %1$d</string>
+    <string name="largest_multikill">Mayor baja multiple: %1$d</string>
+    <string name="longest_time_alive">"Mayor tiempo sin morir: "</string>
     <string name="win_rate">Victorias: %1$d</string>
+    <string name="settings_theme">Tema</string>
+    <string name="light_theme">Claro</string>
+    <string name="dark_theme">Oscuro</string>
+    <string name="predetermined_theme">Tema del sistema</string>
+    <string name="theme_dialog">Elige un tema</string>
     <!-- One match layout -->
 
 </resources>

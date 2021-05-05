@@ -98,9 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static class ThemeSetup {
         private ThemeSetup() {
         }
-        public enum Mode {
-            DEFAULT, DARK, LIGHT
-        }
+
         public static void applyTheme(Mode mode) {
             switch (mode) {
                 case DARK:
@@ -117,10 +115,15 @@ public class SettingsActivity extends AppCompatActivity {
                     }
             }
         }
+
         public static void applyTheme(Context context) {
             SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             String value = defaultSharedPreferences.getString(context.getString(R.string.settings_theme_key), Mode.DEFAULT.name());
             applyTheme(Mode.valueOf(value));
+        }
+
+        public enum Mode {
+            DEFAULT, DARK, LIGHT
         }
 
     }
