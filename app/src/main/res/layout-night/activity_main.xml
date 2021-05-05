@@ -31,7 +31,7 @@
             android:layout_height="150dp"
             android:layout_marginTop="104dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/logo"
@@ -52,7 +52,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Nombre de Invocador" />
+                android:hint="@string/summoner_name_hint" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,6 +60,7 @@
             android:id="@+id/servidorSpinner"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/NombreInvocadorLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -71,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="BuscaInvocador"
-            android:text="Buscar invocador"
+            android:text="@string/search_summoner"
             app:layout_constraintEnd_toEndOf="@id/servidorSpinner"
             app:layout_constraintStart_toStartOf="@id/NombreInvocadorLayout"
             app:layout_constraintTop_toBottomOf="@+id/NombreInvocadorLayout" />
@@ -81,7 +82,7 @@
             android:layout_marginHorizontal="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Invocadores favoritos"
+            android:text="@string/favorite_summoners"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/botonBuscar" />
@@ -99,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="openChampionRotation"
-            android:text="ChampionRotation"
+            android:text="@string/champion_rotation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
