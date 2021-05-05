@@ -82,8 +82,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:paddingEnd="10dp"
                     android:background="@color/TranslucentBlackSummoner"
+                    android:paddingEnd="10dp"
                     app:layout_constraintStart_toStartOf="@id/summonerIcon"
                     app:layout_constraintTop_toBottomOf="@id/summonerIcon">
 
@@ -154,56 +154,64 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!--
-                                <ProgressBar
-                                    android:id="@+id/bg_barSolo"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="80dp"
-                                    android:layout_height="80dp"
-                                    android:layout_marginEnd="50dp"
-                                    android:indeterminate="false"
-                                    android:max="100"
-                                    android:progress="100"
-                                    android:progressDrawable="@drawable/stats_full"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/rankIcon_solo" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/TranslucentBlackSummoner"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_solo"
+                    app:layout_constraintStart_toEndOf="@id/layout_solo">
+
+                    <ProgressBar
+                        android:id="@+id/bg_barSolo"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="50dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="100"
+                        android:progressDrawable="@drawable/stats_full"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-                                <ProgressBar
-                                    android:id="@+id/stats_barSolo"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:indeterminate="false"
-                                    android:max="100"
-                                    android:progress="75"
-                                    android:progressDrawable="@drawable/stats_progress"
-                                    app:layout_constraintBottom_toBottomOf="@id/bg_barSolo"
-                                    app:layout_constraintEnd_toEndOf="@id/bg_barSolo"
-                                    app:layout_constraintStart_toStartOf="@id/bg_barSolo"
-                                    app:layout_constraintTop_toTopOf="@id/bg_barSolo" />
+                    <ProgressBar
+                        android:id="@+id/stats_barSolo"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="75"
+                        android:progressDrawable="@drawable/stats_progress"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_barSolo"
+                        app:layout_constraintEnd_toEndOf="@id/bg_barSolo"
+                        app:layout_constraintStart_toStartOf="@id/bg_barSolo"
+                        app:layout_constraintTop_toTopOf="@id/bg_barSolo" />
 
-                                <TextView
-                                    android:id="@+id/win_ratio_solo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Winrate: 0"
-                                    android:textColor="?attr/colorOnPrimary"
-                                    android:textSize="12sp"
-                                    app:layout_constraintBottom_toBottomOf="@+id/bg_barSolo"
-                                    app:layout_constraintEnd_toEndOf="@+id/bg_barSolo"
-                                    app:layout_constraintHorizontal_bias="0.5"
-                                    app:layout_constraintStart_toStartOf="@+id/bg_barSolo"
-                                    app:layout_constraintTop_toTopOf="@+id/bg_barSolo" />
+                    <TextView
+                        android:id="@+id/win_ratio_solo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Winrate: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/bg_barSolo"
+                        app:layout_constraintEnd_toEndOf="@+id/bg_barSolo"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/bg_barSolo"
+                        app:layout_constraintTop_toTopOf="@+id/bg_barSolo" />
 
-                -->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_flex"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/TranslucentBlackSummoner"
-                    app:layout_constraintStart_toStartOf="@id/layout_solo"
                     app:layout_constraintEnd_toEndOf="@id/layout_solo"
+                    app:layout_constraintStart_toStartOf="@id/layout_solo"
                     app:layout_constraintTop_toBottomOf="@id/layout_solo">
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -273,49 +281,53 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/TranslucentBlackSummoner"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_flex"
+                    app:layout_constraintStart_toEndOf="@id/layout_flex">
 
-                <!--
-                                <ProgressBar
-                                    android:id="@+id/bg_barFlex"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="80dp"
-                                    android:layout_height="80dp"
-                                    android:layout_marginEnd="50dp"
-                                    android:indeterminate="false"
-                                    android:max="100"
-                                    android:progress="100"
-                                    android:progressDrawable="@drawable/stats_full"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/rankIcon_flex" />
+                    <ProgressBar
+                        android:id="@+id/bg_barFlex"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="100"
+                        android:progressDrawable="@drawable/stats_full"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                                <ProgressBar
-                                    android:id="@+id/stats_barFlex"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:indeterminate="false"
-                                    android:max="100"
-                                    android:progress="75"
-                                    android:progressDrawable="@drawable/stats_progress"
-                                    app:layout_constraintBottom_toBottomOf="@id/bg_barFlex"
-                                    app:layout_constraintEnd_toEndOf="@id/bg_barFlex"
-                                    app:layout_constraintStart_toStartOf="@id/bg_barFlex"
-                                    app:layout_constraintTop_toTopOf="@id/bg_barFlex" />
+                    <ProgressBar
+                        android:id="@+id/stats_barFlex"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="75"
+                        android:progressDrawable="@drawable/stats_progress"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_barFlex"
+                        app:layout_constraintEnd_toEndOf="@id/bg_barFlex"
+                        app:layout_constraintStart_toStartOf="@id/bg_barFlex"
+                        app:layout_constraintTop_toTopOf="@id/bg_barFlex" />
 
-                                <TextView
-                                    android:id="@+id/win_ratio_flex"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Winrate: 0"
-                                    android:textColor="?attr/colorOnPrimary"
-                                    android:textSize="12sp"
-                                    app:layout_constraintBottom_toBottomOf="@+id/bg_barFlex"
-                                    app:layout_constraintEnd_toEndOf="@+id/bg_barFlex"
-                                    app:layout_constraintHorizontal_bias="0.5"
-                                    app:layout_constraintStart_toStartOf="@+id/bg_barFlex"
-                                    app:layout_constraintTop_toTopOf="@+id/bg_barFlex" />
-                -->
+                    <TextView
+                        android:id="@+id/win_ratio_flex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Winrate: 0"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/bg_barFlex"
+                        app:layout_constraintEnd_toEndOf="@+id/bg_barFlex"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/bg_barFlex"
+                        app:layout_constraintTop_toTopOf="@+id/bg_barFlex" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
