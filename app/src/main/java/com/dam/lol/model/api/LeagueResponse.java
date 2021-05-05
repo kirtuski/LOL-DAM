@@ -1,6 +1,6 @@
 package com.dam.lol.model.api;
 
-import com.dam.lol.model.api.objects.LeagueDto;
+import com.dam.lol.model.api.dto.LeagueDto;
 
 import java.io.Serializable;
 import java.util.List;

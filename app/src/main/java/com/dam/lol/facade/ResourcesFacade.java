@@ -2,6 +2,8 @@ package com.dam.lol.facade;
 
 import android.app.Application;
 
+import com.dam.lol.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,16 +11,19 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 //TODO Habría que cambiarle el nombre a esta clase, ya hace mucho más que solo campeones
-public class ChampionFacade {
+public class ResourcesFacade {
     private final HashMap<Integer, String> championMap;
     private final HashMap<Integer, String> summonerSpellMap;
     private final HashMap<Integer, String> queueMap;
 
-    public ChampionFacade(Application application) {
+    public ResourcesFacade(Application application) {
         //Initialise championMap
         championMap = new HashMap<>();
         try {
@@ -95,6 +100,7 @@ public class ChampionFacade {
     public String getQueueNameById(int id) {
         return queueMap.get(id);
     }
+
 }
 
 

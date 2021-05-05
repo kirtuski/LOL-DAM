@@ -23,7 +23,7 @@
             android:name=".activities.ChampionRotationActivity"
             android:label="ChampionRotationActivity" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.mainactivity.MainActivity"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/Theme.LOLDAM.NoActionBar">
             <intent-filter>

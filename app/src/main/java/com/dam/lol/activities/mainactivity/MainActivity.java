@@ -1,4 +1,4 @@
-package com.dam.lol.activities;
+package com.dam.lol.activities.mainactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.SpinnerAdapter;
+import com.dam.lol.activities.SettingsActivity;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
-import com.dam.lol.model.database.simplesummoner.SimpleSummonerAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeSpinner() {
         //Elementos del layout
         Spinner servidorSpinner = findViewById(R.id.servidorSpinner);
-        servidorSpinner.setOnItemSelectedListener(new SpinnerAdapter(this));
+        servidorSpinner.setOnItemSelectedListener(new ServersSpinnerAdapter(this));
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

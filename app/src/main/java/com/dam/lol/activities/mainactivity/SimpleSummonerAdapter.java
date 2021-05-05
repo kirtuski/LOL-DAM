@@ -1,4 +1,4 @@
-package com.dam.lol.model.database.simplesummoner;
+package com.dam.lol.activities.mainactivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
+import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;

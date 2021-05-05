@@ -18,9 +18,9 @@ import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.MatchListResponse;
 import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
-import com.dam.lol.model.api.objects.ChampionMasteryDto;
-import com.dam.lol.model.api.objects.LeagueDto;
-import com.dam.lol.model.api.objects.ParticipantDto;
+import com.dam.lol.model.api.dto.ChampionMasteryDto;
+import com.dam.lol.model.api.dto.LeagueDto;
+import com.dam.lol.model.api.dto.ParticipantDto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -140,7 +140,7 @@ public class ApiFacade {
                         ChampionMasteryResponse championMasteryResponse = new ChampionMasteryResponse();
                         championMasteryResponse.setChampionMasteryDtoList(championMasteryDtos);
 
-                        activity.ponChampionMastery(championMasteryResponse);
+                        activity.loadChampionMastery(championMasteryResponse);
 
 
                     } catch (JSONException e) {
@@ -185,7 +185,7 @@ public class ApiFacade {
 
                         LeagueResponse leagueResponse = new LeagueResponse(leagueDtos);
 
-                        activity.ponLeagueInfo(leagueResponse);
+                        activity.loadLeagueInfo(leagueResponse);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -242,7 +242,7 @@ public class ApiFacade {
                             participantDto.setItem0(oneParticipant.getInt("item6"));
                             participants.add(participantDto);
                         }
-                        activity.ponPartidaEnActivity(new MatchResponse(matchId1, gameCreation, gameDuration, queueId, participants));
+                        activity.loadMatchInActivity(new MatchResponse(matchId1, gameCreation, gameDuration, queueId, participants));
 
                     } catch (JSONException e) {
                         e.printStackTrace();

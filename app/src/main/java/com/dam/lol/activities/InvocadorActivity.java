@@ -18,7 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
-import com.dam.lol.facade.ChampionFacade;
+import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionMasteryResponse;
@@ -26,8 +26,8 @@ import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.MatchListResponse;
 import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
-import com.dam.lol.model.api.objects.LeagueDto;
-import com.dam.lol.model.api.objects.ParticipantDto;
+import com.dam.lol.model.api.dto.LeagueDto;
+import com.dam.lol.model.api.dto.ParticipantDto;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,7 +42,7 @@ public class InvocadorActivity extends AppCompatActivity {
     private SummonerResponse summoner;
     private ApiFacade apiFacade;
     private ImageFacade imageFacade;
-    private ChampionFacade championFacade;
+    private ResourcesFacade resourcesFacade;
     private DatabaseFacade databaseFacade;
     private int matchNumber;
     private LinearLayoutCompat listaPartidas;
@@ -51,11 +51,11 @@ public class InvocadorActivity extends AppCompatActivity {
     private void initializeFacades() {
         this.apiFacade = LolApplication.getInstance().getApiFacade();
         this.imageFacade = LolApplication.getInstance().getImageFacade();
-        this.championFacade = LolApplication.getInstance().getChampionFacade();
+        this.resourcesFacade = LolApplication.getInstance().getResourcesFacade();
         this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
     }
 
-    public void ponLeagueInfo(LeagueResponse leagueResponse) {
+    public void loadLeagueInfo(LeagueResponse leagueResponse) {
         List<LeagueDto> leagueDtos = leagueResponse.getLeagueDtoList();
 
         for (int i = 0; i < leagueDtos.size(); i++) {
@@ -102,10 +102,10 @@ public class InvocadorActivity extends AppCompatActivity {
         }
     }
 
-    public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) {
+    public void loadChampionMastery(ChampionMasteryResponse championMasteryResponse) {
         if (championMasteryResponse.getChampionMasteryDtoList().size() != 0) {
             int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
-            String champName = championFacade.getChampionNameById(campeon);
+            String champName = resourcesFacade.getChampionNameById(campeon);
             NetworkImageView fondo = findViewById(R.id.background_mastery);
             imageFacade.setSplashByChampionName(champName, fondo);
         }
@@ -117,7 +117,7 @@ public class InvocadorActivity extends AppCompatActivity {
         return matchListOnView.indexOf(matchId);
     }
 
-    public void ponPartidaEnActivity(MatchResponse partidaResponse) {
+    public void loadMatchInActivity(MatchResponse partidaResponse) {
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
         listaPartidas.addView(oneMatch, 0);
 
@@ -125,13 +125,13 @@ public class InvocadorActivity extends AppCompatActivity {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
                 //Champion
                 NetworkImageView imageChamp = findViewById(R.id.championImage);
-                imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChamp);
+                imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()), imageChamp);
                 //Summoner1
                 NetworkImageView imageSummoner1 = findViewById(R.id.summoner1Image);
-                imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id()), imageSummoner1);
+                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(participant.getSummoner1Id()), imageSummoner1);
                 //Summoner2
                 NetworkImageView imageSummoner2 = findViewById(R.id.summoner2Image);
-                imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
+                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
 
                 //Participant
                 //KDA
@@ -159,7 +159,7 @@ public class InvocadorActivity extends AppCompatActivity {
                 //Match
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
-                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId()));
+                matchType.setText(resourcesFacade.getQueueNameById(partidaResponse.getQueueId()));
                 //howLongAgo
                 Date diaP = new Date((long) partidaResponse.getGameCreation());
                 Date diaA = new Date();
@@ -194,7 +194,7 @@ public class InvocadorActivity extends AppCompatActivity {
 
             int rIdImagen = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Image", "id", this.getPackageName());
             NetworkImageView imageChampMin = findViewById(rIdImagen);
-            imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChampMin);
+            imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()), imageChampMin);
 
             int rIdText = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);

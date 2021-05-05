@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.facade.ChampionFacade;
+import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionRotationResponse;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChampionRotationActivity extends AppCompatActivity {
-    private ChampionFacade championFacade;
+    private ResourcesFacade resourcesFacade;
     private ImageFacade imageFacade;
 
     @Override
@@ -34,7 +34,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
     }
 
     private void initializeFacades() {
-        this.championFacade = LolApplication.getInstance().getChampionFacade();
+        this.resourcesFacade = LolApplication.getInstance().getResourcesFacade();
         this.imageFacade = LolApplication.getInstance().getImageFacade();
     }
 
@@ -49,7 +49,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
 
         for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
             NetworkImageView nv = new NetworkImageView(this);
-            String champName = championFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i));
+            String champName = resourcesFacade.getChampionNameById(championRotationResponse.getFreeChampionIds().get(i));
             imageFacade.setChampionImageByName(champName, nv);
             imageViewList.add(nv);
         }

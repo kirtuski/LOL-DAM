@@ -1,6 +1,6 @@
 package com.dam.lol.model.api;
 
-import com.dam.lol.model.api.objects.ChampionMasteryDto;
+import com.dam.lol.model.api.dto.ChampionMasteryDto;
 
 import java.io.Serializable;
 import java.util.List;
