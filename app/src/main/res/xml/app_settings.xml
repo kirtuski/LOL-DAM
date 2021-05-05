@@ -4,15 +4,18 @@
     <PreferenceCategory android:title="Api Key">
         <EditTextPreference
             android:key="key"
-            android:title="Api Key" />
+            android:title="Api Key"
+            />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/Otros_header">
     <androidx.preference.ListPreference
         android:key="@string/settings_theme_key"
-        android:title="Temas"
+        android:title="Tema"
         android:dialogTitle="Elige un tema"
         android:entries="@array/arrayTemas"
         android:entryValues="@array/valoresTemas"
         android:summary="%s"/>
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

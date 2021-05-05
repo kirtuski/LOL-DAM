@@ -94,6 +94,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    //TODO Refactor https://github.com/danielme-com/android-light-dark/blob/main/app/src/main/java/com/danielme/android/dark/settings/ThemeSetup.java
     public static class ThemeSetup {
         private ThemeSetup() {
         }
