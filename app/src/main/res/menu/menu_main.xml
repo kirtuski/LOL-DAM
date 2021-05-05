@@ -6,7 +6,7 @@
         android:id="@+id/settingsButton"
         android:icon="@drawable/settings_icon"
         android:onClick="AbrirAjustes"
-        android:title="ajustes"
+        android:title="@string/title_activity_settings"
         app:showAsAction="always" />
 
 </menu>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">LOL Consulter</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <!-- MainActivity -->
+    <string name="summoner_name_hint">Nombre de invocador</string>
+    <string name="search_summoner">Buscar</string>
+    <string name="favorite_summoners">Invocadores favoritos</string>
+    <string name="champion_rotation">Rotacion de campeones</string>
+    <!-- Settings -->
+    <string name="miscellaneous_header">Varios</string>
+    <string name="theme_title">Elige tu tema</string>
+    <string name="go_riot">Conseguir key</string>
+    <string name="copy_clipboard">Copiar del portapapeles</string>
+    <!-- One match layout -->
+
+</resources>

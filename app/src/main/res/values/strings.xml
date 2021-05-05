@@ -1,18 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
     <string name="app_name">LOL Consulter</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Settings</string>
+    <!-- MainActivity -->
+    <string name="summoner_name_hint">Summoner Name</string>
+    <string name="search_summoner">Search</string>
+    <string name="favorite_summoners">Favorite summoners</string>
+    <string name="champion_rotation">Champion rotation</string>
+    <!-- Settings -->
+    <string name="miscellaneous_header">Miscellaneous</string>
+    <string name="theme_title">Choose your theme</string>
+    <string name="go_riot">Get key</string>
+    <string name="copy_clipboard">Copy from clipboard</string>
+    <!-- SummonerActivity -->
+    <string name="percent">%</string>
+    <string name="win_rate">Winrate: %1$d</string>
+    <string name="tier">%1$s %2$s</string>
+    <string name="lp">%1$dLP</string>
+    <string name="solo_duo">Solo/Duo</string>
+    <string name="unranked">Unranked</string>
+    <string name="flex">Flex</string>
+    <string name="before">Más antiguas</string>
+    <string name="after">Más nuevas</string>
+    <string name="summoner_level">Level: %1$d</string>
+    "Level: " + summoner.getSummonerLevel()
+    <!-- One match -->
+    <string name="win">Win</string>
+    <string name="lose">Lose</string>
+    <string name="days_ago">%1$d days ago</string>
+    <string name="hours_ago">%1$dh ago</string>
+    <string name="min_seg_time">%1$dm %2$ds</string>
+    <string name="kda">KDA</string>
+    <string name="kda_value">%1$d/%2$d/%3$d</string>
+    <string name="cs">CS</string>
+    <string name="cs_value">%1$d (%2$.2f)CS</string>
+    <string name="largest_spree">Largest killing spree: %1$d</string>
+    <string name="largest_multikill">Largest multikill: %1$d</string>
+    <string name="longest_time_alive">Longest time alive: </string>
+    <string name="default_winrate">0%</string>
 
-    <!-- Ajustes -->
-    <string name="Otros_header">Otros</string>
-    <string name="tema_title">Elige tu tema</string>
-    <string name="title_activity_invocador">InvocadorActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

@@ -64,7 +64,7 @@ public class InvocadorActivity extends AppCompatActivity {
             if (leagueDto.getQueueType().equals("RANKED_FLEX_SR")) {
                 TextView winRatio = findViewById(R.id.win_ratio_flex);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
-                winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
+                winRatio.setText(getString(R.string.win_rate, (int) (winRatiof + 0.5)).concat(getString(R.string.percent)));
                 ProgressBar bar = findViewById(R.id.stats_bar_flex);
                 bar.setProgress((int) (winRatiof + 0.5));
 
@@ -74,17 +74,17 @@ public class InvocadorActivity extends AppCompatActivity {
                 rankFlexIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
 
                 TextView rankFlexText = findViewById(R.id.rank_flex);
-                rankFlexText.setText(leagueDto.getTier() + " " + leagueDto.getRank());
+                rankFlexText.setText(getString(R.string.tier, leagueDto.getTier(), leagueDto.getRank()));
 
                 TextView rankFlexLp = findViewById(R.id.lp_flex);
-                rankFlexLp.setText("Lp: " + leagueDto.getLeaguePoints());
+                rankFlexLp.setText(getString(R.string.lp, leagueDto.getLeaguePoints()));
             }
 
             if (leagueDto.getQueueType().equals("RANKED_SOLO_5x5")) {
 
                 TextView winRatio = findViewById(R.id.win_ratio_solo);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
-                winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
+                winRatio.setText(getString(R.string.win_rate, (int) (winRatiof + 0.5)).concat(getString(R.string.percent)));
                 ProgressBar bar = findViewById(R.id.stats_bar_solo);
                 bar.setProgress((int) (winRatiof + 0.5));
 
@@ -94,10 +94,10 @@ public class InvocadorActivity extends AppCompatActivity {
                 rankSoloIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
 
                 TextView rankSoloText = findViewById(R.id.rank_solo);
-                rankSoloText.setText(leagueDto.getTier() + " " + leagueDto.getRank());
+                rankSoloText.setText(getString(R.string.tier, leagueDto.getTier(), leagueDto.getRank()));
 
                 TextView rankSoloLp = findViewById(R.id.lp_solo);
-                rankSoloLp.setText("Lp: " + leagueDto.getLeaguePoints());
+                rankSoloLp.setText(getString(R.string.lp, leagueDto.getLeaguePoints()));
             }
         }
     }
@@ -133,35 +133,31 @@ public class InvocadorActivity extends AppCompatActivity {
                 NetworkImageView imageSummoner2 = findViewById(R.id.summoner2Image);
                 imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
 
-                //Datos del jugador
+                //Participant
                 //KDA
-                String kdaFormat = participant.getKills() + "/" + participant.getDeaths() + "/" + participant.getAssists();
                 TextView kda = findViewById(R.id.KDAText);
-                kda.setText(kdaFormat);
+                kda.setText(getString(R.string.kda_value, participant.getKills(), participant.getDeaths(), participant.getAssists()));
                 //CS
                 double cM = participant.getTotalMinionsKilled() / (partidaResponse.getGameDuration() / 60000);
                 double csMin = Math.round(cM * 100.0) / 100.0;
-                String csFormat = participant.getTotalMinionsKilled() + "(" + csMin + ")CS";
                 TextView cs = findViewById(R.id.CSText);
-                cs.setText(csFormat);
+                cs.setText(getString(R.string.cs_value, participant.getTotalMinionsKilled(), csMin ));
 
                 //LargestKillingSpree
-                int lks = participant.getLargestKillingSpree();
-                TextView largestKillingSpreeText = findViewById(R.id.largestKillingSpreeText);
-                largestKillingSpreeText.setText(String.valueOf(lks));
+                TextView largestKillingSpreeText = findViewById(R.id.largestKillingSpree);
+                largestKillingSpreeText.setText(getString(R.string.largest_spree, participant.getLargestKillingSpree()));
                 //largestMultiKill
                 int lms = participant.getLargestMultiKill();
-                TextView largestMultiKillText = findViewById(R.id.largestMultiKillText);
-                largestMultiKillText.setText(String.valueOf(lms));
+                TextView largestMultiKillText = findViewById(R.id.largestMultiKill);
+                largestMultiKillText.setText(getString(R.string.largest_multikill, participant.getLargestMultiKill()));
                 //longestTimeSpentLiving
                 double ltsl = participant.getLongestTimeSpentLiving();
-                long minu = ((long) ltsl / 60);
-                int segu = (int) (ltsl - (minu * 60));
-                String format = minu + "m" + segu + "s";
-                TextView longestTimeSpentLivingText = findViewById(R.id.longestTimeSpentLivingText);
-                longestTimeSpentLivingText.setText(format);
+                long min = ((long) ltsl / 60);
+                int seg = (int) (ltsl - (min * 60));
+                TextView longestTimeSpentLivingText = findViewById(R.id.longestTimeSpentLiving);
+                longestTimeSpentLivingText.setText(getString(R.string.longest_time_alive).concat(getString(R.string.min_seg_time, min, seg)));
 
-                //Datos de la partida
+                //Match
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
                 matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId()));
@@ -169,34 +165,32 @@ public class InvocadorActivity extends AppCompatActivity {
                 Date diaP = new Date((long) partidaResponse.getGameCreation());
                 Date diaA = new Date();
                 int dias = (int) ((diaA.getTime() - diaP.getTime()) / 86400000);
-                String date;
+                TextView howLongAgoText = findViewById(R.id.howLongAgoText);
                 if (dias != 0) {
-                    date = "Hace " + dias + " dias";
+                    howLongAgoText.setText(getString(R.string.hours_ago, dias));
                 } else {
                     long diff = (diaA.getTime() - diaP.getTime());
-                    long horas = diff / (60 * 60 * 1000);
-                    date = "Hace " + horas + " h";
+                    int horas = (int) (diff / (60 * 60 * 1000));
+                    howLongAgoText.setText(getString(R.string.hours_ago, horas));
+
                 }
-                TextView howLongAgoText = findViewById(R.id.howLongAgoText);
-                howLongAgoText.setText(date);
 
                 //isWin
                 TextView isWin = findViewById(R.id.isWinText);
-                ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.boxmatch);
+                ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.box_match);
                 if (participant.isWin()) {
-                    isWin.setText("Victoria");
+                    isWin.setText(getString(R.string.win));
                     bgElement.setBackgroundColor(this.getColor(R.color.blueFill));
                 } else {
-                    isWin.setText("Derrota");
+                    isWin.setText(getString(R.string.lose));
                     bgElement.setBackgroundColor(this.getColor(R.color.redFill));
                 }
                 //matchDuration
                 double duration = partidaResponse.getGameDuration();
-                long min = ((long) duration / 1000) / 60;
-                int seg = (int) ((duration / 1000) % 60);
-                String durationFormat = min + "min " + seg + "s";
+                long m_min = ((long) duration / 1000) / 60;
+                int m_seg = (int) ((duration / 1000) % 60);
                 TextView matchDurationText = findViewById(R.id.matchDurationText);
-                matchDurationText.setText(durationFormat);
+                matchDurationText.setText(getString(R.string.min_seg_time, m_min, m_seg));
             }
 
             int rIdImagen = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Image", "id", this.getPackageName());
@@ -263,7 +257,7 @@ public class InvocadorActivity extends AppCompatActivity {
         imageFacade.setProfileIconById(summoner.getProfileIconId(), summonerIcon);
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
-        summonerLevel.setText("Level: " + summoner.getSummonerLevel());
+        summonerLevel.setText(getString(R.string.summoner_level, summoner.getSummonerLevel()));
 
         CollapsingToolbarLayout collapse = findViewById(R.id.toolbar_layout);
         TypedValue typedValue = new TypedValue();

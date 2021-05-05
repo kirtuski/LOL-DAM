@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/boxmatch"
+    android:id="@+id/box_match"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp">
@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        android:text="SOLO RANKED "
         android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/summoner1Image"
@@ -23,7 +22,7 @@
         android:id="@+id/howLongAgoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hace 30 dias"
+        android:text="@string/days_ago"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@id/isWinText"
         app:layout_constraintEnd_toStartOf="@+id/championImage"
@@ -34,22 +33,22 @@
         android:id="@+id/isWinText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Victoria"
+        android:text="@string/win"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@id/matchDurationText"
         app:layout_constraintEnd_toStartOf="@+id/championImage"
-        app:layout_constraintStart_toStartOf="@id/howLongAgoText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/howLongAgoText" />
 
     <TextView
         android:id="@+id/matchDurationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="40min 40s"
+        android:text="@string/min_seg_time"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/championImage"
         app:layout_constraintEnd_toStartOf="@+id/championImage"
-        app:layout_constraintStart_toStartOf="@id/howLongAgoText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/isWinText" />
 
     <com.android.volley.toolbox.NetworkImageView
@@ -81,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="KDA"
+        android:text="@string/kda"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/championImage" />
@@ -90,7 +89,7 @@
         android:id="@+id/KDAText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10/10/10"
+        android:text="@string/kda_value"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/KDALabel"
         app:layout_constraintStart_toStartOf="@+id/KDALabel"
@@ -101,7 +100,7 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="CS"
+        android:text="@string/cs"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/summoner2Image"
         app:layout_constraintStart_toStartOf="@id/championImage"
@@ -111,69 +110,42 @@
         android:id="@+id/CSText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="200 (5.0)CS"
+        android:text="@string/cs_value"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/CSLabel"
         app:layout_constraintStart_toStartOf="@+id/CSLabel"
         app:layout_constraintTop_toBottomOf="@+id/CSLabel" />
 
     <TextView
-        android:id="@+id/largestKillingSpreeLabel"
+        android:id="@+id/largestKillingSpree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:text="Racha más larga: "
+        android:text="@string/largest_multikill"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/KDAText" />
 
     <TextView
-        android:id="@+id/largestKillingSpreeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@id/largestKillingSpreeLabel"
-        app:layout_constraintTop_toTopOf="@id/largestKillingSpreeLabel" />
-
-    <TextView
-        android:id="@+id/largestMultiKillLabel"
+        android:id="@+id/largestMultiKill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="Mayor asesinato multiple: "
+        android:text="@string/largest_multikill"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/largestKillingSpreeLabel"
-        app:layout_constraintTop_toBottomOf="@id/largestKillingSpreeText" />
+        app:layout_constraintStart_toStartOf="@id/largestKillingSpree"
+        app:layout_constraintTop_toBottomOf="@id/largestKillingSpree" />
 
     <TextView
-        android:id="@+id/largestMultiKillText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/largestMultiKillLabel"
-        app:layout_constraintStart_toEndOf="@id/largestMultiKillLabel" />
-
-    <TextView
-        android:id="@+id/longestTimeSpentLivingLabel"
+        android:id="@+id/longestTimeSpentLiving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="Mayor tiempo sin morir: "
+        android:text="@string/longest_time_alive"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/largestKillingSpreeLabel"
-        app:layout_constraintTop_toBottomOf="@id/largestMultiKillLabel" />
-
-    <TextView
-        android:id="@+id/longestTimeSpentLivingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10m15s"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/longestTimeSpentLivingLabel"
-        app:layout_constraintStart_toEndOf="@id/longestTimeSpentLivingLabel" />
+        app:layout_constraintStart_toStartOf="@id/largestKillingSpree"
+        app:layout_constraintTop_toBottomOf="@id/largestMultiKill" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/participant1Image"
@@ -189,7 +161,6 @@
         android:id="@+id/participant1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant1Image"
         app:layout_constraintStart_toEndOf="@id/participant1Image" />
@@ -206,7 +177,6 @@
         android:id="@+id/participant6Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant1Image"
         app:layout_constraintStart_toEndOf="@id/participant6Image" />
@@ -223,7 +193,6 @@
         android:id="@+id/participant2Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant2Image"
         app:layout_constraintStart_toEndOf="@id/participant2Image" />
@@ -240,7 +209,6 @@
         android:id="@+id/participant3Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant3Image"
         app:layout_constraintStart_toEndOf="@id/participant1Image" />
@@ -257,7 +225,6 @@
         android:id="@+id/participant4Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant4Image"
         app:layout_constraintStart_toEndOf="@id/participant1Image" />
@@ -274,7 +241,6 @@
         android:id="@+id/participant5Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant5Image"
         app:layout_constraintStart_toEndOf="@id/participant1Image" />
@@ -291,7 +257,6 @@
         android:id="@+id/participant7Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant7Image"
         app:layout_constraintStart_toEndOf="@id/participant6Image" />
@@ -308,7 +273,6 @@
         android:id="@+id/participant8Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant8Image"
         app:layout_constraintStart_toEndOf="@id/participant6Image" />
@@ -325,7 +289,6 @@
         android:id="@+id/participant9Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant9Image"
         app:layout_constraintStart_toEndOf="@id/participant6Image" />
@@ -342,7 +305,6 @@
         android:id="@+id/participant10Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/participant10Image"
         app:layout_constraintStart_toEndOf="@id/participant6Image" />

@@ -7,14 +7,14 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/Otros_header">
+    <PreferenceCategory app:title="@string/miscellaneous_header">
 
         <ListPreference
             app:defaultValue="tema"
             app:entries="@array/tema_entries"
             app:entryValues="@array/tema_values"
             app:key="reply"
-            app:title="@string/tema_title"
+            app:title="@string/theme_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
