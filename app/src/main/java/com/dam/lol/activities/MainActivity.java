@@ -30,12 +30,11 @@ import java.util.List;
 //TODO hay que revisar bien como tratamos las exepciones
 
 public class MainActivity extends AppCompatActivity{
-
     private TextInputLayout nombreInvocadorInput;
     private ActionMode mActionMode;
 
     //Guardar el servidor elejido
-    private String server_url = "";
+    private String server_url;
     private ApiFacade apiFacade;
     private DatabaseFacade databaseFacade;
 
@@ -66,8 +65,6 @@ public class MainActivity extends AppCompatActivity{
         apiFacade = LolApplication.getInstance().getApiFacade();
         this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
     }
-
-
 
     private void initializeFavoriteSummonerList() {
         List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();

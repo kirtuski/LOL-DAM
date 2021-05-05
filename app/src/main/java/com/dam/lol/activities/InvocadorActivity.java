@@ -61,23 +61,15 @@ public class InvocadorActivity extends AppCompatActivity {
 
         for (int i = 0; i < leagueDtos.size(); i++) {
             LeagueDto leagueDto = leagueDtos.get(i);
+
             if (leagueDto.getQueueType().equals("RANKED_FLEX_SR")) {
-                TextView winFlex = findViewById(R.id.wins_flex);
-                winFlex.setText("Wins: " + leagueDto.getWins());
-
-                TextView loseFlex = findViewById(R.id.loses_flex);
-                loseFlex.setText("Loses: " + leagueDto.getLosses());
-
-                /*
                 TextView winRatio = findViewById(R.id.win_ratio_flex);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
                 winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
-                ProgressBar bar = findViewById(R.id.stats_barFlex);
+                ProgressBar bar = findViewById(R.id.stats_bar_flex);
                 bar.setProgress((int) (winRatiof + 0.5));
 
-
-                 */
-                ImageView rankFlexIcon = findViewById(R.id.rankIcon_flex);
+                ImageView rankFlexIcon = findViewById(R.id.rank_icon_flex);
 
                 int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
                 rankFlexIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
@@ -90,21 +82,14 @@ public class InvocadorActivity extends AppCompatActivity {
             }
 
             if (leagueDto.getQueueType().equals("RANKED_SOLO_5x5")) {
-                TextView winSolo = findViewById(R.id.wins_solo);
-                winSolo.setText("Wins: " + leagueDto.getWins());
 
-                TextView losesSolo = findViewById(R.id.loses_solo);
-                losesSolo.setText("Loses: " + leagueDto.getLosses());
-/*
                 TextView winRatio = findViewById(R.id.win_ratio_solo);
                 float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
                 winRatio.setText("Winrate: " + (int) (winRatiof + 0.5) + "%");
-                ProgressBar bar = findViewById(R.id.stats_barSolo);
+                ProgressBar bar = findViewById(R.id.stats_bar_solo);
                 bar.setProgress((int) (winRatiof + 0.5));
 
- */
-
-                ImageView rankSoloIcon = findViewById(R.id.rankIcon_solo);
+                ImageView rankSoloIcon = findViewById(R.id.rank_icon_solo);
 
                 int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
                 rankSoloIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
@@ -124,7 +109,7 @@ public class InvocadorActivity extends AppCompatActivity {
         String champName = championFacade.getChampionNameById(campeon);
 
         //TODO  se distorsiona, hay que arreglar la forma que se muestra la imagen
-        NetworkImageView fondo = findViewById(R.id.fondo);
+        NetworkImageView fondo = findViewById(R.id.background_mastery);
         imageFacade.setSplashByChampionName(champName, fondo);
     }
 
@@ -141,7 +126,6 @@ public class InvocadorActivity extends AppCompatActivity {
 
         for (ParticipantDto participant : partidaResponse.getParticipants()) {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
-                //Imagenes
 
                 //Champion
                 NetworkImageView imageChamp = findViewById(R.id.championImage);
@@ -275,10 +259,10 @@ public class InvocadorActivity extends AppCompatActivity {
 
         buscaListaPartidas();
 
-        TextView summonerName = findViewById(R.id.summonerName);
+        TextView summonerName = findViewById(R.id.summoner_name);
         summonerName.setText(summoner.getName());
 
-        NetworkImageView summonerIcon = findViewById(R.id.summonerIcon);
+        NetworkImageView summonerIcon = findViewById(R.id.summoner_icon);
         imageFacade.setProfileIconById(summoner.getProfileIconId(), summonerIcon);
 
         TextView summonerLevel = findViewById(R.id.summonerLevel);
