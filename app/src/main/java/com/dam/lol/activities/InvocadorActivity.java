@@ -269,9 +269,6 @@ public class InvocadorActivity extends AppCompatActivity {
         summonerLevel.setText("Level: " + summoner.getSummonerLevel());
 
         CollapsingToolbarLayout collapse = findViewById(R.id.toolbar_layout);
-
-        //TODO ver si se puede poner como atributo en el layout.xml
-        // pone el nombre de invocador en blanco cuando la barra se contrae
         TypedValue typedValue = new TypedValue();
         this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
         collapse.setCollapsedTitleTextColor(typedValue.data);

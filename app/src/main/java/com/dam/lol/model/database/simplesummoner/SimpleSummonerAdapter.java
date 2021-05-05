@@ -60,7 +60,7 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
             }
 
             if (tt2 != null) {
-                tt2.setText(p.getServer());
+                tt2.setText(convertirServidor(p.getServer()));
             }
 
         }
@@ -69,6 +69,15 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
         activity.getTheme().resolveAttribute(R.attr.colorPrimarySurface, typedValue, true);
         v.setBackgroundColor(mSelectedItemsIds.get(position) ? typedValue.data : Color.TRANSPARENT);
         return v;
+    }
+
+    public String convertirServidor(String servidor){
+        for(int i=0; i < activity.getResources().getStringArray(R.array.urlServers).length; i++){
+            if (servidor.equals(activity.getResources().getStringArray(R.array.urlServers)[i])){
+                return activity.getResources().getStringArray(R.array.servers)[i];
+            }
+        }
+        return null;
     }
 
     @Override
