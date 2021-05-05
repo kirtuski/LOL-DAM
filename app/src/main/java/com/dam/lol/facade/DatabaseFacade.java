@@ -55,8 +55,9 @@ public class DatabaseFacade extends SQLiteOpenHelper {
         String[] selectionArgs = {summonerName, server};
         Cursor findFavoriteSummonersCursor = database.query("FAVORITE_SUMMONERS", columns, "SUMMONER_NAME = ? AND SERVER = ?",
                 selectionArgs, null, null, "SUMMONER_NAME", "1");
-
-        return findFavoriteSummonersCursor.moveToFirst();
+        boolean check = findFavoriteSummonersCursor.moveToFirst();
+        findFavoriteSummonersCursor.close();
+        return check;
     }
 
     public List<SimpleSummoner> findFavoriteSummoners() {

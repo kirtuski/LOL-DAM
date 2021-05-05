@@ -4,8 +4,7 @@
     android:id="@+id/boxmatch"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="#FFFFFF" >
+    android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/matchTypeText"
@@ -60,24 +59,21 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/matchTypeText"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/matchTypeText" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/summoner1Image"
         android:layout_width="35dp"
         android:layout_height="35dp"
         app:layout_constraintStart_toEndOf="@id/championImage"
-        app:layout_constraintTop_toTopOf="@id/championImage"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toTopOf="@id/championImage" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/summoner2Image"
         android:layout_width="35dp"
         android:layout_height="35dp"
         app:layout_constraintStart_toEndOf="@id/championImage"
-        app:layout_constraintTop_toBottomOf="@id/summoner1Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/summoner1Image" />
 
     <TextView
         android:id="@+id/KDALabel"
@@ -125,7 +121,7 @@
         android:id="@+id/largestKillingSpreeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:text="Racha más larga: "
         android:textSize="13sp"
@@ -187,8 +183,7 @@
         android:layout_marginEnd="165dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/summoner1Image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/participant1Name"
@@ -205,8 +200,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintBottom_toBottomOf="@id/participant1Image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/participant6Name"
@@ -223,8 +217,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant1Image"
-        app:layout_constraintTop_toBottomOf="@id/participant1Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant1Image" />
 
     <TextView
         android:id="@+id/participant2Name"
@@ -241,8 +234,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant1Image"
-        app:layout_constraintTop_toBottomOf="@id/participant2Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant2Image" />
 
     <TextView
         android:id="@+id/participant3Name"
@@ -259,8 +251,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant1Image"
-        app:layout_constraintTop_toBottomOf="@id/participant3Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant3Image" />
 
     <TextView
         android:id="@+id/participant4Name"
@@ -277,8 +268,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant1Image"
-        app:layout_constraintTop_toBottomOf="@id/participant4Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant4Image" />
 
     <TextView
         android:id="@+id/participant5Name"
@@ -295,8 +285,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant6Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant6Image" />
 
     <TextView
         android:id="@+id/participant7Name"
@@ -313,8 +302,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant7Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant7Image" />
 
     <TextView
         android:id="@+id/participant8Name"
@@ -331,8 +319,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant8Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant8Image" />
 
     <TextView
         android:id="@+id/participant9Name"
@@ -349,8 +336,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="@id/participant6Image"
-        app:layout_constraintTop_toBottomOf="@id/participant9Image"
-        app:srcCompat="@drawable/default_champion" />
+        app:layout_constraintTop_toBottomOf="@id/participant9Image" />
 
     <TextView
         android:id="@+id/participant10Name"
