@@ -1,6 +1,7 @@
 package com.dam.lol;
 
 import android.app.Application;
+import android.os.SystemClock;
 
 import androidx.preference.PreferenceManager;
 
@@ -38,6 +39,7 @@ public class LolApplication extends Application {
         this.imageFacade = new ImageFacade();
         this.resourcesFacade = new ResourcesFacade(this);
         this.databaseFacade = new DatabaseFacade(this.getApplicationContext(), "DatabaseFacade", null, 1);
+        SystemClock.sleep(1000);
     }
 
     public RequestQueue getRequestQueue() {
