@@ -22,7 +22,6 @@
         android:id="@+id/howLongAgoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/days_ago"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@id/isWinText"
         app:layout_constraintEnd_toStartOf="@+id/championImage"

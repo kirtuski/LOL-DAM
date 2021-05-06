@@ -21,7 +21,6 @@ import androidx.preference.PreferenceManager;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.google.android.material.snackbar.Snackbar;
 
 public class SettingsActivity extends AppCompatActivity {
 

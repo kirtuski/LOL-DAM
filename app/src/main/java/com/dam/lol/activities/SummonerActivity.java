@@ -18,9 +18,9 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
-import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
+import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.MatchListResponse;
@@ -63,10 +63,10 @@ public class SummonerActivity extends AppCompatActivity {
 
             if (leagueDto.getQueueType().equals("RANKED_FLEX_SR")) {
                 TextView winRatio = findViewById(R.id.win_ratio_flex);
-                float winRatiof = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
-                winRatio.setText(getString(R.string.win_rate, (int) (winRatiof + 0.5)).concat(getString(R.string.percent)));
+                float winRatioOf = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
+                winRatio.setText(getString(R.string.win_rate, (int) (winRatioOf + 0.5)).concat(getString(R.string.percent)));
                 ProgressBar bar = findViewById(R.id.stats_bar_flex);
-                bar.setProgress((int) (winRatiof + 0.5));
+                bar.setProgress((int) (winRatioOf + 0.5));
 
                 ImageView rankFlexIcon = findViewById(R.id.rank_icon_flex);
 
@@ -163,14 +163,14 @@ public class SummonerActivity extends AppCompatActivity {
                 //howLongAgo
                 Date diaP = new Date((long) matchResponse.getGameCreation());
                 Date diaA = new Date();
-                int dias = (int) ((diaA.getTime() - diaP.getTime()) / 86400000);
+                int days = (int) ((diaA.getTime() - diaP.getTime()) / 86400000);
                 TextView howLongAgoText = findViewById(R.id.howLongAgoText);
-                if (dias != 0) {
-                    howLongAgoText.setText(getString(R.string.days_ago, dias));
+                if (days != 0) {
+                    howLongAgoText.setText(getResources().getQuantityString(R.plurals.days_ago, days, days));
                 } else {
                     long diff = (diaA.getTime() - diaP.getTime());
-                    int horas = (int) (diff / (60 * 60 * 1000));
-                    howLongAgoText.setText(getString(R.string.hours_ago, horas));
+                    int hours = (int) (diff / (60 * 60 * 1000));
+                    howLongAgoText.setText(getResources().getQuantityString(R.plurals.hours_ago, hours, hours));
                 }
 
                 //isWin

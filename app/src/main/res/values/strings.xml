@@ -34,8 +34,6 @@
     <!-- One match -->
     <string name="win">Win</string>
     <string name="lose">Lose</string>
-    <string name="days_ago">%1$d days ago</string>
-    <string name="hours_ago">%1$dh ago</string>
     <string name="min_seg_time" translatable="false">%1$dm %2$ds</string>
     <string name="kda" translatable="false">KDA</string>
     <string name="kda_value" translatable="false">%1$d/%2$d/%3$d</string>
@@ -46,8 +44,14 @@
     <string name="longest_time_alive">Longest time alive: </string>
     <string name="default_winrate" translatable="false">0%</string>
     <!-- Toast and Snackbars -->
+    <!-- MainActivity -->
+    <string name="no_input">Write something first</string>
+    <!-- SettingsActivity -->
     <string name="clipboard_correct">Content copied</string>
     <string name="clipboard_no_content">Nothing on clipboard</string>
     <string name="clipboard_no_valid">Are you sure this is a key?</string>
+    <!-- ApiFacade -->
+    <string name="error_key">Invalid api key, maybe it expired?</string>
+    <string name="error_no_summoner">Can\'t found that summoner</string>
 
 </resources>

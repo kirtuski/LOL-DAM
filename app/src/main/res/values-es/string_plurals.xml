@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="summoners_selected">
+        <item quantity="one">%d Seleccionado</item>
+        <item quantity="other">%d Seleccionados</item>
+    </plurals>
+    <plurals name="days_ago">
+        <item quantity="one">Hace %1$d día</item>
+        <item quantity="other">Hace %1$d días</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="one">Hace %1$d hora</item>
+        <item quantity="other">Hace %1$d horas</item>
+    </plurals>
+</resources>
