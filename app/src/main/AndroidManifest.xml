@@ -25,7 +25,7 @@
         <activity
             android:name=".activities.mainactivity.MainActivity"
             android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/Theme.LOLDAM.NoActionBar">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
