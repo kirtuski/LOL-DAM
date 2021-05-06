@@ -31,15 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApiFacade {
-    final private String api_key;
+    private String apiKey;
+    public void setApiKey(String  apiKey){
+        this.apiKey = apiKey;
+    }
 
     public ApiFacade(String api_key) {
-        this.api_key = api_key;
+        this.apiKey = api_key;
     }
 
     public void getIdFromSummoner(String name, String server, Activity activity) {
 
-        final String URL = "https://" + server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + apiKey;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -75,7 +78,7 @@ public class ApiFacade {
 
     public void getChampionsRotation(String server, Activity activity) {
 
-        final String URL = "https://" + server + ".api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + apiKey;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -117,7 +120,7 @@ public class ApiFacade {
 
     public void getChampionsMastery(String encryptedSummonerId, String server, SummonerActivity activity) {
 
-        final String URL = "https://" + server + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -155,7 +158,7 @@ public class ApiFacade {
     }
 
     public void getSummonerLeague(String encryptedSummonerId, String server, SummonerActivity activity) {
-        final String URL = "https://" + server + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -200,7 +203,7 @@ public class ApiFacade {
     }
 
     public void getMatchById(String matchId, String serverV5, SummonerActivity activity) {
-        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
+        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + apiKey;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -257,7 +260,7 @@ public class ApiFacade {
     }
 
     public void getMatchListByPuuid(String summonerPuuid, String serverV5, int start, int count, SummonerActivity activity) {
-        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + api_key;
+        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + apiKey;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {

@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
@@ -47,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
         initializeFavoriteSummonerList();
     }
 
-    protected void onResume() {
-        super.onResume();
-        initializeFavoriteSummonerList();
-        initializeFacades();
-    }
 
     private void initializeInput() {
         summonerNameInput = findViewById(R.id.name_input_layout);
@@ -128,15 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openChampionRotation(View view) {
         apiFacade.getChampionsRotation(server_url, this);
-    }
-
-    //Para recargar la api facade cuando regresemos de la actividad
-    //TODO no funciona correctamente?
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1)
-            this.apiFacade = LolApplication.getInstance().getApiFacade();
     }
 
     //TODO refactor a su propio archivo?

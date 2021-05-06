@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.facade.ImageFacade;
+import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.model.api.ChampionRotationResponse;
 
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ public class ChampionRotationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.champion_rotation_activity);
-
         initializeFacades();
         this.setTitle("CAMPEONES EN ROTACION");
         fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
@@ -42,7 +41,6 @@ public class ChampionRotationActivity extends AppCompatActivity {
         TableLayout tabla = findViewById(R.id.tabla_rotaciones);
         List<ImageView> imageViewList = new ArrayList<>();
 
-        // TODO eliminar altura sobrante de cada fila, son esas propiedades que hacen rellenar el layout
         //Se usa el Params de quien lo contiene, filas estan contenidas en tabla, imagenes en filas
         TableLayout.LayoutParams filaProperties = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
         TableRow.LayoutParams imageProperties = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);

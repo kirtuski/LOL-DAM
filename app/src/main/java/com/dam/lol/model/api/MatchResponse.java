@@ -5,7 +5,6 @@ import com.dam.lol.model.api.dto.ParticipantDto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-//TODO Builder to wapo?
 public class MatchResponse implements Serializable {
     private String matchId;
     private double gameCreation;

@@ -51,7 +51,7 @@
     <string name="clipboard_no_content">Nothing on clipboard</string>
     <string name="clipboard_no_valid">Are you sure this is a key?</string>
     <!-- ApiFacade -->
-    <string name="error_key">Invalid api key, maybe it expired?</string>
+    <string name="error_key">Invalid api key, maybe it has expired?</string>
     <string name="error_no_summoner">Can\'t found that summoner</string>
 
 </resources>

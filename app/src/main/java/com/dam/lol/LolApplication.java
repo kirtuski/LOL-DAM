@@ -67,6 +67,6 @@ public class LolApplication extends Application {
     }
 
     public void reloadApiKey() {
-        this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
+        this.apiFacade.setApiKey(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
     }
 }
