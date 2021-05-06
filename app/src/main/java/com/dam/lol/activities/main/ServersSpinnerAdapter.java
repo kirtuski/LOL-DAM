@@ -1,11 +1,10 @@
-package com.dam.lol.activities.mainactivity;
+package com.dam.lol.activities.main;
 
 
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.dam.lol.R;
-import com.dam.lol.activities.mainactivity.MainActivity;
 
 public class ServersSpinnerAdapter implements AdapterView.OnItemSelectedListener {
     private final MainActivity activity;

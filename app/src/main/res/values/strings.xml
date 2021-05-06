@@ -44,6 +44,8 @@
     <string name="longest_time_alive">Longest time alive: </string>
     <string name="default_winrate" translatable="false">0%</string>
     <!-- Toast and Snackbars -->
+    <string name="deleting_summoner_error">Error while deleting summoner</string>
+    <string name="deleting_summoner_success">Summoner deleted sucessfully</string>
     <!-- MainActivity -->
     <string name="no_input">Write something first</string>
     <!-- SettingsActivity -->

@@ -45,7 +45,7 @@ public class SummonerActivity extends AppCompatActivity {
     private ResourcesFacade resourcesFacade;
     private DatabaseFacade databaseFacade;
     private int matchNumber;
-    private LinearLayoutCompat listaPartidas;
+    private LinearLayoutCompat matchesList;
     private ArrayList<String> matchListOnView;
 
     private void initializeFacades() {
@@ -53,6 +53,71 @@ public class SummonerActivity extends AppCompatActivity {
         this.imageFacade = LolApplication.getInstance().getImageFacade();
         this.resourcesFacade = LolApplication.getInstance().getResourcesFacade();
         this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.summoner_activity);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        matchesList = findViewById(R.id.listaPartidas);
+
+        initializeFacades();
+        summoner = (SummonerResponse) this.getIntent().getSerializableExtra("datos");
+        apiFacade.getChampionsMastery(summoner.getId(), summoner.getServer(), this);
+        apiFacade.getSummonerLeague(summoner.getId(), summoner.getServer(), this);
+
+        findMatchesList();
+
+        TextView summonerName = findViewById(R.id.summoner_name);
+        summonerName.setText(summoner.getName());
+
+        NetworkImageView summonerIcon = findViewById(R.id.summoner_icon);
+        imageFacade.setProfileIconById(summoner.getProfileIconId(), summonerIcon);
+
+        TextView summonerLevel = findViewById(R.id.summonerLevel);
+        summonerLevel.setText(getString(R.string.summoner_level, summoner.getSummonerLevel()));
+
+        CollapsingToolbarLayout collapse = findViewById(R.id.toolbar_layout);
+        TypedValue typedValue = new TypedValue();
+        this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
+        collapse.setCollapsedTitleTextColor(typedValue.data);
+        collapse.setExpandedTitleColor(Color.argb(0, 0, 0, 0)); //Transparent
+        this.setTitle(summoner.getName());
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        if (databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
+            fab.setImageResource(R.drawable.star);
+        } else {
+            fab.setImageResource(R.drawable.star_border);
+        }
+
+        //TODO
+        fab.setOnClickListener(view -> {
+            if (!databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
+                if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
+                    Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    fab.setImageResource(R.drawable.star);
+
+                } else {
+                    Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            } else {
+                if (databaseFacade.deleteSummoner(summoner.getName(), summoner.getServer()) == 0)
+                    Snackbar.make(view, "Error borrando el invocador", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                else {
+                    Snackbar.make(view, "Invocador eliminado de favoritos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    fab.setImageResource(R.drawable.star_border);
+                }
+            }
+        });
+
     }
 
     public void loadLeagueInfo(LeagueResponse leagueResponse) {
@@ -111,15 +176,15 @@ public class SummonerActivity extends AppCompatActivity {
         }
     }
 
-    private int getIndicePartida(String matchId) {
+    private int getMatchIndex(String matchId) {
         matchListOnView.add(matchId);
         matchListOnView.sort(Collections.reverseOrder());
         return matchListOnView.indexOf(matchId);
     }
 
     public void loadMatchInActivity(MatchResponse matchResponse) {
-        ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
-        listaPartidas.addView(oneMatch, 0);
+        ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, matchesList, false);
+        matchesList.addView(oneMatch, 0);
 
         for (ParticipantDto participant : matchResponse.getParticipants()) {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
@@ -200,99 +265,35 @@ public class SummonerActivity extends AppCompatActivity {
             participantNameMin.setText(participant.getSummonerName());
         }
 
-        int index = getIndicePartida(matchResponse.getMatchId());
-        View tempView = listaPartidas.getChildAt(0);
-        listaPartidas.removeViewAt(0);
-        listaPartidas.addView(tempView, index);
+        int index = getMatchIndex(matchResponse.getMatchId());
+        View tempView = matchesList.getChildAt(0);
+        matchesList.removeViewAt(0);
+        matchesList.addView(tempView, index);
     }
 
-    public void buscaPartidas(MatchListResponse matchListResponse) {
+    public void findMatches(MatchListResponse matchListResponse) {
         this.matchListOnView = new ArrayList<>();
         for (String matchId : matchListResponse.getMatchList())
             apiFacade.getMatchById(matchId, summoner.getServerV5(), this);
     }
 
-    public void cargaAntiguas(View view) {
-        while (listaPartidas.getChildCount() != 1)
-            listaPartidas.removeViewAt(0);
+    public void loadOlder(View view) {
+        while (matchesList.getChildCount() != 1)
+            matchesList.removeViewAt(0);
         matchNumber += COUNT;
-        buscaListaPartidas();
+        findMatchesList();
     }
 
-    public void cargaNuevas(View view) {
-        while (listaPartidas.getChildCount() != 1)
-            listaPartidas.removeViewAt(0);
+    public void loadNewer(View view) {
+        while (matchesList.getChildCount() != 1)
+            matchesList.removeViewAt(0);
         matchNumber -= COUNT;
         if (matchNumber < 0)
             matchNumber = 0;
-        buscaListaPartidas();
+        findMatchesList();
     }
 
-    private void buscaListaPartidas() {
+    private void findMatchesList() {
         apiFacade.getMatchListByPuuid(summoner.getPuuid(), summoner.getServerV5(), matchNumber, COUNT, this);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.summoner_activity);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        listaPartidas = findViewById(R.id.listaPartidas);
-
-        initializeFacades();
-        summoner = (SummonerResponse) this.getIntent().getSerializableExtra("datos");
-        apiFacade.getChampionsMastery(summoner.getId(), summoner.getServer(), this);
-        apiFacade.getSummonerLeague(summoner.getId(), summoner.getServer(), this);
-
-        buscaListaPartidas();
-
-        TextView summonerName = findViewById(R.id.summoner_name);
-        summonerName.setText(summoner.getName());
-
-        NetworkImageView summonerIcon = findViewById(R.id.summoner_icon);
-        imageFacade.setProfileIconById(summoner.getProfileIconId(), summonerIcon);
-
-        TextView summonerLevel = findViewById(R.id.summonerLevel);
-        summonerLevel.setText(getString(R.string.summoner_level, summoner.getSummonerLevel()));
-
-        CollapsingToolbarLayout collapse = findViewById(R.id.toolbar_layout);
-        TypedValue typedValue = new TypedValue();
-        this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
-        collapse.setCollapsedTitleTextColor(typedValue.data);
-        collapse.setExpandedTitleColor(Color.argb(0, 0, 0, 0)); //Transparent
-        this.setTitle(summoner.getName());
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        if (databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
-            fab.setImageResource(R.drawable.star);
-        } else {
-            fab.setImageResource(R.drawable.star_border);
-        }
-
-        fab.setOnClickListener(view -> {
-            if (!databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
-                if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
-                    Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    fab.setImageResource(R.drawable.star);
-
-                } else {
-                    Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            } else {
-                if (databaseFacade.deleteSummoner(summoner.getName(), summoner.getServer()) == 0)
-                    Snackbar.make(view, "Error borrando el invocador", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                else {
-                    Snackbar.make(view, "Invocador eliminado de favoritos", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    fab.setImageResource(R.drawable.star_border);
-                }
-            }
-        });
-
     }
 }

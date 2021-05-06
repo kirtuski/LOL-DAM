@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dam.lol.activities.mainactivity.MainActivity;
+import com.dam.lol.activities.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
     @Override

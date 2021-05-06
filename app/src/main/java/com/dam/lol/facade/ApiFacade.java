@@ -270,7 +270,7 @@ public class ApiFacade {
                         for (int i = 0; i < response.length(); ++i)
                             matchList.add(response.getString(i));
 
-                        activity.buscaPartidas(new MatchListResponse(matchList));
+                        activity.findMatches(new MatchListResponse(matchList));
 
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -25,13 +25,13 @@
             android:name=".activities.SummonerActivity"
             android:theme="@style/Theme.LOLDAM.NoActionBar" />
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".activities.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".activities.ChampionRotationActivity"
             android:label="ChampionRotationActivity" />
         <activity
-            android:name=".activities.mainactivity.MainActivity"
+            android:name=".activities.main.MainActivity"
             android:theme="@style/Theme.LOLDAM.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
     </application>

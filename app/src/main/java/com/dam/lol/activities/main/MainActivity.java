@@ -1,4 +1,4 @@
-package com.dam.lol.activities.mainactivity;
+package com.dam.lol.activities.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.activities.SettingsActivity;
+import com.dam.lol.activities.settings.SettingsActivity;
+import com.dam.lol.activities.settings.ThemeSetup;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        SettingsActivity.ThemeSetup.applyTheme(this);
+        ThemeSetup.applyTheme(this);
 
         initializeInput();
         initializeFacades();
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Metodo que abre la nueva actividad con los ajustes
-    public void AbrirAjustes(MenuItem menuItem) {
+    public void openSettings(MenuItem menuItem) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivityForResult(intent, 1);
     }
@@ -124,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         apiFacade.getChampionsRotation(server_url, this);
     }
 
-    //TODO refactor a su propio archivo?
     public class SimpleSummonerCallback implements ActionMode.Callback {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {

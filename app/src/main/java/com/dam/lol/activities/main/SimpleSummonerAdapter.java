@@ -1,4 +1,4 @@
-package com.dam.lol.activities.mainactivity;
+package com.dam.lol.activities.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,14 +18,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-// copiao del internete
 public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
 
     private final int resourceLayout;
     private final Context mContext;
     private final Activity activity;
     final List<SimpleSummoner> simpleSummoners;
-    private View v;
+    private View view;
     private SparseBooleanArray mSelectedItemsIds;
 
     public SimpleSummonerAdapter(Context context, int resource, List<SimpleSummoner> items, Activity activity) {
@@ -39,39 +38,39 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        this.v = convertView;
+        this.view = convertView;
 
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(mContext);
-            v = vi.inflate(resourceLayout, null);
+        if (view == null) {
+            LayoutInflater layoutInflater;
+            layoutInflater = LayoutInflater.from(mContext);
+            view = layoutInflater.inflate(resourceLayout, null);
         }
 
-        SimpleSummoner p = getItem(position);
+        SimpleSummoner simpleSummoner = getItem(position);
 
-        if (p != null) {
-            TextView tt1 = v.findViewById(R.id.name);
-            TextView tt2 = v.findViewById(R.id.server);
+        if (simpleSummoner != null) {
+            TextView nameTextView = view.findViewById(R.id.name);
+            TextView serverTextView = view.findViewById(R.id.server);
 
-            if (tt1 != null) {
-                tt1.setText(p.getName());
+            if (nameTextView != null) {
+                nameTextView.setText(simpleSummoner.getName());
             }
 
-            if (tt2 != null) {
-                tt2.setText(convertirServidor(p.getServer()));
+            if (serverTextView != null) {
+                serverTextView.setText(getServerNameByServerUrl(simpleSummoner.getServer()));
             }
 
         }
 
         TypedValue typedValue = new TypedValue();
         activity.getTheme().resolveAttribute(R.attr.colorPrimarySurface, typedValue, true);
-        v.setBackgroundColor(mSelectedItemsIds.get(position) ? typedValue.data : Color.TRANSPARENT);
-        return v;
+        view.setBackgroundColor(mSelectedItemsIds.get(position) ? typedValue.data : Color.TRANSPARENT);
+        return view;
     }
 
-    public String convertirServidor(String servidor) {
+    public String getServerNameByServerUrl(String serverUrl) {
         for (int i = 0; i < activity.getResources().getStringArray(R.array.urlServers).length; i++) {
-            if (servidor.equals(activity.getResources().getStringArray(R.array.urlServers)[i])) {
+            if (serverUrl.equals(activity.getResources().getStringArray(R.array.urlServers)[i])) {
                 return activity.getResources().getStringArray(R.array.servers)[i];
             }
         }
@@ -80,15 +79,14 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
 
     @Override
     public void remove(SimpleSummoner object) {
-        // super.remove(object);
         simpleSummoners.remove(object);
         if (LolApplication.getInstance().getDatabaseFacade().deleteSummoner(object.getName(), object.getServer()) != 0) {
-            Snackbar.make(v, "Invocador eliminado satisfactoriamente", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, getContext().getString(R.string.deleting_summoner_success), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             simpleSummoners.remove(object);
             notifyDataSetChanged();
         } else {
-            Snackbar.make(v, "Error eliminando el invocador", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, getContext().getString(R.string.deleting_summoner_error), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
     }

@@ -28,7 +28,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.champion_rotation_activity);
         initializeFacades();
-        this.setTitle("CAMPEONES EN ROTACION");
+        this.setTitle("CAMPEONES EN ROTACION"); //TODO
         fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
     }
 
@@ -75,7 +75,7 @@ public class ChampionRotationActivity extends AppCompatActivity {
             }
         }
 
-        //Ajusta¿?
+        //Ajusta
         for (int i = 0; i < championRotationResponse.getFreeChampionIds().size(); i++) {
             ImageView imageViewTemp = imageViewList.get(i);
             imageViewTemp.setLayoutParams(imageProperties);

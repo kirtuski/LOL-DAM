@@ -33,13 +33,24 @@ public class LolApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        mRequestQueue = Volley.newRequestQueue(this);
-        imageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
+        this.mRequestQueue = Volley.newRequestQueue(this);
+        this.imageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
+
+        instantiateFacades();
+
+        generateWaiting();
+    }
+
+    private void generateWaiting() {
+        //This is for the purpose of making the initial splash appear a bit longer
+        SystemClock.sleep(1000);
+    }
+
+    private void instantiateFacades() {
         this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
         this.imageFacade = new ImageFacade();
         this.resourcesFacade = new ResourcesFacade(this);
         this.databaseFacade = new DatabaseFacade(this.getApplicationContext(), "DatabaseFacade", null, 1);
-        SystemClock.sleep(1000);
     }
 
     public RequestQueue getRequestQueue() {

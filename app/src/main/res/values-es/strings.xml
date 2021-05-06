@@ -29,5 +29,7 @@
     <string name="error_key">Api key no valida, ¿Estará caducada?</string>
     <string name="error_no_summoner">No se pudo encontrar</string>
     <string name="no_input">Somos buenos, no adivinos. ¿A quien buscamos?</string>
+    <string name="deleting_summoner_error">Error eliminando el invocador</string>
+    <string name="deleting_summoner_success">Invocador eliminado satisfactoriamente</string>
 
 </resources>
