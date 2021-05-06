@@ -28,7 +28,6 @@ public class ChampionRotationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.champion_rotation_activity);
         initializeFacades();
-        this.setTitle("CAMPEONES EN ROTACION"); //TODO
         fillChampionRotationTable((ChampionRotationResponse) getIntent().getSerializableExtra("ChampionRotationResponse"));
     }
 

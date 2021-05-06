@@ -29,7 +29,7 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".activities.ChampionRotationActivity"
-            android:label="ChampionRotationActivity" />
+            android:label="@string/title_rotation_activity" />
         <activity
             android:name=".activities.main.MainActivity"
             android:theme="@style/Theme.LOLDAM.NoActionBar"

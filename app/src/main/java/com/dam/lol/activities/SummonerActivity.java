@@ -94,24 +94,22 @@ public class SummonerActivity extends AppCompatActivity {
             fab.setImageResource(R.drawable.star_border);
         }
 
-        //TODO
         fab.setOnClickListener(view -> {
             if (!databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {
                 if (databaseFacade.insertSummoner(summoner.getName(), summoner.getServer()) != -1) {
-                    Snackbar.make(view, "Invocador añadido satisfactoriamente", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, getString(R.string.adding_summoner_success), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     fab.setImageResource(R.drawable.star);
-
                 } else {
-                    Snackbar.make(view, "Error añadiendo el invocador", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, getString(R.string.adding_summoner_error), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             } else {
                 if (databaseFacade.deleteSummoner(summoner.getName(), summoner.getServer()) == 0)
-                    Snackbar.make(view, "Error borrando el invocador", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, getString(R.string.deleting_summoner_error), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 else {
-                    Snackbar.make(view, "Invocador eliminado de favoritos", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, getString(R.string.deleting_summoner_success), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     fab.setImageResource(R.drawable.star_border);
                 }

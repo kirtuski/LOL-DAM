@@ -30,6 +30,9 @@
     <string name="error_no_summoner">No se pudo encontrar</string>
     <string name="no_input">Somos buenos, no adivinos. ¿A quien buscamos?</string>
     <string name="deleting_summoner_error">Error eliminando el invocador</string>
-    <string name="deleting_summoner_success">Invocador eliminado satisfactoriamente</string>
+    <string name="deleting_summoner_success">Invocador eliminado</string>
+    <string name="title_rotation_activity">Rotación de campeones</string>
+    <string name="adding_summoner_error">Error añadiendo al invocador</string>
+    <string name="adding_summoner_success">Invocador añadido</string>
 
 </resources>
