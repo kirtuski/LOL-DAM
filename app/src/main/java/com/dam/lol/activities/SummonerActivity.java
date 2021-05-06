@@ -18,7 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
 import com.dam.lol.facade.ApiFacade;
-import com.dam.lol.facade.ChampionFacade;
+import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
 import com.dam.lol.model.api.ChampionMasteryResponse;
@@ -26,8 +26,8 @@ import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.MatchListResponse;
 import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
-import com.dam.lol.model.api.objects.LeagueDto;
-import com.dam.lol.model.api.objects.ParticipantDto;
+import com.dam.lol.model.api.dto.LeagueDto;
+import com.dam.lol.model.api.dto.ParticipantDto;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,12 +37,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class InvocadorActivity extends AppCompatActivity {
+public class SummonerActivity extends AppCompatActivity {
     private final int COUNT = 5; //Numero de partidas que se muestran
     private SummonerResponse summoner;
     private ApiFacade apiFacade;
     private ImageFacade imageFacade;
-    private ChampionFacade championFacade;
+    private ResourcesFacade resourcesFacade;
     private DatabaseFacade databaseFacade;
     private int matchNumber;
     private LinearLayoutCompat listaPartidas;
@@ -51,11 +51,11 @@ public class InvocadorActivity extends AppCompatActivity {
     private void initializeFacades() {
         this.apiFacade = LolApplication.getInstance().getApiFacade();
         this.imageFacade = LolApplication.getInstance().getImageFacade();
-        this.championFacade = LolApplication.getInstance().getChampionFacade();
+        this.resourcesFacade = LolApplication.getInstance().getResourcesFacade();
         this.databaseFacade = LolApplication.getInstance().getDatabaseFacade();
     }
 
-    public void ponLeagueInfo(LeagueResponse leagueResponse) {
+    public void loadLeagueInfo(LeagueResponse leagueResponse) {
         List<LeagueDto> leagueDtos = leagueResponse.getLeagueDtoList();
 
         for (int i = 0; i < leagueDtos.size(); i++) {
@@ -102,10 +102,10 @@ public class InvocadorActivity extends AppCompatActivity {
         }
     }
 
-    public void ponChampionMastery(ChampionMasteryResponse championMasteryResponse) {
+    public void loadChampionMastery(ChampionMasteryResponse championMasteryResponse) {
         if (championMasteryResponse.getChampionMasteryDtoList().size() != 0) {
             int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
-            String champName = championFacade.getChampionNameById(campeon);
+            String champName = resourcesFacade.getChampionNameById(campeon);
             NetworkImageView fondo = findViewById(R.id.background_mastery);
             imageFacade.setSplashByChampionName(champName, fondo);
         }
@@ -117,37 +117,36 @@ public class InvocadorActivity extends AppCompatActivity {
         return matchListOnView.indexOf(matchId);
     }
 
-    public void ponPartidaEnActivity(MatchResponse partidaResponse) {
+    public void loadMatchInActivity(MatchResponse matchResponse) {
         ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, listaPartidas, false);
         listaPartidas.addView(oneMatch, 0);
 
-        for (ParticipantDto participant : partidaResponse.getParticipants()) {
+        for (ParticipantDto participant : matchResponse.getParticipants()) {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
                 //Champion
                 NetworkImageView imageChamp = findViewById(R.id.championImage);
-                imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChamp);
+                imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()), imageChamp);
                 //Summoner1
                 NetworkImageView imageSummoner1 = findViewById(R.id.summoner1Image);
-                imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner1Id()), imageSummoner1);
+                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(participant.getSummoner1Id()), imageSummoner1);
                 //Summoner2
                 NetworkImageView imageSummoner2 = findViewById(R.id.summoner2Image);
-                imageFacade.setSummonerSpellImageByName(championFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
+                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
 
                 //Participant
                 //KDA
                 TextView kda = findViewById(R.id.KDAText);
                 kda.setText(getString(R.string.kda_value, participant.getKills(), participant.getDeaths(), participant.getAssists()));
                 //CS
-                double cM = participant.getTotalMinionsKilled() / (partidaResponse.getGameDuration() / 60000);
+                double cM = participant.getTotalMinionsKilled() / (matchResponse.getGameDuration() / 60000);
                 double csMin = Math.round(cM * 100.0) / 100.0;
                 TextView cs = findViewById(R.id.CSText);
-                cs.setText(getString(R.string.cs_value, participant.getTotalMinionsKilled(), csMin ));
+                cs.setText(getString(R.string.cs_value, participant.getTotalMinionsKilled(), csMin));
 
                 //LargestKillingSpree
                 TextView largestKillingSpreeText = findViewById(R.id.largestKillingSpree);
                 largestKillingSpreeText.setText(getString(R.string.largest_spree, participant.getLargestKillingSpree()));
                 //largestMultiKill
-                int lms = participant.getLargestMultiKill();
                 TextView largestMultiKillText = findViewById(R.id.largestMultiKill);
                 largestMultiKillText.setText(getString(R.string.largest_multikill, participant.getLargestMultiKill()));
                 //longestTimeSpentLiving
@@ -160,24 +159,23 @@ public class InvocadorActivity extends AppCompatActivity {
                 //Match
                 //matchType
                 TextView matchType = findViewById(R.id.matchTypeText);
-                matchType.setText(championFacade.getQueueNameById(partidaResponse.getQueueId()));
+                matchType.setText(resourcesFacade.getQueueNameById(matchResponse.getQueueId()));
                 //howLongAgo
-                Date diaP = new Date((long) partidaResponse.getGameCreation());
+                Date diaP = new Date((long) matchResponse.getGameCreation());
                 Date diaA = new Date();
                 int dias = (int) ((diaA.getTime() - diaP.getTime()) / 86400000);
                 TextView howLongAgoText = findViewById(R.id.howLongAgoText);
                 if (dias != 0) {
-                    howLongAgoText.setText(getString(R.string.hours_ago, dias));
+                    howLongAgoText.setText(getString(R.string.days_ago, dias));
                 } else {
                     long diff = (diaA.getTime() - diaP.getTime());
                     int horas = (int) (diff / (60 * 60 * 1000));
                     howLongAgoText.setText(getString(R.string.hours_ago, horas));
-
                 }
 
                 //isWin
                 TextView isWin = findViewById(R.id.isWinText);
-                ConstraintLayout bgElement = (ConstraintLayout) findViewById(R.id.box_match);
+                ConstraintLayout bgElement = findViewById(R.id.box_match);
                 if (participant.isWin()) {
                     isWin.setText(getString(R.string.win));
                     bgElement.setBackgroundColor(this.getColor(R.color.blueFill));
@@ -186,7 +184,7 @@ public class InvocadorActivity extends AppCompatActivity {
                     bgElement.setBackgroundColor(this.getColor(R.color.redFill));
                 }
                 //matchDuration
-                double duration = partidaResponse.getGameDuration();
+                double duration = matchResponse.getGameDuration();
                 long m_min = ((long) duration / 1000) / 60;
                 int m_seg = (int) ((duration / 1000) % 60);
                 TextView matchDurationText = findViewById(R.id.matchDurationText);
@@ -195,14 +193,14 @@ public class InvocadorActivity extends AppCompatActivity {
 
             int rIdImagen = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Image", "id", this.getPackageName());
             NetworkImageView imageChampMin = findViewById(rIdImagen);
-            imageFacade.setChampionImageByName(championFacade.getChampionNameById(participant.getChampionId()), imageChampMin);
+            imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()), imageChampMin);
 
             int rIdText = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);
             participantNameMin.setText(participant.getSummonerName());
         }
 
-        int index = getIndicePartida(partidaResponse.getMatchId());
+        int index = getIndicePartida(matchResponse.getMatchId());
         View tempView = listaPartidas.getChildAt(0);
         listaPartidas.removeViewAt(0);
         listaPartidas.addView(tempView, index);
@@ -264,6 +262,7 @@ public class InvocadorActivity extends AppCompatActivity {
         this.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
         collapse.setCollapsedTitleTextColor(typedValue.data);
         collapse.setExpandedTitleColor(Color.argb(0, 0, 0, 0)); //Transparent
+        this.setTitle(summoner.getName());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         if (databaseFacade.checkSummonerExists(summoner.getName(), summoner.getServer())) {

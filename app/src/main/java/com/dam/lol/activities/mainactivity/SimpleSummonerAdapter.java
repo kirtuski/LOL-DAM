@@ -1,4 +1,4 @@
-package com.dam.lol.model.database.simplesummoner;
+package com.dam.lol.activities.mainactivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
+import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
     private final int resourceLayout;
     private final Context mContext;
     private final Activity activity;
-    List<SimpleSummoner> simpleSummoners;
+    final List<SimpleSummoner> simpleSummoners;
     private View v;
     private SparseBooleanArray mSelectedItemsIds;
 
@@ -49,8 +50,8 @@ public class SimpleSummonerAdapter extends ArrayAdapter<SimpleSummoner> {
         SimpleSummoner p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.name);
-            TextView tt2 = (TextView) v.findViewById(R.id.server);
+            TextView tt1 = v.findViewById(R.id.name);
+            TextView tt2 = v.findViewById(R.id.server);
 
             if (tt1 != null) {
                 tt1.setText(p.getName());

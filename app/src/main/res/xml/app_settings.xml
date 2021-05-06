@@ -2,22 +2,21 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Api Key">
+    <PreferenceCategory android:title="@string/api_header">
         <EditTextPreference
             android:key="key"
             android:title="Api Key"
-            app:useSimpleSummaryProvider="true"
-            />
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/Otros_header">
-    <androidx.preference.ListPreference
-        android:key="@string/settings_theme_key"
-        android:title="Tema"
-        android:dialogTitle="Elige un tema"
-        android:entries="@array/arrayTemas"
-        android:entryValues="@array/valoresTemas"
-        android:summary="%s"/>
+    <PreferenceCategory android:title="@string/miscellaneous_header">
+        <androidx.preference.ListPreference
+            android:dialogTitle="@string/theme_dialog"
+            android:entries="@array/themesValues"
+            android:entryValues="@array/themeInternals"
+            android:key="@string/settings_theme_key"
+            android:summary="%s"
+            android:title="@string/theme_title" />
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

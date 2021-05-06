@@ -1,4 +1,4 @@
-package com.dam.lol.cache;
+package com.dam.lol.facade.cache;
 
 import android.graphics.Bitmap;
 

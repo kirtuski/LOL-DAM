@@ -8,12 +8,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.dam.lol.facade.ApiFacade;
-import com.dam.lol.facade.ChampionFacade;
+import com.dam.lol.facade.ResourcesFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.facade.ImageFacade;
-import com.dam.lol.cache.LruBitmapCache;
+import com.dam.lol.facade.cache.LruBitmapCache;
 
-//Clase application para implementar la cola de volley
 public class LolApplication extends Application {
     private static LolApplication sInstance;
     private RequestQueue mRequestQueue;
@@ -22,7 +21,7 @@ public class LolApplication extends Application {
     //Facades
     private ApiFacade apiFacade;
     private ImageFacade imageFacade;
-    private ChampionFacade championFacade;
+    private ResourcesFacade resourcesFacade;
     private DatabaseFacade databaseFacade;
 
     public synchronized static LolApplication getInstance() {
@@ -37,7 +36,7 @@ public class LolApplication extends Application {
         imageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
         this.apiFacade = new ApiFacade(PreferenceManager.getDefaultSharedPreferences(this).getString("key", ""));
         this.imageFacade = new ImageFacade();
-        this.championFacade = new ChampionFacade(this);
+        this.resourcesFacade = new ResourcesFacade(this);
         this.databaseFacade = new DatabaseFacade(this.getApplicationContext(), "DatabaseFacade", null, 1);
     }
 
@@ -57,8 +56,8 @@ public class LolApplication extends Application {
         return imageFacade;
     }
 
-    public ChampionFacade getChampionFacade() {
-        return championFacade;
+    public ResourcesFacade getResourcesFacade() {
+        return resourcesFacade;
     }
 
     public DatabaseFacade getDatabaseFacade() {

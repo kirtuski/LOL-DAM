@@ -12,13 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 
-//TODO Habría que cambiarle el nombre a esta clase, ya hace mucho más que solo campeones
-public class ChampionFacade {
+public class ResourcesFacade {
     private final HashMap<Integer, String> championMap;
     private final HashMap<Integer, String> summonerSpellMap;
     private final HashMap<Integer, String> queueMap;
 
-    public ChampionFacade(Application application) {
+    public ResourcesFacade(Application application) {
         //Initialise championMap
         championMap = new HashMap<>();
         try {
@@ -95,6 +94,7 @@ public class ChampionFacade {
     public String getQueueNameById(int id) {
         return queueMap.get(id);
     }
+
 }
 
 

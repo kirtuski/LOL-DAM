@@ -1,4 +1,4 @@
-package com.dam.lol.activities;
+package com.dam.lol.activities.mainactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -18,11 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.lol.LolApplication;
 import com.dam.lol.R;
-import com.dam.lol.SpinnerAdapter;
+import com.dam.lol.activities.SettingsActivity;
 import com.dam.lol.facade.ApiFacade;
 import com.dam.lol.facade.DatabaseFacade;
 import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
-import com.dam.lol.model.database.simplesummoner.SimpleSummonerAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     SimpleSummonerAdapter simpleSummonerAdapter;
     private TextInputLayout nombreInvocadorInput;
     private ActionMode mActionMode;
-    //Guardar el servidor elejido
     private String server_url;
     private ApiFacade apiFacade;
     private DatabaseFacade databaseFacade;
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeInput() {
-        nombreInvocadorInput = findViewById(R.id.NombreInvocadorLayout);
+        nombreInvocadorInput = findViewById(R.id.name_input_layout);
     }
 
     private void initializeFacades() {
@@ -66,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeFavoriteSummonerList() {
         List<SimpleSummoner> simpleSummoners = databaseFacade.findFavoriteSummoners();
-        ListView favoriteChampionsList = findViewById(R.id.favoriteChampionsList);
-        simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorite_summoner_layout, simpleSummoners, this);
+        ListView favoriteChampionsList = findViewById(R.id.favorite_champions_list);
+        simpleSummonerAdapter = new SimpleSummonerAdapter(this, R.layout.favorites_container, simpleSummoners, this);
         favoriteChampionsList.setAdapter(simpleSummonerAdapter);
-        favoriteChampionsList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
-            SimpleSummoner simpleSummoner = (SimpleSummoner) simpleSummonerAdapter.getItem(position);
+        favoriteChampionsList.setOnItemClickListener((parent, view, position, id) -> {
+            SimpleSummoner simpleSummoner = simpleSummonerAdapter.getItem(position);
             if (simpleSummonerAdapter.getSelectedIds().size() == 0) {
                 LolApplication.getInstance().getApiFacade().getIdFromSummoner(simpleSummoner.getName(), simpleSummoner.getServer(), MainActivity.this);
             } else {
@@ -106,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeSpinner() {
         //Elementos del layout
-        Spinner servidorSpinner = findViewById(R.id.servidorSpinner);
-        servidorSpinner.setOnItemSelectedListener(new SpinnerAdapter(this));
+        Spinner servidorSpinner = findViewById(R.id.servers_spinner);
+        servidorSpinner.setOnItemSelectedListener(new ServersSpinnerAdapter(this));
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -115,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Busca invocador y si lo encuentra lanza un intent con la nueva actividad
-    public void BuscaInvocador(View view) {
+    public void searchSummoner(View view) {
         String nombre = Objects.requireNonNull(nombreInvocadorInput.getEditText()).getText().toString();
         if (nombre.length() == 0)
             Toast.makeText(this, "Introduce un nombre de invocador", Toast.LENGTH_SHORT).show();

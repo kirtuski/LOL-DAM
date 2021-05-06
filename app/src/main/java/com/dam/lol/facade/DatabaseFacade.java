@@ -8,32 +8,29 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.dam.lol.R;
 import com.dam.lol.model.database.simplesummoner.SimpleSummoner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseFacade extends SQLiteOpenHelper {
-    //PARA CORONARSE LAS QUERYS DEBERIAN ESTAR EN UN XML Y RECUPERARLAS DE ALLI CUANDO SE VAYAN A USAR
-    private static final String SQL_DROP_FAVORITE_SUMMONERS = "drop table if exists FAVORITE_SUMMONERS";
-    private static final String SQL_CREATE_FAVORITE_SUMMONERS = "create table FAVORITE_SUMMONERS(" +
-            "TABLE_KEY INTEGER primary key autoincrement," +
-            "SUMMONER_NAME text," +
-            "SERVER text)";
+    private final Context context;
 
-    public DatabaseFacade(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseFacade(Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(SQL_CREATE_FAVORITE_SUMMONERS);
+        database.execSQL(context.getString(R.string.sql_create_favorites));
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        database.execSQL(SQL_DROP_FAVORITE_SUMMONERS);
-        database.execSQL(SQL_CREATE_FAVORITE_SUMMONERS);
+        database.execSQL(context.getString(R.string.sql_drop_favorites));
+        database.execSQL(context.getString(R.string.sql_create_favorites));
     }
 
     public long insertSummoner(String summonerName, String server) {
@@ -62,8 +59,8 @@ public class DatabaseFacade extends SQLiteOpenHelper {
 
     public List<SimpleSummoner> findFavoriteSummoners() {
         SQLiteDatabase database = getReadableDatabase();
-        String[] valores_recuperar = {"SUMMONER_NAME", "SERVER"};
-        Cursor findFavoriteSummonersCursor = database.query("FAVORITE_SUMMONERS", valores_recuperar, null,
+        String[] valuesToGet = {"SUMMONER_NAME", "SERVER"};
+        Cursor findFavoriteSummonersCursor = database.query("FAVORITE_SUMMONERS", valuesToGet, null,
                 null, null, null, "SUMMONER_NAME", null);
         List<SimpleSummoner> simpleSummoners = new ArrayList<>();
 
@@ -73,8 +70,6 @@ public class DatabaseFacade extends SQLiteOpenHelper {
                 simpleSummoners.add(simpleSummoner);
             } while (findFavoriteSummonersCursor.moveToNext());
         }
-
-        //db.close();
         findFavoriteSummonersCursor.close();
         return simpleSummoners;
     }

@@ -16,20 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/menu_main"
-            app:title="LOL Consulter" />
+            app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/fondo_negro">
+        android:background="@drawable/black_main_bg">
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="104dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="130dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,13 +38,13 @@
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/NombreInvocadorLayout"
+            android:id="@+id/name_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/servidorSpinner"
+            app:layout_constraintEnd_toStartOf="@+id/servers_spinner"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo">
@@ -57,46 +57,46 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
-            android:id="@+id/servidorSpinner"
+            android:id="@+id/servers_spinner"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/NombreInvocadorLayout"
+            app:layout_constraintBottom_toBottomOf="@+id/name_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/NombreInvocadorLayout"
-            app:layout_constraintTop_toTopOf="@+id/NombreInvocadorLayout" />
+            app:layout_constraintStart_toEndOf="@+id/name_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/name_input_layout" />
 
         <Button
-            android:id="@+id/botonBuscar"
+            android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="BuscaInvocador"
+            android:onClick="searchSummoner"
             android:text="@string/search_summoner"
-            app:layout_constraintEnd_toEndOf="@id/servidorSpinner"
-            app:layout_constraintStart_toStartOf="@id/NombreInvocadorLayout"
-            app:layout_constraintTop_toBottomOf="@+id/NombreInvocadorLayout" />
+            app:layout_constraintEnd_toEndOf="@id/servers_spinner"
+            app:layout_constraintStart_toStartOf="@id/name_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/name_input_layout" />
 
         <TextView
-            android:id="@+id/favoritosTexto"
+            android:id="@+id/favorites_text"
             android:layout_marginHorizontal="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/favorite_summoners"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/botonBuscar" />
+            app:layout_constraintTop_toBottomOf="@+id/search_button" />
 
         <ListView
-            android:id="@+id/favoriteChampionsList"
+            android:id="@+id/favorite_champions_list"
             android:layout_width="match_parent"
-            android:layout_height="220sp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/favoritosTexto" />
+            app:layout_constraintTop_toBottomOf="@+id/favorites_text" />
 
         <Button
-            android:id="@+id/buttonRotation"
+            android:id="@+id/rotation_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="openChampionRotation"
@@ -106,5 +106,4 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

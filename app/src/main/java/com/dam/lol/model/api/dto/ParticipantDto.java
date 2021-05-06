@@ -1,4 +1,4 @@
-package com.dam.lol.model.api.objects;
+package com.dam.lol.model.api.dto;
 
 public class ParticipantDto {
     // TODO un builder pa presumi?

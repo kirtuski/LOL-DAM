@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="arrayTemas">
-        <item>Predeterminado del sistema</item>
-        <item>Claro</item>
-        <item>Oscuro</item>
-    </string-array>
-</resources>

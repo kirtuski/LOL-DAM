@@ -11,16 +11,16 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.dam.lol.LolApplication;
 import com.dam.lol.activities.ChampionRotationActivity;
-import com.dam.lol.activities.InvocadorActivity;
+import com.dam.lol.activities.SummonerActivity;
 import com.dam.lol.model.api.ChampionMasteryResponse;
 import com.dam.lol.model.api.ChampionRotationResponse;
 import com.dam.lol.model.api.LeagueResponse;
 import com.dam.lol.model.api.MatchListResponse;
 import com.dam.lol.model.api.MatchResponse;
 import com.dam.lol.model.api.SummonerResponse;
-import com.dam.lol.model.api.objects.ChampionMasteryDto;
-import com.dam.lol.model.api.objects.LeagueDto;
-import com.dam.lol.model.api.objects.ParticipantDto;
+import com.dam.lol.model.api.dto.ChampionMasteryDto;
+import com.dam.lol.model.api.dto.LeagueDto;
+import com.dam.lol.model.api.dto.ParticipantDto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +53,7 @@ public class ApiFacade {
                                 .server(servidor)
                                 .build();
 
-                        Intent intent = new Intent(activity, InvocadorActivity.class);
+                        Intent intent = new Intent(activity, SummonerActivity.class);
                         intent.putExtra("datos", invocador);
                         activity.startActivity(intent);
 
@@ -114,7 +114,7 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getChampionsMastery(String encryptedSummonerId, String servidor, InvocadorActivity activity) {
+    public void getChampionsMastery(String encryptedSummonerId, String servidor, SummonerActivity activity) {
 
         final String URL = "https://" + servidor + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
 
@@ -140,7 +140,7 @@ public class ApiFacade {
                         ChampionMasteryResponse championMasteryResponse = new ChampionMasteryResponse();
                         championMasteryResponse.setChampionMasteryDtoList(championMasteryDtos);
 
-                        activity.ponChampionMastery(championMasteryResponse);
+                        activity.loadChampionMastery(championMasteryResponse);
 
 
                     } catch (JSONException e) {
@@ -155,7 +155,7 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getSummonerLeague(String encryptedSummonerId, String servidor, InvocadorActivity activity) {
+    public void getSummonerLeague(String encryptedSummonerId, String servidor, SummonerActivity activity) {
         final String URL = "https://" + servidor + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
@@ -185,7 +185,7 @@ public class ApiFacade {
 
                         LeagueResponse leagueResponse = new LeagueResponse(leagueDtos);
 
-                        activity.ponLeagueInfo(leagueResponse);
+                        activity.loadLeagueInfo(leagueResponse);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -200,7 +200,7 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getMatchById(String matchId, String servidorV5, InvocadorActivity activity) {
+    public void getMatchById(String matchId, String servidorV5, SummonerActivity activity) {
         final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -242,7 +242,7 @@ public class ApiFacade {
                             participantDto.setItem0(oneParticipant.getInt("item6"));
                             participants.add(participantDto);
                         }
-                        activity.ponPartidaEnActivity(new MatchResponse(matchId1, gameCreation, gameDuration, queueId, participants));
+                        activity.loadMatchInActivity(new MatchResponse(matchId1, gameCreation, gameDuration, queueId, participants));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -257,7 +257,7 @@ public class ApiFacade {
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count, InvocadorActivity activity) {
+    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count, SummonerActivity activity) {
         final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest

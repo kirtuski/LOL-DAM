@@ -1,6 +1,6 @@
 package com.dam.lol.model.api;
 
-import com.dam.lol.model.api.objects.ParticipantDto;
+import com.dam.lol.model.api.dto.ParticipantDto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

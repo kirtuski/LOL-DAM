@@ -1,16 +1,16 @@
-package com.dam.lol;
+package com.dam.lol.activities.mainactivity;
 
 
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.dam.lol.activities.MainActivity;
+import com.dam.lol.R;
+import com.dam.lol.activities.mainactivity.MainActivity;
 
-//TODO refactor a donde corresponda, a lo mejor paquete con el otro adapter?
-public class SpinnerAdapter implements AdapterView.OnItemSelectedListener {
+public class ServersSpinnerAdapter implements AdapterView.OnItemSelectedListener {
     private final MainActivity activity;
 
-    public SpinnerAdapter(MainActivity activity) {
+    public ServersSpinnerAdapter(MainActivity activity) {
         this.activity = activity;
 
     }

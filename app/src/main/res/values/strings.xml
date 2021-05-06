@@ -9,38 +9,45 @@
     <string name="favorite_summoners">Favorite summoners</string>
     <string name="champion_rotation">Champion rotation</string>
     <!-- Settings -->
+    <string name="settings_theme_key" translatable="false">temaKey</string>
+    <string name="api_header" translatable="false">Api key</string>
     <string name="miscellaneous_header">Miscellaneous</string>
-    <string name="theme_title">Choose your theme</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_dialog">Choose a theme</string>
     <string name="go_riot">Get key</string>
     <string name="copy_clipboard">Copy from clipboard</string>
+    <string name="predetermined_theme">System\'s theme</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
     <!-- SummonerActivity -->
-    <string name="percent">%</string>
+    <string name="percent" translatable="false">%</string>
     <string name="win_rate">Winrate: %1$d</string>
-    <string name="tier">%1$s %2$s</string>
-    <string name="lp">%1$dLP</string>
-    <string name="solo_duo">Solo/Duo</string>
-    <string name="unranked">Unranked</string>
-    <string name="flex">Flex</string>
-    <string name="before">Más antiguas</string>
-    <string name="after">Más nuevas</string>
+    <string name="tier" translatable="false">%1$s %2$s</string>
+    <string name="lp" translatable="false">%1$dLP</string>
+    <string name="solo_duo" translatable="false">Solo/Duo</string>
+    <string name="unranked" translatable="false">Unranked</string>
+    <string name="flex" translatable="false">Flex</string>
+    <string name="before">Older</string>
+    <string name="after">Newer</string>
     <string name="summoner_level">Level: %1$d</string>
-    "Level: " + summoner.getSummonerLevel()
+    <string name="default_lp" translatable="false">0LP</string>
     <!-- One match -->
     <string name="win">Win</string>
     <string name="lose">Lose</string>
     <string name="days_ago">%1$d days ago</string>
     <string name="hours_ago">%1$dh ago</string>
-    <string name="min_seg_time">%1$dm %2$ds</string>
-    <string name="kda">KDA</string>
-    <string name="kda_value">%1$d/%2$d/%3$d</string>
-    <string name="cs">CS</string>
-    <string name="cs_value">%1$d (%2$.2f)CS</string>
+    <string name="min_seg_time" translatable="false">%1$dm %2$ds</string>
+    <string name="kda" translatable="false">KDA</string>
+    <string name="kda_value" translatable="false">%1$d/%2$d/%3$d</string>
+    <string name="cs" translatable="false">CS</string>
+    <string name="cs_value" translatable="false">%1$d (%2$.2f)CS</string>
     <string name="largest_spree">Largest killing spree: %1$d</string>
     <string name="largest_multikill">Largest multikill: %1$d</string>
     <string name="longest_time_alive">Longest time alive: </string>
-    <string name="default_winrate">0%</string>
-
-
-    <string name="settings_theme_key">temaKey</string>
+    <string name="default_winrate" translatable="false">0%</string>
+    <!-- Toast and Snackbars -->
+    <string name="clipboard_correct">Content copied</string>
+    <string name="clipboard_no_content">Nothing on clipboard</string>
+    <string name="clipboard_no_valid">Are you sure this is a key?</string>
 
 </resources>
