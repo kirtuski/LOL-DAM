@@ -14,6 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LOLDAM">
         <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.SummonerActivity"
             android:theme="@style/Theme.LOLDAM.NoActionBar" />
         <activity
@@ -24,12 +32,7 @@
             android:label="ChampionRotationActivity" />
         <activity
             android:name=".activities.mainactivity.MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.LOLDAM.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 </manifest>

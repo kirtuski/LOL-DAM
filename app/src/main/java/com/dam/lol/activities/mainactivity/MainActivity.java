@@ -36,17 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_LOLDAM_NoActionBar);
         super.onCreate(savedInstanceState);
 
-        SettingsActivity.ThemeSetup.applyTheme(this);
         setContentView(R.layout.activity_main);
+        SettingsActivity.ThemeSetup.applyTheme(this);
 
         initializeInput();
         initializeFacades();
         initializeSpinner();
         initializeFavoriteSummonerList();
-
     }
 
     protected void onResume() {
