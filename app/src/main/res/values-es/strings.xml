@@ -15,8 +15,6 @@
     <string name="summoner_level">Nivel: %1$d</string>
     <string name="win">Victoria</string>
     <string name="lose">Derrota</string>
-    <string name="days_ago">Hace %1$d días</string>
-    <string name="hours_ago">Hace %1$dh</string>
     <string name="largest_spree">Mayor racha de bajas: %1$d</string>
     <string name="largest_multikill">Mayor baja multiple: %1$d</string>
     <string name="longest_time_alive">"Mayor tiempo sin morir: "</string>
@@ -28,5 +26,8 @@
     <string name="clipboard_correct">Contenido copiado</string>
     <string name="clipboard_no_content">No hay nada en el portapapeles</string>
     <string name="clipboard_no_valid">Esto no es una api key</string>
+    <string name="error_key">Api key no valida, ¿Estará caducada?</string>
+    <string name="error_no_summoner">No se pudo encontrar</string>
+    <string name="no_input">Somos buenos, no adivinos. ¿A quien buscamos?</string>
 
 </resources>

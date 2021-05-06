@@ -10,6 +10,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.dam.lol.LolApplication;
+import com.dam.lol.R;
 import com.dam.lol.activities.ChampionRotationActivity;
 import com.dam.lol.activities.SummonerActivity;
 import com.dam.lol.model.api.ChampionMasteryResponse;
@@ -36,25 +37,25 @@ public class ApiFacade {
         this.api_key = api_key;
     }
 
-    public void getIdFromSummoner(String nombre, String servidor, Activity activity) {
+    public void getIdFromSummoner(String name, String server, Activity activity) {
 
-        final String URL = "https://" + servidor + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + nombre + "?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + api_key;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
                     Log.d("Volley", response.toString());
                     try {
-                        SummonerResponse invocador = new SummonerResponse.InvocadorResponseBuilder()
+                        SummonerResponse summonerResponse = new SummonerResponse.InvocadorResponseBuilder()
                                 .id(response.getString("id"))
                                 .puuid(response.getString("puuid"))
                                 .name(response.getString("name"))
                                 .profileIconId(response.getInt("profileIconId"))
                                 .summonerLevel(response.getInt("summonerLevel"))
-                                .server(servidor)
+                                .server(server)
                                 .build();
 
                         Intent intent = new Intent(activity, SummonerActivity.class);
-                        intent.putExtra("datos", invocador);
+                        intent.putExtra("datos", summonerResponse);
                         activity.startActivity(intent);
 
                     } catch (JSONException e) {
@@ -64,17 +65,17 @@ public class ApiFacade {
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
                     if (error.networkResponse.statusCode == 403)
-                        Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                     if (error.networkResponse.statusCode == 404)
-                        Toast.makeText(activity, "No existe el nombre de invocador", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_no_summoner), Toast.LENGTH_SHORT).show();
                 });
 
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getChampionsRotation(String servidor, Activity activity) {
+    public void getChampionsRotation(String server, Activity activity) {
 
-        final String URL = "https://" + servidor + ".api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + api_key;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -108,15 +109,15 @@ public class ApiFacade {
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
                     if (error.networkResponse.statusCode == 403)
-                        Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
 
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getChampionsMastery(String encryptedSummonerId, String servidor, SummonerActivity activity) {
+    public void getChampionsMastery(String encryptedSummonerId, String server, SummonerActivity activity) {
 
-        final String URL = "https://" + servidor + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -136,12 +137,10 @@ public class ApiFacade {
 
                             championMasteryDtos.add(championMasteryDto);
                         }
-
                         ChampionMasteryResponse championMasteryResponse = new ChampionMasteryResponse();
                         championMasteryResponse.setChampionMasteryDtoList(championMasteryDtos);
 
                         activity.loadChampionMastery(championMasteryResponse);
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -149,14 +148,14 @@ public class ApiFacade {
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
                     if (error.networkResponse.statusCode == 403)
-                        Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
 
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getSummonerLeague(String encryptedSummonerId, String servidor, SummonerActivity activity) {
-        final String URL = "https://" + servidor + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
+    public void getSummonerLeague(String encryptedSummonerId, String server, SummonerActivity activity) {
+        final String URL = "https://" + server + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -194,14 +193,14 @@ public class ApiFacade {
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
                     if (error.networkResponse.statusCode == 403)
-                        Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
 
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getMatchById(String matchId, String servidorV5, SummonerActivity activity) {
-        final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
+    public void getMatchById(String matchId, String serverV5, SummonerActivity activity) {
+        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + api_key;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -251,14 +250,14 @@ public class ApiFacade {
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
                     if (error.networkResponse.statusCode == 403)
-                        Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
 
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
 
-    public void getMatchListByPuuid(String summonerPuuid, String servidorV5, int start, int count, SummonerActivity activity) {
-        final String URL = "https://" + servidorV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + api_key;
+    public void getMatchListByPuuid(String summonerPuuid, String serverV5, int start, int count, SummonerActivity activity) {
+        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + api_key;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -277,7 +276,7 @@ public class ApiFacade {
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
                     if (error.networkResponse.statusCode == 403)
-                        Toast.makeText(activity, "La api key no es correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
 
         LolApplication.getInstance().getRequestQueue().add(jsonObjectRequest);
