@@ -32,12 +32,13 @@ import java.util.List;
 
 public class ApiFacade {
     private String apiKey;
-    public void setApiKey(String  apiKey){
-        this.apiKey = apiKey;
-    }
 
     public ApiFacade(String api_key) {
         this.apiKey = api_key;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public void getIdFromSummoner(String name, String server, Activity activity) {
@@ -48,7 +49,7 @@ public class ApiFacade {
                 (Request.Method.GET, URL, null, response -> {
                     Log.d("Volley", response.toString());
                     try {
-                        SummonerResponse summonerResponse = new SummonerResponse.InvocadorResponseBuilder()
+                        SummonerResponse summonerResponse = new SummonerResponse.SummonerResponseBuilder()
                                 .id(response.getString("id"))
                                 .puuid(response.getString("puuid"))
                                 .name(response.getString("name"))
@@ -260,7 +261,8 @@ public class ApiFacade {
     }
 
     public void getMatchListByPuuid(String summonerPuuid, String serverV5, int start, int count, SummonerActivity activity) {
-        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid + "/ids?start=" + start + "&count=" + count + "&api_key=" + apiKey;
+        final String URL = "https://" + serverV5 + ".api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerPuuid
+                + "/ids?start=" + start + "&count=" + count + "&api_key=" + apiKey;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
