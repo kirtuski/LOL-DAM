@@ -48,7 +48,7 @@ public class ApiFacade {
                 (Request.Method.GET, URL, null, response -> {
                     Log.d("Volley", response.toString());
                     try {
-                        SummonerResponse summonerResponse = new SummonerResponse.InvocadorResponseBuilder()
+                        SummonerResponse summonerResponse = new SummonerResponse.SummonerResponseBuilder()
                                 .id(response.getString("id"))
                                 .puuid(response.getString("puuid"))
                                 .name(response.getString("name"))

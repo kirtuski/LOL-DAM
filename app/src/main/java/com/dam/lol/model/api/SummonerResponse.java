@@ -11,13 +11,13 @@ public class SummonerResponse implements Serializable {
     private final int summonerLevel;
     private final String serverV5;
 
-    public SummonerResponse(InvocadorResponseBuilder invocadorResponseBuilder) {
-        this.id = invocadorResponseBuilder.id;
-        this.puuid = invocadorResponseBuilder.puuid;
-        this.name = invocadorResponseBuilder.name;
-        this.profileIconId = invocadorResponseBuilder.profileIconId;
-        this.summonerLevel = invocadorResponseBuilder.summonerLevel;
-        this.server = invocadorResponseBuilder.server;
+    public SummonerResponse(SummonerResponseBuilder summonerResponseBuilder) {
+        this.id = summonerResponseBuilder.id;
+        this.puuid = summonerResponseBuilder.puuid;
+        this.name = summonerResponseBuilder.name;
+        this.profileIconId = summonerResponseBuilder.profileIconId;
+        this.summonerLevel = summonerResponseBuilder.summonerLevel;
+        this.server = summonerResponseBuilder.server;
         this.serverV5 = convertServerToV5(this.server);
     }
 
@@ -60,7 +60,7 @@ public class SummonerResponse implements Serializable {
         return serverV5;
     }
 
-    public static class InvocadorResponseBuilder {
+    public static class SummonerResponseBuilder {
         private String id;
         private String puuid;
         private String name;
@@ -72,32 +72,32 @@ public class SummonerResponse implements Serializable {
             return new SummonerResponse(this);
         }
 
-        public InvocadorResponseBuilder id(String id) {
+        public SummonerResponseBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public InvocadorResponseBuilder puuid(String puuid) {
+        public SummonerResponseBuilder puuid(String puuid) {
             this.puuid = puuid;
             return this;
         }
 
-        public InvocadorResponseBuilder name(String name) {
+        public SummonerResponseBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public InvocadorResponseBuilder profileIconId(int profileIconId) {
+        public SummonerResponseBuilder profileIconId(int profileIconId) {
             this.profileIconId = profileIconId;
             return this;
         }
 
-        public InvocadorResponseBuilder summonerLevel(int summonerLevel) {
+        public SummonerResponseBuilder summonerLevel(int summonerLevel) {
             this.summonerLevel = summonerLevel;
             return this;
         }
 
-        public InvocadorResponseBuilder server(String server) {
+        public SummonerResponseBuilder server(String server) {
             this.server = server;
             return this;
         }
