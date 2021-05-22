@@ -126,14 +126,16 @@ public class SummonerActivity extends AppCompatActivity {
 
             if (leagueDto.getQueueType().equals("RANKED_FLEX_SR")) {
                 TextView winRatio = findViewById(R.id.win_ratio_flex);
-                float winRatioOf = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() + leagueDto.getLosses());
+                float winRatioOf = (float) 100 * leagueDto.getWins() / (leagueDto.getWins() +
+                        leagueDto.getLosses());
                 winRatio.setText(getString(R.string.win_rate, (int) (winRatioOf + 0.5)).concat(getString(R.string.percent)));
                 ProgressBar bar = findViewById(R.id.stats_bar_flex);
                 bar.setProgress((int) (winRatioOf + 0.5));
 
                 ImageView rankFlexIcon = findViewById(R.id.rank_icon_flex);
 
-                int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
+                int identifier = this.getResources().getIdentifier("emblem_" +
+                        leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
                 rankFlexIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
 
                 TextView rankFlexText = findViewById(R.id.rank_flex);
@@ -153,7 +155,8 @@ public class SummonerActivity extends AppCompatActivity {
 
                 ImageView rankSoloIcon = findViewById(R.id.rank_icon_solo);
 
-                int identifier = this.getResources().getIdentifier("emblem_" + leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
+                int identifier = this.getResources().getIdentifier("emblem_" +
+                        leagueDto.getTier().toLowerCase(), "drawable", this.getPackageName());
                 rankSoloIcon.setImageDrawable(ContextCompat.getDrawable(this, identifier));
 
                 TextView rankSoloText = findViewById(R.id.rank_solo);
@@ -167,10 +170,10 @@ public class SummonerActivity extends AppCompatActivity {
 
     public void loadChampionMastery(ChampionMasteryResponse championMasteryResponse) {
         if (championMasteryResponse.getChampionMasteryDtoList().size() != 0) {
-            int campeon = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
-            String champName = resourcesFacade.getChampionNameById(campeon);
-            NetworkImageView fondo = findViewById(R.id.background_mastery);
-            imageFacade.setSplashByChampionName(champName, fondo);
+            int championId = championMasteryResponse.getChampionMasteryDtoList().get(0).getChampionId();
+            String champName = resourcesFacade.getChampionNameById(championId);
+            NetworkImageView background = findViewById(R.id.background_mastery);
+            imageFacade.setSplashByChampionName(champName, background);
         }
     }
 
@@ -181,20 +184,24 @@ public class SummonerActivity extends AppCompatActivity {
     }
 
     public void loadMatchInActivity(MatchResponse matchResponse) {
-        ConstraintLayout oneMatch = (ConstraintLayout) this.getLayoutInflater().inflate(R.layout.one_match, matchesList, false);
+        ConstraintLayout oneMatch = (ConstraintLayout)
+                this.getLayoutInflater().inflate(R.layout.one_match, matchesList, false);
         matchesList.addView(oneMatch, 0);
 
         for (ParticipantDto participant : matchResponse.getParticipants()) {
             if (participant.getPuuid().equals(summoner.getPuuid())) {
                 //Champion
                 NetworkImageView imageChamp = findViewById(R.id.championImage);
-                imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()), imageChamp);
+                imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(
+                        participant.getChampionId()), imageChamp);
                 //Summoner1
                 NetworkImageView imageSummoner1 = findViewById(R.id.summoner1Image);
-                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(participant.getSummoner1Id()), imageSummoner1);
+                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(
+                        participant.getSummoner1Id()), imageSummoner1);
                 //Summoner2
                 NetworkImageView imageSummoner2 = findViewById(R.id.summoner2Image);
-                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(participant.getSummoner2Id()), imageSummoner2);
+                imageFacade.setSummonerSpellImageByName(resourcesFacade.getSummonerSpellNameById(
+                        participant.getSummoner2Id()), imageSummoner2);
 
                 //Participant
                 //KDA
@@ -254,11 +261,14 @@ public class SummonerActivity extends AppCompatActivity {
                 matchDurationText.setText(getString(R.string.min_seg_time, m_min, m_seg));
             }
 
-            int rIdImagen = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Image", "id", this.getPackageName());
+            int rIdImagen = this.getResources().getIdentifier("participant" +
+                    participant.getParticipantId() + "Image", "id", this.getPackageName());
             NetworkImageView imageChampMin = findViewById(rIdImagen);
-            imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()), imageChampMin);
+            imageFacade.setChampionImageByName(resourcesFacade.getChampionNameById(participant.getChampionId()),
+                    imageChampMin);
 
-            int rIdText = this.getResources().getIdentifier("participant" + participant.getParticipantId() + "Name", "id", this.getPackageName());
+            int rIdText = this.getResources().getIdentifier("participant" +
+                    participant.getParticipantId() + "Name", "id", this.getPackageName());
             TextView participantNameMin = findViewById(rIdText);
             participantNameMin.setText(participant.getSummonerName());
         }

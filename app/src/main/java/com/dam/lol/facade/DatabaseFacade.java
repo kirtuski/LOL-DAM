@@ -43,14 +43,16 @@ public class DatabaseFacade extends SQLiteOpenHelper {
 
     public int deleteSummoner(String summonerName, String server) {
         SQLiteDatabase database = getWritableDatabase();
-        return database.delete("FAVORITE_SUMMONERS", "SUMMONER_NAME = ? AND SERVER = ?", new String[]{summonerName, server});
+        return database.delete("FAVORITE_SUMMONERS", "SUMMONER_NAME = ? AND SERVER = ?",
+                new String[]{summonerName, server});
     }
 
     public boolean checkSummonerExists(String summonerName, String server) {
         SQLiteDatabase database = getReadableDatabase();
         String[] columns = {"SUMMONER_NAME", "SERVER"};
         String[] selectionArgs = {summonerName, server};
-        Cursor findFavoriteSummonersCursor = database.query("FAVORITE_SUMMONERS", columns, "SUMMONER_NAME = ? AND SERVER = ?",
+        Cursor findFavoriteSummonersCursor = database.query("FAVORITE_SUMMONERS", columns,
+                "SUMMONER_NAME = ? AND SERVER = ?",
                 selectionArgs, null, null, "SUMMONER_NAME", "1");
         boolean check = findFavoriteSummonersCursor.moveToFirst();
         findFavoriteSummonersCursor.close();

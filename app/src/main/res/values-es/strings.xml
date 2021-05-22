@@ -9,7 +9,7 @@
     <string name="miscellaneous_header">Varios</string>
     <string name="theme_title">Tema</string>
     <string name="go_riot">Conseguir key</string>
-    <string name="copy_clipboard">Copiar del portapapeles</string>
+    <string name="copy_clipboard">Copiar portapapeles</string>
     <string name="before">Más antiguas</string>
     <string name="after">Más nuevas</string>
     <string name="summoner_level">Nivel: %1$d</string>
@@ -34,5 +34,6 @@
     <string name="title_rotation_activity">Rotación de campeones</string>
     <string name="adding_summoner_error">Error añadiendo al invocador</string>
     <string name="adding_summoner_success">Invocador añadido</string>
+    <string name="error_no_key">Primero escribe la Api Key en ajustes</string>
 
 </resources>

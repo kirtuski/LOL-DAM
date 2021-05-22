@@ -43,7 +43,8 @@ public class ApiFacade {
 
     public void getIdFromSummoner(String name, String server, Activity activity) {
 
-        final String URL = "https://" + server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + apiKey;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/"
+                + name + "?api_key=" + apiKey;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -68,6 +69,8 @@ public class ApiFacade {
 
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
+                    if (error.networkResponse.statusCode == 401)
+                        Toast.makeText(activity, activity.getString(R.string.error_no_key), Toast.LENGTH_SHORT).show();
                     if (error.networkResponse.statusCode == 403)
                         Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                     if (error.networkResponse.statusCode == 404)
@@ -112,6 +115,8 @@ public class ApiFacade {
 
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
+                    if (error.networkResponse.statusCode == 401)
+                        Toast.makeText(activity, activity.getString(R.string.error_no_key), Toast.LENGTH_SHORT).show();
                     if (error.networkResponse.statusCode == 403)
                         Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
@@ -121,7 +126,9 @@ public class ApiFacade {
 
     public void getChampionsMastery(String encryptedSummonerId, String server, SummonerActivity activity) {
 
-        final String URL = "https://" + server + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey;
+        final String URL = "https://" + server
+                + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/"
+                + encryptedSummonerId + "?api_key=" + apiKey;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
@@ -151,6 +158,8 @@ public class ApiFacade {
                     }
                 }, error -> {
                     VolleyLog.e("Error", error.getMessage());
+                    if (error.networkResponse.statusCode == 401)
+                        Toast.makeText(activity, activity.getString(R.string.error_no_key), Toast.LENGTH_SHORT).show();
                     if (error.networkResponse.statusCode == 403)
                         Toast.makeText(activity, activity.getString(R.string.error_key), Toast.LENGTH_SHORT).show();
                 });
@@ -159,7 +168,8 @@ public class ApiFacade {
     }
 
     public void getSummonerLeague(String encryptedSummonerId, String server, SummonerActivity activity) {
-        final String URL = "https://" + server + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey;
+        final String URL = "https://" + server + ".api.riotgames.com/lol/league/v4/entries/by-summoner/"
+                + encryptedSummonerId + "?api_key=" + apiKey;
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, response -> {
