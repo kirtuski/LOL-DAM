@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         initializeInput();
         initializeFacades();
         initializeSpinner();
+    }
+
+    protected void onResume() {
+        super.onResume();
         initializeFavoriteSummonerList();
     }
 
@@ -98,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeSpinner() {
         //Elementos del layout
-        Spinner servidorSpinner = findViewById(R.id.servers_spinner);
-        servidorSpinner.setOnItemSelectedListener(new ServersSpinnerAdapter(this));
+        Spinner serverrSpinner = findViewById(R.id.servers_spinner);
+        serverrSpinner.setOnItemSelectedListener(new ServersSpinnerAdapter(this));
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.servers, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        servidorSpinner.setAdapter(adapter);
+        serverrSpinner.setAdapter(adapter);
     }
 
     //Search summoner and launch activity if successfully
